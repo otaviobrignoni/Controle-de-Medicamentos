@@ -2,6 +2,7 @@
 using System.Text.Json;
 using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
+using Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.Shared;
 
@@ -10,6 +11,8 @@ public class DataContext
     // criar listas das entidades
     public List<Medication> Medications { get; set; }
     public List<Employee> Employees { get; set; }
+
+    public List<InRequest> InRequests { get; set; }
 
     /// <summary>
     /// Caminho onde os dados da aplicação são salvos no formato JSON.
@@ -92,6 +95,7 @@ public class DataContext
         // Carregar listas de entidades a partir do contexto salvo
         Medications = savedContext.Medications;
         Employees = savedContext.Employees;
+        InRequests = savedContext.InRequests;
     }
 }
 
