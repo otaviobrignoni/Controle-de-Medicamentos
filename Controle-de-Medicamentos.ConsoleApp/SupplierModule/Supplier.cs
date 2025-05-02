@@ -11,7 +11,7 @@ public class Supplier : BaseEntity<Supplier>
 
     public Supplier() { }
 
-    public Supplier(string name, string phone, string cnpj, object value)
+    public Supplier(string name, string phone, string cnpj)
     {
         Name = name;
         PhoneNumber = phone;
