@@ -4,7 +4,8 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            MainScreen MainScreen = new MainScreen();
+            MainScreen.ShowMainMenu();
         }
     }
 }
