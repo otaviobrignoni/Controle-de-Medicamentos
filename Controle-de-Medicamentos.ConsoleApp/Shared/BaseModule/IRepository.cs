@@ -6,7 +6,7 @@ public interface IRepository<T> where T : BaseEntity<T>
     void Edit(int id, T editedEntity);
     void Remove(int id);
     List<T> GetAll();
-    T GetById(int id);
+    T? GetById(int id);
     bool IsEntityValid(T entity, out string errors);
     int Count();
 }
