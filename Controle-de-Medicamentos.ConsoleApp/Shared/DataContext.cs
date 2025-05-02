@@ -5,7 +5,6 @@ using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 using Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
 using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 
-
 namespace Controle_de_Medicamentos.ConsoleApp.Shared;
 
 public class DataContext
@@ -13,11 +12,8 @@ public class DataContext
     // criar listas das entidades
     public List<Medication> Medications { get; set; }
     public List<Employee> Employees { get; set; }
-
     public List<InRequest> InRequests { get; set; }
     public List<Supplier> Suppliers { get; set; } 
-    
-
     /// <summary>
     /// Caminho onde os dados da aplicação são salvos no formato JSON.
     /// </summary>

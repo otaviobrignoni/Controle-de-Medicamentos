@@ -1,9 +1,12 @@
-﻿namespace Controle_de_Medicamentos.ConsoleApp.SupplierModule;
+﻿using System.Text.RegularExpressions;
+using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
+
+namespace Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 
 public class Supplier : BaseEntity<Supplier>
 {
     public string Name { get; set; }
-    public string Phone { get; set; }
+    public string PhoneNumber { get; set; }
     public string CNPJ { get; set; }
 
     public Supplier() { }
@@ -11,14 +14,14 @@ public class Supplier : BaseEntity<Supplier>
     public Supplier(string name, string phone, string cnpj)
     {
         Name = name;
-        Phone = phone;
+        PhoneNumber = phone;
         CNPJ = cnpj;    
     }
 
     public override void UpdateEntity(Supplier entity)
     {
         Name = entity.Name;
-        Phone = entity.Phone;
+        PhoneNumber = entity.PhoneNumber;
         CNPJ = entity.CNPJ; 
     }
 
@@ -32,10 +35,10 @@ public class Supplier : BaseEntity<Supplier>
         if(Name.Length < 3 || Name.Length > 100)
             erros += "Nome inválido! Deve ter entre 3 e 100 caracteres.\n";
         
-        if (string.IsNullOrEmpty(Phone))
+        if (string.IsNullOrEmpty(PhoneNumber))
             erros += "O Campo 'Telefone' é obrigatório\n";
         
-        if (!Regex.IsMatch(Phone, @"^(\d{2}) \d{4,5}-\d{4}$"))
+        if (!Regex.IsMatch(PhoneNumber, @"^\(\d{2}\) \d{4,5}-\d{4}$"))
             erros += "O Telefone deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX\n";
 
         if (string.IsNullOrEmpty(CNPJ))
@@ -45,6 +48,11 @@ public class Supplier : BaseEntity<Supplier>
             erros+= "O CNPJ deve ter 14 dígitos\n";
         return erros;
     }
+
+    public bool IsSameCNPJ(Supplier supplier)
+    {
+       return string.Equals(CNPJ?.Trim(), supplier?.CNPJ?.Trim(), StringComparison.OrdinalIgnoreCase); 
+    }   
 
 
 }
