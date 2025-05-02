@@ -2,7 +2,7 @@
 
 public static class Write
 {
-    private const int MenuWidth = 38;
+    private const int MenuWidth = 40;
 
     /// <summary>
     /// Escreve uma mensagem no console com a cor especificada.

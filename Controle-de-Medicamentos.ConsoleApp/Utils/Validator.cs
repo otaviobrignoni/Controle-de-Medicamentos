@@ -10,4 +10,12 @@ public static class Validator
 
         return isInt;
     }
+
+    public static DateTime GetValidDate()
+    {
+        DateTime newDate;
+        while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out newDate))
+            Write.WriteInColor("> (X) A data precisa ser no formato \"dd/mm/yyyy\"! Digite novamente: ", ConsoleColor.Red, true);
+        return newDate;
+    }
 }
