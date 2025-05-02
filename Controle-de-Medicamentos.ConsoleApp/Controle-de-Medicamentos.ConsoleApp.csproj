@@ -12,7 +12,6 @@
     <Folder Include="MedicalPrescriptionsModule\" />
     <Folder Include="InboundRequestsModule\" />
     <Folder Include="OutboundRequestsModule\" />
-    <Folder Include="PatientModule\" />
   </ItemGroup>
 
 </Project>
