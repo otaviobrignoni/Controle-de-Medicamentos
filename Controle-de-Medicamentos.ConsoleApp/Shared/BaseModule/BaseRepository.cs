@@ -12,6 +12,7 @@ public abstract class BaseRepository<T> where T : BaseEntity<T>
         List = GetList();
     }
 
+    //adicionar um sumario
     public abstract List<T> GetList();
 
     /// <summary>

@@ -24,5 +24,4 @@ public abstract class BaseEntity<T>
     /// Ele deve ser utilizada antes de salvar ou editar a entidade, garantindo integridade dos dados.
     /// </remarks>
     public abstract string Validate();
-
 }

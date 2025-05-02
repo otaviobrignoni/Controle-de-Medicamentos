@@ -1,5 +1,6 @@
 ﻿using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 using Controle_de_Medicamentos.ConsoleApp.Shared.Extensions;
+using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 using Controle_de_Medicamentos.ConsoleApp.Utils;
 
 namespace Controle_de_Medicamentos.ConsoleApp.MedicationModule;
@@ -25,7 +26,8 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
         Write.WriteInColor("> Digite a quantidade do medicamento: ", ConsoleColor.Yellow, true);
         int quantity = Validator.GetValidInt();
 
-        Write.WriteInColor("> Digite o fornecedor do medicamento: ", ConsoleColor.Yellow, true); // finalizar após ter fornecedor
+        Write.WriteInColor("> Digite o fornecedor do medicamento: ", ConsoleColor.Yellow, true); 
+        // finalizar após ter fornecedor
         return new Medication(name, description, quantity, null);
     }
 
@@ -57,7 +59,6 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
         }
     }
     
-
     protected override void ShowTableHeader()
     {
         // O sistema deve destacar medicamentos com menos de 20 unidades como "em falta"
