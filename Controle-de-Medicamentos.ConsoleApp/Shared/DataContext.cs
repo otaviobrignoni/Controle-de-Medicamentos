@@ -3,6 +3,8 @@ using System.Text.Json;
 using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 using Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
+using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
+
 
 namespace Controle_de_Medicamentos.ConsoleApp.Shared;
 
@@ -13,6 +15,8 @@ public class DataContext
     public List<Employee> Employees { get; set; }
 
     public List<InRequest> InRequests { get; set; }
+    public List<Supplier> Suppliers { get; set; } 
+    
 
     /// <summary>
     /// Caminho onde os dados da aplicação são salvos no formato JSON.
@@ -30,6 +34,8 @@ public class DataContext
         //instanciar listas
         Medications = new List<Medication>();
         Employees = new List<Employee>();
+        InRequests = new List<InRequest>();
+        Suppliers = new List<Supplier>();
     }
 
     /// <summary>
@@ -96,6 +102,8 @@ public class DataContext
         Medications = savedContext.Medications;
         Employees = savedContext.Employees;
         InRequests = savedContext.InRequests;
+        Suppliers = savedContext.Suppliers;
+
     }
 }
 
