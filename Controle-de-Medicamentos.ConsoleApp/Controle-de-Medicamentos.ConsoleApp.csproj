@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Folder Include="MedicalPrescriptionsModule\" />
-    <Folder Include="EmployeeModule\" />
     <Folder Include="InboundRequestsModule\" />
     <Folder Include="OutboundRequestsModule\" />
     <Folder Include="PatientModule\" />

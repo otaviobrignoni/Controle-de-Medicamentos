@@ -2,6 +2,7 @@
 using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.Utils;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
+using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 
 
 namespace Controle_de_Medicamentos.ConsoleApp;
@@ -12,9 +13,11 @@ public class MainScreen
     private string option;
     private DataContext context;
     private IMedicationRepository medicamentoRepository;
+    private IEmployeeRepository employeeRepository;
 
     // declarar as Telas
     private MedicationScreen medicationScreen;
+    private EmployeeScreen employeeScreen;
 
     public MainScreen()
     {
@@ -22,6 +25,8 @@ public class MainScreen
         context = new DataContext(true);
         medicamentoRepository = new MedicationRepository(context);
         medicationScreen = new MedicationScreen(medicamentoRepository, "Medicamento");
+        employeeRepository = new EmployeeRepository(context);
+        employeeScreen = new EmployeeScreen(employeeRepository);
     }
 
     public void ShowMainMenu()
@@ -47,7 +52,7 @@ public class MainScreen
             {
                 case "1": return;
                 case "2": return;
-                case "3": return;
+                case "3": employeeScreen.ShowMenu(); break;
                 case "4": medicationScreen.ShowMenu(); break;
                 case "5": return;
                 case "6": return;
