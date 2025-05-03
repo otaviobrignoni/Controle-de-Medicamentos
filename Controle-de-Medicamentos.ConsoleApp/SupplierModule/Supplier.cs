@@ -9,7 +9,7 @@ public class Supplier : BaseEntity<Supplier>
     public string PhoneNumber { get; set; }
     public string CNPJ { get; set; }
 
-    public Supplier() { }
+    public Supplier() {}
 
     public Supplier(string name, string phone, string cnpj)
     {
@@ -46,13 +46,17 @@ public class Supplier : BaseEntity<Supplier>
 
         if (CNPJ.Length != 14)
             erros+= "O CNPJ deve ter 14 dígitos\n";
+
         return erros;
     }
 
+    /// <summary>
+    /// Compara o CNPJ do fornecedor atual com o de outro fornecedor, ignorando maiúsculas, minúsculas e espaços.
+    /// </summary>
+    /// <param name="supplier">Fornecedor a ser comparado.</param>
+    /// <returns>Retorna true se os CNPJs forem iguais; caso contrário, false.</returns>
     public bool IsSameCNPJ(Supplier supplier)
     {
        return string.Equals(CNPJ?.Trim(), supplier?.CNPJ?.Trim(), StringComparison.OrdinalIgnoreCase); 
     }   
-
-
 }
