@@ -38,7 +38,7 @@ public class MainScreen
         patientScreen = new PatientScreen(patientRepository);
         supplierScreen = new SupplierScreen(suplierRepository);
         employeeScreen = new EmployeeScreen(employeeRepository);
-        medicationScreen = new MedicationScreen(medicamentoRepository, supplierScreen);
+        medicationScreen = new MedicationScreen(medicamentoRepository, supplierScreen, suplierRepository);
         inRequestScreen = new InRequestScreen(medicationScreen, employeeScreen, inRequestRepository);
     }
 
