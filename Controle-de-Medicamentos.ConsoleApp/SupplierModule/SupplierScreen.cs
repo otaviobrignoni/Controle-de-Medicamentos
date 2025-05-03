@@ -6,12 +6,8 @@ namespace Controle_de_Medicamentos.ConsoleApp.SupplierModule
 {
     public class SupplierScreen : BaseScreen<Supplier>, ICrudScreen
     {
-        public ISupplierRepository SupplierRepository;
+        public SupplierScreen(ISupplierRepository repository) : base(repository, "Fornecedor") {}
 
-        public SupplierScreen(ISupplierRepository repository) : base(repository, "Fornecedor")
-        {
-            SupplierRepository = repository;
-        }
 
         public override void ShowMenu()
         {

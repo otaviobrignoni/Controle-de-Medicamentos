@@ -6,11 +6,7 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
 {
     class PatientScreen : BaseScreen<Patient>, ICrudScreen
     {
-        public IPatientRepository PatientRepository;
-        public PatientScreen(IPatientRepository repository) : base(repository, "Paciente")
-        {
-            PatientRepository = repository;
-        }
+        public PatientScreen(IPatientRepository repository) : base(repository, "Paciente") {}
 
         protected override Patient NewEntity()
         {
