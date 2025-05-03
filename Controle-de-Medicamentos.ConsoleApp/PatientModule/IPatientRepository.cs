@@ -2,7 +2,6 @@
 namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
 {
     public interface IPatientRepository : IRepository<Patient>;
-
 }
 
 
