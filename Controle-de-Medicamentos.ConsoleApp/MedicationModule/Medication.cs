@@ -65,7 +65,7 @@ public class Medication : BaseEntity<Medication>
     }
 
     /// <summary>
-    /// Atualiza a quantidade em estoque do medicamento, subtraindo pelo informado.
+    /// Atualiza a quantidade em estoque do medicamento, subtraindo  o estoque atual pelo informado.
     /// </summary>
     /// <param name="quantity">Valor da quantidade a subtrair.</param>
     /// <remarks>
