@@ -1,7 +1,6 @@
 ﻿using Controle_de_Medicamentos.ConsoleApp.Shared;
 using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.Utils;
-using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 using Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
 
@@ -10,21 +9,19 @@ namespace Controle_de_Medicamentos.ConsoleApp;
 
 public class MainScreen
 {
-    // declaração de variáveis repositorio
     private string option;
     private DataContext context;
     private IMedicationRepository medicamentoRepository;
     private IEmployeeRepository employeeRepository;
     private IInRequestRepository inRequestRepository;
 
-    // declarar as Telas
+
     private MedicationScreen medicationScreen;
     private EmployeeScreen employeeScreen;
     private InRequestScreen inRequestScreen;
 
     public MainScreen()
     {
-        // intanciar Repositorios de cada entidade e telas
         context = new DataContext(true);
         medicamentoRepository = new MedicationRepository(context);
         medicationScreen = new MedicationScreen(medicamentoRepository, "Medicamento");
@@ -76,5 +73,4 @@ public class MainScreen
         Write.WriteInColor("║              Até a próxima!                  ║", ConsoleColor.DarkCyan);
         Write.WriteInColor("╚══════════════════════════════════════════════╝", ConsoleColor.DarkCyan);
     }
-
 }
