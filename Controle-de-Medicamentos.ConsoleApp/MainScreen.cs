@@ -23,11 +23,13 @@ public class MainScreen
     public MainScreen()
     {
         context = new DataContext(true);
+
         medicamentoRepository = new MedicationRepository(context);
-        medicationScreen = new MedicationScreen(medicamentoRepository, "Medicamento");
         employeeRepository = new EmployeeRepository(context);
-        employeeScreen = new EmployeeScreen(employeeRepository);
         inRequestRepository = new InRequestRepository(context);
+
+        medicationScreen = new MedicationScreen(medicamentoRepository);
+        employeeScreen = new EmployeeScreen(employeeRepository);
         inRequestScreen = new InRequestScreen(medicationScreen, employeeScreen, inRequestRepository);
     }
 
