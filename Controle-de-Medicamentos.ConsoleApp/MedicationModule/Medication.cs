@@ -19,6 +19,39 @@ public class Medication : BaseEntity<Medication>
         Supplier = supplier;
     }
 
+    public override void UpdateEntity(Medication entity)
+    {
+        Name = entity.Name;
+        Description = entity.Description;
+        Quantity = entity.Quantity;
+        Supplier = entity.Supplier;
+    }
+
+    public override string Validate()
+    {
+        string erros = "";
+
+        if (string.IsNullOrEmpty(Name))
+            erros += "O Campo 'Nome' é obrigatório\n";
+
+        if (Name.Length < 3 || Name.Length > 100)
+            erros += "Nome inválido! Deve ter entre 3 e 100 caracteres.\n";
+
+        if (string.IsNullOrEmpty(Description))
+            erros += "O Campo 'Descrição' é obrigatório\n";
+
+        if (Description.Length < 5 || Description.Length > 255)
+            erros += "Descrição inválida! Deve ter entre 5 e 255 caracteres.\n";
+
+        if (Quantity < 0)
+            erros += "Quantidade inválida! Deve ser um número positivo.\n";
+
+        if (Supplier == null)
+            erros += "O Campo 'Fornecedor' é obrigatório\n";
+
+        return erros;
+    }
+
     /// <summary>
     /// Atualiza a quantidade em estoque do medicamento, somando pelo informado.
     /// </summary>
@@ -71,38 +104,5 @@ public class Medication : BaseEntity<Medication>
     public bool IsSameMedication(Medication other)
     {
         return string.Equals(Name?.Trim(), other?.Name?.Trim(), StringComparison.OrdinalIgnoreCase);
-    }
-
-    public override void UpdateEntity(Medication entity)
-    {
-        Name = entity.Name;
-        Description = entity.Description;
-        Quantity = entity.Quantity;
-        Supplier = entity.Supplier;
-    }
-
-    public override string Validate()
-    {
-        string erros = "";
-
-        if (string.IsNullOrEmpty(Name))
-            erros += "O Campo 'Nome' é obrigatório\n";
-
-        if (Name.Length < 3 || Name.Length > 100)
-            erros += "Nome inválido! Deve ter entre 3 e 100 caracteres.\n";
-
-        if (string.IsNullOrEmpty(Description))
-            erros += "O Campo 'Descrição' é obrigatório\n";
-
-        if (Description.Length < 5 || Description.Length > 255)
-            erros += "Descrição inválida! Deve ter entre 5 e 255 caracteres.\n";
-
-        if (Quantity < 0)
-            erros += "Quantidade inválida! Deve ser um número positivo.\n";
-
-        if (Supplier == null)
-            erros += "O Campo 'Fornecedor' é obrigatório\n";
-
-        return erros;
     }
 }
