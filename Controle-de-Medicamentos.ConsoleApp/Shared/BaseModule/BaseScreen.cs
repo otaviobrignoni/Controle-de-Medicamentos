@@ -1,5 +1,4 @@
-﻿using Controle_de_Medicamentos.ConsoleApp.PatientModule;
-using Controle_de_Medicamentos.ConsoleApp.Utils;
+﻿using Controle_de_Medicamentos.ConsoleApp.Utils;
 
 namespace Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
