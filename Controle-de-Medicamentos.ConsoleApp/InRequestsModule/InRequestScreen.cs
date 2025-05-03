@@ -22,13 +22,13 @@ public class InRequestScreen : BaseScreen<InRequest>, ICrudScreen
             Console.Clear();
             Write.Header("Gerenciamento de Requisições de Entrada");
             Console.WriteLine();
-            Write.WriteInColor(" [1] - Nova Requição de Entrada", ConsoleColor.Cyan);
-            Write.WriteInColor(" [2] - Editar Requição de Entrada", ConsoleColor.Cyan);
-            Write.WriteInColor(" [3] - Excluir Requição de Entrada", ConsoleColor.Cyan);
-            Write.WriteInColor(" [4] - Visualizar Requisições de Entrada", ConsoleColor.Cyan);
-            Write.WriteInColor(" [5] - Sair", ConsoleColor.Cyan);
+            Write.InColor(" [1] - Nova Requição de Entrada", ConsoleColor.Cyan);
+            Write.InColor(" [2] - Editar Requição de Entrada", ConsoleColor.Cyan);
+            Write.InColor(" [3] - Excluir Requição de Entrada", ConsoleColor.Cyan);
+            Write.InColor(" [4] - Visualizar Requisições de Entrada", ConsoleColor.Cyan);
+            Write.InColor(" [5] - Sair", ConsoleColor.Cyan);
             Console.WriteLine();
-            Write.WriteInColor(">> Digite a opção desejada: ", ConsoleColor.Yellow, true);
+            Write.InColor(">> Digite a opção desejada: ", ConsoleColor.Yellow, true);
             string option = Console.ReadLine()!;
 
             switch (option)
@@ -45,17 +45,17 @@ public class InRequestScreen : BaseScreen<InRequest>, ICrudScreen
 
     protected override InRequest NewEntity()
     {
-        Write.WriteInColor(">> Digite a data da entrada", ConsoleColor.Yellow, true);
+        Write.InColor(">> Digite a data da entrada", ConsoleColor.Yellow, true);
         DateTime date = Validator.GetValidDate();
-        Write.WriteInColor(">> Digite o ID do medicamento desejado: ", ConsoleColor.Yellow, true);
+        Write.InColor(">> Digite o ID do medicamento desejado: ", ConsoleColor.Yellow, true);
         MedicationScreen.ShowAll(false);
         int id1 = Validator.GetValidInt();
         Medication? medication = MedicationScreen.FindRegister(id1) ? MedicationScreen.Repository.GetById(id1) : null;
-        Write.WriteInColor(">> Digite o ID do funcionário desejado: ", ConsoleColor.Yellow, true);
+        Write.InColor(">> Digite o ID do funcionário desejado: ", ConsoleColor.Yellow, true);
         EmployeeScreen.ShowAll(false);
         int id2 = Validator.GetValidInt();
         Employee? employee = EmployeeScreen.FindRegister(id2) ? EmployeeScreen.Repository.GetById(id2) : null;
-        Write.WriteInColor(">> Digite a quantidade de medicamentos: ", ConsoleColor.Yellow, true);
+        Write.InColor(">> Digite a quantidade de medicamentos: ", ConsoleColor.Yellow, true);
         int quantity = Validator.GetValidInt();
 
         return new InRequest(date, medication, employee, quantity);

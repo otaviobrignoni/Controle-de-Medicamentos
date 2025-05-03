@@ -6,7 +6,7 @@ public static class Validator
     {
         int isInt;
             while (!int.TryParse(Console.ReadLine(), out isInt))
-                Write.WriteInColor("> (X) O Valor precisa ser um número! Digite novamente: ", ConsoleColor.Red, true);
+                Write.InColor("> (X) O Valor precisa ser um número! Digite novamente: ", ConsoleColor.Red, true);
 
         return isInt;
     }
@@ -15,7 +15,7 @@ public static class Validator
     {
         DateTime newDate;
         while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out newDate))
-            Write.WriteInColor("> (X) A data precisa ser no formato \"dd/mm/yyyy\"! Digite novamente: ", ConsoleColor.Red, true);
+            Write.InColor("> (X) A data precisa ser no formato \"dd/mm/yyyy\"! Digite novamente: ", ConsoleColor.Red, true);
         return newDate;
     }
 }

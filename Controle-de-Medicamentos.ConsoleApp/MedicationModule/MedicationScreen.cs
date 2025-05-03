@@ -21,13 +21,13 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
             Console.Clear();
             Write.Header("Gerenciamento de Medicamentos");
             Console.WriteLine();
-            Write.WriteInColor(" [1] - Cadastrar Medicamento", ConsoleColor.Cyan);
-            Write.WriteInColor(" [2] - Editar Medicamento", ConsoleColor.Cyan);
-            Write.WriteInColor(" [3] - Excluir Medicamento", ConsoleColor.Cyan);
-            Write.WriteInColor(" [4] - Visualizar Medicamento", ConsoleColor.Cyan);
-            Write.WriteInColor(" [5] - Sair", ConsoleColor.Cyan);
+            Write.InColor(" [1] - Cadastrar Medicamento", ConsoleColor.Cyan);
+            Write.InColor(" [2] - Editar Medicamento", ConsoleColor.Cyan);
+            Write.InColor(" [3] - Excluir Medicamento", ConsoleColor.Cyan);
+            Write.InColor(" [4] - Visualizar Medicamento", ConsoleColor.Cyan);
+            Write.InColor(" [5] - Sair", ConsoleColor.Cyan);
             Console.WriteLine();
-            Write.WriteInColor(">> Digite a opção desejada: ", ConsoleColor.Yellow, true);
+            Write.InColor(">> Digite a opção desejada: ", ConsoleColor.Yellow, true);
             string option = Console.ReadLine()!;
 
             switch (option)
@@ -44,17 +44,17 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
 
     protected override Medication NewEntity()
     {
-        Write.WriteInColor("> Digite o nome do medicamento: ", ConsoleColor.Yellow, true);
+        Write.InColor("> Digite o nome do medicamento: ", ConsoleColor.Yellow, true);
         string name = Console.ReadLine()!.Trim().ToTitleCase();
 
-        Write.WriteInColor("> Digite a descrição do medicamento: ", ConsoleColor.Yellow, true);
+        Write.InColor("> Digite a descrição do medicamento: ", ConsoleColor.Yellow, true);
         string description = Console.ReadLine()!.Trim().ToTitleCase();
 
-        Write.WriteInColor("> Digite a quantidade do medicamento: ", ConsoleColor.Yellow, true);
+        Write.InColor("> Digite a quantidade do medicamento: ", ConsoleColor.Yellow, true);
         int quantity = Validator.GetValidInt();
 
         supplierScreen.ShowAll(false);
-        Write.WriteInColor("> Digite o ID do fornecedor do medicamento: ", ConsoleColor.Yellow, true);
+        Write.InColor("> Digite o ID do fornecedor do medicamento: ", ConsoleColor.Yellow, true);
         int idSuplier = Validator.GetValidInt();
         Supplier supplier = supplierScreen.SupplierRepository.GetById(idSuplier)!;
 

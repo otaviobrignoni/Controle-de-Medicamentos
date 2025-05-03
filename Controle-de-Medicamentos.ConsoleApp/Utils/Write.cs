@@ -13,7 +13,7 @@ public static class Write
     /// Define o tipo de escrita:
     /// <c>true</c> para <see cref="Console.Write"/>, <c>false</c> para <see cref="Console.WriteLine"/>.
     /// </param>
-    public static void WriteInColor(string message, ConsoleColor cor, bool write = false)
+    public static void InColor(string message, ConsoleColor cor, bool write = false)
     {
         Console.ForegroundColor = cor;
         if (write)
@@ -28,7 +28,7 @@ public static class Write
     public static void ShowExitMessage()
     {
         Console.WriteLine();
-        WriteInColor(">> Pessione Enter para continuar.", ConsoleColor.DarkYellow, true);
+        InColor(">> Pessione Enter para continuar.", ConsoleColor.DarkYellow, true);
         Console.ReadKey();
     }
 
@@ -41,7 +41,7 @@ public static class Write
     public static void ShowInvalidOptionMessage()
     {
         Console.WriteLine();
-        WriteInColor(">> (X) Opção inválida, pessione Enter para tentar novamente.", ConsoleColor.Red, true);
+        InColor(">> (X) Opção inválida, pessione Enter para tentar novamente.", ConsoleColor.Red, true);
         Console.ReadKey();
     }
 
@@ -55,9 +55,9 @@ public static class Write
     public static void Header(string title)
     {
         int padding = (MenuWidth - title.Length) / 2;
-        WriteInColor("┌" + new string('─', MenuWidth) + "┐", ConsoleColor.Blue);
-        WriteInColor("│" + title.PadLeft(padding + title.Length).PadRight(MenuWidth) + "│", ConsoleColor.Blue);
-        WriteInColor("└" + new string('─', MenuWidth) + "┘", ConsoleColor.Blue);
+        InColor("┌" + new string('─', MenuWidth) + "┐", ConsoleColor.Blue);
+        InColor("│" + title.PadLeft(padding + title.Length).PadRight(MenuWidth) + "│", ConsoleColor.Blue);
+        InColor("└" + new string('─', MenuWidth) + "┘", ConsoleColor.Blue);
     }
 
     /// <summary>

@@ -17,13 +17,13 @@ public class EmployeeScreen : BaseScreen<Employee>, ICrudScreen
             Console.Clear();
             Write.Header("Gerenciamento de Funcionários");
             Console.WriteLine();
-            Write.WriteInColor(" [1] - Cadastrar Funcionário", ConsoleColor.Cyan);
-            Write.WriteInColor(" [2] - Editar Funcionário", ConsoleColor.Cyan);
-            Write.WriteInColor(" [3] - Excluir Funcionário", ConsoleColor.Cyan);
-            Write.WriteInColor(" [4] - Visualizar Funcionários", ConsoleColor.Cyan);
-            Write.WriteInColor(" [5] - Sair", ConsoleColor.Cyan);
+            Write.InColor(" [1] - Cadastrar Funcionário", ConsoleColor.Cyan);
+            Write.InColor(" [2] - Editar Funcionário", ConsoleColor.Cyan);
+            Write.InColor(" [3] - Excluir Funcionário", ConsoleColor.Cyan);
+            Write.InColor(" [4] - Visualizar Funcionários", ConsoleColor.Cyan);
+            Write.InColor(" [5] - Sair", ConsoleColor.Cyan);
             Console.WriteLine();
-            Write.WriteInColor(">> Digite a opção desejada: ", ConsoleColor.Yellow, true);
+            Write.InColor(">> Digite a opção desejada: ", ConsoleColor.Yellow, true);
             string option = Console.ReadLine()!;
 
             switch (option)
@@ -40,11 +40,11 @@ public class EmployeeScreen : BaseScreen<Employee>, ICrudScreen
 
     protected override Employee NewEntity()
     {
-        Write.WriteInColor("> Digite o nome do funcionário: ", ConsoleColor.Yellow, true);
+        Write.InColor("> Digite o nome do funcionário: ", ConsoleColor.Yellow, true);
         string name = Console.ReadLine().Trim().ToTitleCase();
-        Write.WriteInColor("> Digite o telefone do funcionário: ", ConsoleColor.Yellow, true);
+        Write.InColor("> Digite o telefone do funcionário: ", ConsoleColor.Yellow, true);
         string phoneNumber = Console.ReadLine().Trim().ToTitleCase();
-        Write.WriteInColor("> Digite o CPF do funcionário: ", ConsoleColor.Yellow, true);
+        Write.InColor("> Digite o CPF do funcionário: ", ConsoleColor.Yellow, true);
         string CPF = Console.ReadLine().Trim().ToTitleCase();
         
         return new Employee(name, phoneNumber, CPF);

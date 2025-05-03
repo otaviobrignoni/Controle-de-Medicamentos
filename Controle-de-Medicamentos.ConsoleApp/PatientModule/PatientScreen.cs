@@ -7,7 +7,7 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
     class PatientScreen : BaseScreen<Patient>, ICrudScreen
     {
         public IPatientRepository PatientRepository;
-        public PatientScreen(IPatientRepository repository, string title) : base(repository, "Paciente")
+        public PatientScreen(IPatientRepository repository) : base(repository, "Paciente")
         {
             PatientRepository = repository;
         }
@@ -31,13 +31,13 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
                 Console.Clear();
                 Write.Header("Gerenciamento de Pacientes");
                 Console.WriteLine();
-                Write.WriteInColor(" [1] - Cadastrar Paciente", ConsoleColor.Cyan);
-                Write.WriteInColor(" [2] - Editar Paciente", ConsoleColor.Cyan);
-                Write.WriteInColor(" [3] - Excluir Paciente", ConsoleColor.Cyan);
-                Write.WriteInColor(" [4] - Visualizar Paciente", ConsoleColor.Cyan);
-                Write.WriteInColor(" [5] - Sair", ConsoleColor.Cyan);
+                Write.InColor(" [1] - Cadastrar Paciente", ConsoleColor.Cyan);
+                Write.InColor(" [2] - Editar Paciente", ConsoleColor.Cyan);
+                Write.InColor(" [3] - Excluir Paciente", ConsoleColor.Cyan);
+                Write.InColor(" [4] - Visualizar Paciente", ConsoleColor.Cyan);
+                Write.InColor(" [5] - Sair", ConsoleColor.Cyan);
                 Console.WriteLine();
-                Write.WriteInColor(">> Digite a opção desejada: ", ConsoleColor.Yellow, true);
+                Write.InColor(">> Digite a opção desejada: ", ConsoleColor.Yellow, true);
                 string option = Console.ReadLine()!;
                 switch(option)
                 {

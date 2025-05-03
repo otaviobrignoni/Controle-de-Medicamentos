@@ -40,7 +40,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
        
         Repository.Add(newEntity);
 
-        Write.WriteInColor($">> (✓) {EntityName} registrado com sucesso!", ConsoleColor.Green);
+        Write.InColor($">> (✓) {EntityName} registrado com sucesso!", ConsoleColor.Green);
 
         Write.ShowExitMessage();
     }
@@ -62,7 +62,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
             return;
 
         ShowAll(false);
-        Write.WriteInColor($">> Digite o ID do {EntityName} que deseja editar:", ConsoleColor.Yellow, true);
+        Write.InColor($">> Digite o ID do {EntityName} que deseja editar:", ConsoleColor.Yellow, true);
         int id = Convert.ToInt32(Console.ReadLine());
 
         if (!FindRegister(id))
@@ -75,7 +75,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
 
         Repository.Edit(id, entity);
 
-        Write.WriteInColor($">> (✓) {EntityName} editado com sucesso!", ConsoleColor.Green);
+        Write.InColor($">> (✓) {EntityName} editado com sucesso!", ConsoleColor.Green);
         Write.ShowExitMessage();
 
     }
@@ -97,7 +97,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
             return;
 
         ShowAll(false);
-        Write.WriteInColor($">> Digite o ID do {EntityName} que deseja remover:", ConsoleColor.Yellow, true);
+        Write.InColor($">> Digite o ID do {EntityName} que deseja remover:", ConsoleColor.Yellow, true);
         int id = Convert.ToInt32(Console.ReadLine());
 
         if (!FindRegister(id))
@@ -105,7 +105,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
 
         Repository.Remove(id);
 
-        Write.WriteInColor($">> (✓) {EntityName} removido com sucesso!", ConsoleColor.Green);
+        Write.InColor($">> (✓) {EntityName} removido com sucesso!", ConsoleColor.Green);
         Write.ShowExitMessage();
     }
 
@@ -167,7 +167,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     {
         if (!Repository.IsEntityValid(newEntity, out string errors))
         {
-            Write.WriteInColor(errors, ConsoleColor.Red, true);
+            Write.InColor(errors, ConsoleColor.Red, true);
             Write.ShowExitMessage();
             return false;
         }
@@ -184,7 +184,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     {
         if (Repository.Count() == 0)
         {
-            Write.WriteInColor($">> (×) Não há {EntityName}s cadastrados!", ConsoleColor.Red);
+            Write.InColor($">> (×) Não há {EntityName}s cadastrados!", ConsoleColor.Red);
             Write.ShowExitMessage();
             return false;
         }
@@ -202,7 +202,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     {
         if (Repository.GetById(id) == null)
         {
-            Write.WriteInColor($">> (×) {EntityName} não encontrado!", ConsoleColor.Red);
+            Write.InColor($">> (×) {EntityName} não encontrado!", ConsoleColor.Red);
             Write.ShowExitMessage();
             return false;
         }
