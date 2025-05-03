@@ -4,6 +4,7 @@ using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 using Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
 using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
+using Controle_de_Medicamentos.ConsoleApp.PatientModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.Shared;
 
@@ -14,6 +15,10 @@ public class DataContext
     public List<Employee> Employees { get; set; }
     public List<InRequest> InRequests { get; set; }
     public List<Supplier> Suppliers { get; set; } 
+    public List<Supplier> Suppliers { get; set; }
+    public List<Patient> Patients { get; internal set; }
+
+
     /// <summary>
     /// Caminho onde os dados da aplicação são salvos no formato JSON.
     /// </summary>
