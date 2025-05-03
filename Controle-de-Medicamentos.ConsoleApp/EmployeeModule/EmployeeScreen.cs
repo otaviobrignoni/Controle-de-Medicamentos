@@ -52,11 +52,11 @@ public class EmployeeScreen : BaseScreen<Employee>, ICrudScreen
 
     protected override void ShowTableHeader()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("");
     }
 
     protected override void ShowTableRow(Employee entity)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("");
     }
 }

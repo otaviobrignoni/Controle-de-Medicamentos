@@ -4,9 +4,6 @@ namespace Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 
 public class Medication : BaseEntity<Medication>
 {
-    //> O sistema deve destacar medicamentos com menos de 20 unidades como "em falta"
-    //> sistema deve atualizar a quantidade quando o medicamento já estiver cadastrado
-
     public string Name {get; set; }
     private string Description { get; set; }
     public int Quantity { get; set; }
@@ -78,9 +75,10 @@ public class Medication : BaseEntity<Medication>
 
         if (string.IsNullOrEmpty(Name))
             erros += "O Campo 'Nome' é obrigatório\n";
-        if (Name.Length < 3 || Name.Length > 100)
 
+        if (Name.Length < 3 || Name.Length > 100)
             erros += "Nome inválido! Deve ter entre 3 e 100 caracteres.\n";
+
         if (string.IsNullOrEmpty(Description))
             erros += "O Campo 'Descrição' é obrigatório\n";
 

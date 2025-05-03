@@ -2,6 +2,7 @@
 using System.Text.Json;
 using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
+using Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
 using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 using Controle_de_Medicamentos.ConsoleApp.PatientModule;
 
@@ -12,6 +13,8 @@ public class DataContext
     // criar listas das entidades
     public List<Medication> Medications { get; set; }
     public List<Employee> Employees { get; set; }
+    public List<InRequest> InRequests { get; set; }
+    public List<Supplier> Suppliers { get; set; } 
     public List<Supplier> Suppliers { get; set; }
     public List<Patient> Patients { get; internal set; }
 
@@ -32,6 +35,7 @@ public class DataContext
         //instanciar listas
         Medications = new List<Medication>();
         Employees = new List<Employee>();
+        InRequests = new List<InRequest>();
         Suppliers = new List<Supplier>();
     }
 
@@ -98,7 +102,9 @@ public class DataContext
         // Carregar listas de entidades a partir do contexto salvo
         Medications = savedContext.Medications;
         Employees = savedContext.Employees;
+        InRequests = savedContext.InRequests;
         Suppliers = savedContext.Suppliers;
+
     }
 }
 

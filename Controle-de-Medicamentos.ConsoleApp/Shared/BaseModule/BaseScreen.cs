@@ -226,6 +226,5 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     /// Este método deve ser implementado nas classes derivadas para capturar os dados da entidade por meio de entrada do usuário.
     /// </remarks>
     protected abstract T NewEntity();
-
 }
 

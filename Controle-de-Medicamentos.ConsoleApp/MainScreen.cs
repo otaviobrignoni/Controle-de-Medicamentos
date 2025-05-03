@@ -3,6 +3,7 @@ using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.Utils;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
+using Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
 
 
 namespace Controle_de_Medicamentos.ConsoleApp;
@@ -14,10 +15,12 @@ public class MainScreen
     private DataContext context;
     private IMedicationRepository medicamentoRepository;
     private IEmployeeRepository employeeRepository;
+    private IInRequestRepository inRequestRepository;
 
     // declarar as Telas
     private MedicationScreen medicationScreen;
     private EmployeeScreen employeeScreen;
+    private InRequestScreen inRequestScreen;
 
     public MainScreen()
     {
@@ -27,6 +30,8 @@ public class MainScreen
         medicationScreen = new MedicationScreen(medicamentoRepository, "Medicamento");
         employeeRepository = new EmployeeRepository(context);
         employeeScreen = new EmployeeScreen(employeeRepository);
+        inRequestRepository = new InRequestRepository(context);
+        inRequestScreen = new InRequestScreen(medicationScreen, employeeScreen, inRequestRepository);
     }
 
     public void ShowMainMenu()
@@ -55,7 +60,7 @@ public class MainScreen
                 case "3": employeeScreen.ShowMenu(); break;
                 case "4": medicationScreen.ShowMenu(); break;
                 case "5": return;
-                case "6": return;
+                case "6": inRequestScreen.ShowMenu(); break;
                 case "7": return;
                 case "8": ShowLeaveMessage(); return;
                 default: Write.ShowInvalidOptionMessage(); ShowMainMenu(); break;

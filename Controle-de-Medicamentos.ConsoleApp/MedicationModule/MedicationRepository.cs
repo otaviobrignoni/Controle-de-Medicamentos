@@ -16,12 +16,12 @@ public class MedicationRepository : BaseRepository<Medication>, IMedicationRepos
     {
         if (TryMergeWithExisting(entity))
         {
-            Context.SaveData(); //salva os dados no arquivo
+            Context.SaveData();
             return;
         }
         entity.Id = GetNextAvailableId();
         List.Add(entity);
-        Context.SaveData(); //salva os dados no arquivo
+        Context.SaveData();
     }
 
     /// <summary>
