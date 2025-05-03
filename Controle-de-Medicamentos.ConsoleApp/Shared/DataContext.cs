@@ -15,7 +15,7 @@ public class DataContext
     public List<Employee> Employees { get; set; }
     public List<InRequest> InRequests { get; set; }
     public List<Supplier> Suppliers { get; set; } 
-    public List<Patient> Patients { get; internal set; }
+    public List<Patient> Patients { get;  set; }
 
 
     /// <summary>
