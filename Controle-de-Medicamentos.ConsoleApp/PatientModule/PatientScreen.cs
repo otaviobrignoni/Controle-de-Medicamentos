@@ -11,6 +11,7 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
         {
             PatientRepository = repository;
         }
+
         protected override Patient NewEntity()
         {
             Console.WriteLine("> Digite o nome do paciente: ", ConsoleColor.Yellow,true);
@@ -43,17 +44,18 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
                     case "1": Add(); break;
                     case "2": Edit(); break;
                     case "3": Remove(); break;
-                    case "4": ShowAll(true); break;
+                    case "4": ShowAll(true,true); break;
                     case "5": return;
                     default: Write.ShowInvalidOptionMessage(); break;
                 }
-
             }
         }
+
         protected override void ShowTableHeader()
         {
             Console.WriteLine("");
         }
+
         protected override void ShowTableRow(Patient entity)
         {
             Console.WriteLine("");

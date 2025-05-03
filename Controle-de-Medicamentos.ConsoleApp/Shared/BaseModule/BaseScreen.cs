@@ -119,9 +119,10 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     /// O método utiliza <see cref="ExistRegisters"/> para verificar se há dados antes da exibição.<br/><br/>
     /// O cabeçalho da tabela e as linhas são desenhados utilizando os métodos <see cref="ShowTableHeader"/> e <see cref="ShowTableRow(T)"/>.
     /// </remarks>
-    public virtual void ShowAll(bool showExit)
+    public virtual void ShowAll(bool showExit, bool useClear = false)
     {
-        Console.Clear();
+        if(useClear)
+            Console.Clear();
         Write.Header($" Listando {EntityName}s");
 
         if (!ExistRegisters())

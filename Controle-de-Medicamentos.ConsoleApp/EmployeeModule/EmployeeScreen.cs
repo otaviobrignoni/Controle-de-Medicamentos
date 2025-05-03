@@ -31,7 +31,7 @@ public class EmployeeScreen : BaseScreen<Employee>, ICrudScreen
                 case "1": Add(); break;
                 case "2": Edit(); break;
                 case "3": Remove(); break;
-                case "4": ShowAll(true); break;
+                case "4": ShowAll(true,true); break;
                 case "5": return;
                 default: Write.ShowInvalidOptionMessage(); break;
             }

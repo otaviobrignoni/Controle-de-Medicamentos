@@ -6,5 +6,5 @@ public interface ICrudScreen
     protected abstract void Add();
     protected abstract void Edit();
     protected abstract void Remove();
-    protected abstract void ShowAll(bool showHeader = true);
+    protected abstract void ShowAll(bool showExit, bool useClear = false);
 }
