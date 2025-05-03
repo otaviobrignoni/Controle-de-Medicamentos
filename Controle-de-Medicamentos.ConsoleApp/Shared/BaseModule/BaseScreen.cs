@@ -5,9 +5,6 @@ namespace Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
 public abstract class BaseScreen<T> where T : BaseEntity<T>
 {
-    private IPatientRepository repository;
-    private string v;
-
     public IRepository<T> Repository { get; set; }
     public string EntityName { get; set; }
 
@@ -15,12 +12,6 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     {
         Repository = repository;
         this.EntityName = EntityName;
-    }
-
-    protected BaseScreen(IPatientRepository repository, string v)
-    {
-        this.repository = repository;
-        this.v = v;
     }
 
     /// <summary>
