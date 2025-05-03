@@ -15,7 +15,6 @@ public class DataContext
     public List<Employee> Employees { get; set; }
     public List<InRequest> InRequests { get; set; }
     public List<Supplier> Suppliers { get; set; } 
-    public List<Supplier> Suppliers { get; set; }
     public List<Patient> Patients { get; internal set; }
 
 
@@ -37,6 +36,7 @@ public class DataContext
         Employees = new List<Employee>();
         InRequests = new List<InRequest>();
         Suppliers = new List<Supplier>();
+        Patients = new List<Patient>();
     }
 
     /// <summary>
@@ -104,7 +104,7 @@ public class DataContext
         Employees = savedContext.Employees;
         InRequests = savedContext.InRequests;
         Suppliers = savedContext.Suppliers;
-
+        Patients = savedContext.Patients;
     }
 }
 
