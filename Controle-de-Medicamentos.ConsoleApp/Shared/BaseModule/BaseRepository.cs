@@ -1,5 +1,4 @@
-﻿
-namespace Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
+﻿namespace Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
 public abstract class BaseRepository<T> where T : BaseEntity<T>
 {
@@ -12,7 +11,10 @@ public abstract class BaseRepository<T> where T : BaseEntity<T>
         List = GetList();
     }
 
-    //adicionar um sumario
+    /// <summary>
+    /// Obtém a lista de registros do repositório.
+    /// Deve ser implementado pelas classes derivadas para retornar os dados persistidos.
+    /// </summary>
     public abstract List<T> GetList();
 
     /// <summary>
