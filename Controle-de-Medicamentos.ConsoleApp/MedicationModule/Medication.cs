@@ -20,15 +20,27 @@ public class Medication : BaseEntity<Medication>
     }
 
     /// <summary>
-    /// Atualiza a quantidade em estoque do medicamento, substituindo o valor atual pelo informado.
+    /// Atualiza a quantidade em estoque do medicamento, somando pelo informado.
     /// </summary>
-    /// <param name="newQuantity">Novo valor da quantidade em estoque.</param>
+    /// <param name="quantity">Valor da quantidade a somar.</param>
     /// <remarks>
     /// Este método sobrescreve a quantidade atual.
     /// </remarks>
-    public void UpdateQuantity(int newQuantity)
+    public void UpdateQuantity(int quantity)
     {
-        Quantity += newQuantity;
+        Quantity += quantity;
+    }
+
+    /// <summary>
+    /// Atualiza a quantidade em estoque do medicamento, subtraindo pelo informado.
+    /// </summary>
+    /// <param name="quantity">Valor da quantidade a subtrair.</param>
+    /// <remarks>
+    /// Este método sobrescreve a quantidade atual.
+    /// </remarks>
+    public void SubstractQuantity(int quantity)
+    {
+        Quantity -= quantity;
     }
 
     /// <summary>
