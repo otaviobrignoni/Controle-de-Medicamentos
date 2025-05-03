@@ -8,7 +8,7 @@ namespace Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
 {
     IMedicationRepository MedicationRepository;
-    public MedicationScreen(IMedicationRepository repository, string title) : base(repository, "Medicamento")
+    public MedicationScreen(IMedicationRepository repository) : base(repository, "Medicamento")
     {
         MedicationRepository = repository;
     }
