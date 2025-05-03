@@ -8,10 +8,12 @@ namespace Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
 {
     SupplierScreen supplierScreen {get; set; }
+    ISupplierRepository supplierRepository { get; set; }
 
-    public MedicationScreen(IMedicationRepository repository, SupplierScreen supplierScreen) : base(repository, "Medicamento")
+    public MedicationScreen(IMedicationRepository repository, SupplierScreen supplierScreen, ISupplierRepository supplierRepository) : base(repository, "Medicamento")
     {
         this.supplierScreen = supplierScreen;
+        this.supplierRepository = supplierRepository;
     }
 
     public override void ShowMenu()
@@ -56,7 +58,7 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
         supplierScreen.ShowAll(false);
         Write.InColor("> Digite o ID do fornecedor do medicamento: ", ConsoleColor.Yellow, true);
         int idSuplier = Validator.GetValidInt();
-        Supplier supplier = supplierScreen.SupplierRepository.GetById(idSuplier)!;
+        Supplier supplier = supplierRepository.GetById(idSuplier)!;
 
         return new Medication(name, description, quantity, supplier);
     }
@@ -64,11 +66,11 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
     protected override void ShowTableHeader()
     {
         // O sistema deve destacar medicamentos com menos de 20 unidades como "em falta"
-        throw new NotImplementedException();
+        Console.WriteLine("");
     }
 
     protected override void ShowTableRow(Medication entity)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("");
     }
 }
