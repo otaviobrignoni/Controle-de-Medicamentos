@@ -53,7 +53,7 @@ public class Medication : BaseEntity<Medication>
     }
 
     /// <summary>
-    /// Atualiza a quantidade em estoque do medicamento, somando pelo informado.
+    /// Atualiza a quantidade em estoque do medicamento, somando o estoque atual com o valor informado.
     /// </summary>
     /// <param name="quantity">Valor da quantidade a somar.</param>
     /// <remarks>
