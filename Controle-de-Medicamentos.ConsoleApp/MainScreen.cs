@@ -1,9 +1,10 @@
 ﻿using Controle_de_Medicamentos.ConsoleApp.Shared;
-using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.Utils;
+using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 using Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
-
+using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
+using Controle_de_Medicamentos.ConsoleApp.PatientModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp;
 
@@ -13,12 +14,16 @@ public class MainScreen
     private DataContext context;
     private IMedicationRepository medicamentoRepository;
     private IEmployeeRepository employeeRepository;
-    private IInRequestRepository inRequestRepository;
+    private IInRequestRepository inRequestRepository; 
+    private ISupplierRepository suplierRepository; 
+    private IPatientRepository patientRepository; 
 
 
     private MedicationScreen medicationScreen;
     private EmployeeScreen employeeScreen;
     private InRequestScreen inRequestScreen;
+    private SupplierScreen supplierScreen;
+    private PatientScreen patientScreen;
 
     public MainScreen()
     {
@@ -27,9 +32,13 @@ public class MainScreen
         medicamentoRepository = new MedicationRepository(context);
         employeeRepository = new EmployeeRepository(context);
         inRequestRepository = new InRequestRepository(context);
+        suplierRepository = new SupplierRepository(context);
+        patientRepository = new PatientRepository(context);
 
-        medicationScreen = new MedicationScreen(medicamentoRepository);
+        patientScreen = new PatientScreen(patientRepository);
+        supplierScreen = new SupplierScreen(suplierRepository);
         employeeScreen = new EmployeeScreen(employeeRepository);
+        medicationScreen = new MedicationScreen(medicamentoRepository, supplierScreen);
         inRequestScreen = new InRequestScreen(medicationScreen, employeeScreen, inRequestRepository);
     }
 
@@ -40,22 +49,22 @@ public class MainScreen
             Console.Clear();
             Write.Header("Controle de Medicamentos");
             Console.WriteLine();
-            Write.WriteInColor(" [1] - Fornecedores", ConsoleColor.Cyan);
-            Write.WriteInColor(" [2] - Pacientes", ConsoleColor.Cyan);
-            Write.WriteInColor(" [3] - Funcionários", ConsoleColor.Cyan);
-            Write.WriteInColor(" [4] - Medicamentos", ConsoleColor.Cyan);
-            Write.WriteInColor(" [5] - Prescrições Médicas", ConsoleColor.Cyan);
-            Write.WriteInColor(" [6] - Requisição de Entrada", ConsoleColor.Cyan);
-            Write.WriteInColor(" [7] - Requisição de Saída", ConsoleColor.Cyan);
-            Write.WriteInColor(" [8] - Sair", ConsoleColor.Cyan);
+            Write.InColor(" [1] - Fornecedores", ConsoleColor.Cyan);
+            Write.InColor(" [2] - Pacientes", ConsoleColor.Cyan);
+            Write.InColor(" [3] - Funcionários", ConsoleColor.Cyan);
+            Write.InColor(" [4] - Medicamentos", ConsoleColor.Cyan);
+            Write.InColor(" [5] - Prescrições Médicas", ConsoleColor.Cyan);
+            Write.InColor(" [6] - Requisição de Entrada", ConsoleColor.Cyan);
+            Write.InColor(" [7] - Requisição de Saída", ConsoleColor.Cyan);
+            Write.InColor(" [8] - Sair", ConsoleColor.Cyan);
             Console.WriteLine();
-            Write.WriteInColor(">> Digite a opção desejada: ", ConsoleColor.Yellow, true);
-            option = Console.ReadLine();
+            Write.InColor(">> Digite a opção desejada: ", ConsoleColor.Yellow, true);
+            option = Console.ReadLine()!;
 
             switch (option)
             {
-                case "1": return;
-                case "2": return;
+                case "1": supplierScreen.ShowMenu(); break;
+                case "2": patientScreen.ShowMenu(); break;
                 case "3": employeeScreen.ShowMenu(); break;
                 case "4": medicationScreen.ShowMenu(); break;
                 case "5": return;
@@ -70,9 +79,9 @@ public class MainScreen
     public void ShowLeaveMessage()
     {
         Console.Clear();
-        Write.WriteInColor("╔══════════════════════════════════════════════╗", ConsoleColor.DarkCyan);
-        Write.WriteInColor("║ Obrigado por usar o Contole de Medicamentos! ║", ConsoleColor.DarkCyan);
-        Write.WriteInColor("║              Até a próxima!                  ║", ConsoleColor.DarkCyan);
-        Write.WriteInColor("╚══════════════════════════════════════════════╝", ConsoleColor.DarkCyan);
+        Write.InColor("╔══════════════════════════════════════════════╗", ConsoleColor.DarkCyan);
+        Write.InColor("║ Obrigado por usar o Contole de Medicamentos! ║", ConsoleColor.DarkCyan);
+        Write.InColor("║              Até a próxima!                  ║", ConsoleColor.DarkCyan);
+        Write.InColor("╚══════════════════════════════════════════════╝", ConsoleColor.DarkCyan);
     }
 }
