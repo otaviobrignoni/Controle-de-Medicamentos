@@ -10,7 +10,6 @@ namespace Controle_de_Medicamentos.ConsoleApp.Shared;
 
 public class DataContext
 {
-    // criar listas das entidades
     public List<Medication> Medications { get; set; }
     public List<Employee> Employees { get; set; }
     public List<InRequest> InRequests { get; set; }
@@ -31,7 +30,6 @@ public class DataContext
 
     public DataContext()
     {
-        //instanciar listas
         Medications = new List<Medication>();
         Employees = new List<Employee>();
         InRequests = new List<InRequest>();
@@ -99,7 +97,6 @@ public class DataContext
 
         if (savedContext == null) return;
 
-        // Carregar listas de entidades a partir do contexto salvo
         Medications = savedContext.Medications;
         Employees = savedContext.Employees;
         InRequests = savedContext.InRequests;
