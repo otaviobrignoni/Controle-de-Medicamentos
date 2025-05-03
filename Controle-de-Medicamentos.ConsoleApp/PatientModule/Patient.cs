@@ -49,14 +49,10 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
 
             return erros;
         }
+
         public bool IsSameSUSCard(Patient patient)
         {
             return string.Equals(SUSCard?.Trim(), patient?.SUSCard?.Trim(), StringComparison.OrdinalIgnoreCase);
-        }
-
-        internal bool IsSamePatient(object value)
-        {
-            throw new NotImplementedException();
         }
     }
 }

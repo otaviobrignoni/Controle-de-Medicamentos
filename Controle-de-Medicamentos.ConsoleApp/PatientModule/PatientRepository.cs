@@ -16,7 +16,7 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
         {
             errors = entity.Validate();
 
-            if(entity.IsSamePatient(GetAll().FirstOrDefault(p=>p.IsSamePatient(entity))))
+            if(entity.IsSameSUSCard(GetAll().FirstOrDefault(p=>p.IsSameSUSCard(entity))))
                 errors += "Já existe um paciente com este cartão do SUS";
 
             if (string.IsNullOrEmpty(errors))
