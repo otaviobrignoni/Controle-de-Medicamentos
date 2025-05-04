@@ -5,6 +5,7 @@ using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 using Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
 using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 using Controle_de_Medicamentos.ConsoleApp.PatientModule;
+using Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionsModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.Shared;
 
@@ -15,6 +16,7 @@ public class DataContext
     public List<InRequest> InRequests { get; set; }
     public List<Supplier> Suppliers { get; set; } 
     public List<Patient> Patients { get;  set; }
+    public List<MedicalPrescription> MedicalPrescriptions { get; set; }
 
 
     /// <summary>
@@ -35,6 +37,7 @@ public class DataContext
         InRequests = new List<InRequest>();
         Suppliers = new List<Supplier>();
         Patients = new List<Patient>();
+        MedicalPrescriptions = new List<MedicalPrescription>();
     }
 
     /// <summary>
@@ -102,6 +105,7 @@ public class DataContext
         InRequests = savedContext.InRequests;
         Suppliers = savedContext.Suppliers;
         Patients = savedContext.Patients;
+        MedicalPrescriptions = savedContext.MedicalPrescriptions;
     }
 }
 
