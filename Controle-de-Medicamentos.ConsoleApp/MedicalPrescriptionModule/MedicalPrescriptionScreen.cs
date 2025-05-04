@@ -2,6 +2,7 @@
 using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 using Controle_de_Medicamentos.ConsoleApp.Shared.Extensions;
+using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 using Controle_de_Medicamentos.ConsoleApp.Utils;
 
 namespace Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
@@ -9,10 +10,12 @@ namespace Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
 public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudScreen
 {
     MedicationScreen medicationScreen { get; set; }
+    IMedicationRepository medicationRepository { get; set; }
 
-    public MedicalPrescriptionScreen(IMedicalPrescriptionRepository repository, MedicationScreen medicationScreen) : base(repository, "Prescrição Médica") 
+    public MedicalPrescriptionScreen(IMedicalPrescriptionRepository repository, MedicationScreen medicationScreen, IMedicationRepository medicationRepository) : base(repository, "Prescrição Médica") 
     {
         this.medicationScreen = medicationScreen;
+        this.medicationRepository = medicationRepository;
     }
 
     public override void ShowMenu()
@@ -37,6 +40,14 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
                 default: Write.ShowInvalidOptionMessage(); break;
             }
         }
+    }
+
+    public override void Add()
+    {
+        Console.Clear();
+        if (!medicationScreen.ExistRegisters())
+            return;
+        base.Add();
     }
 
     protected override MedicalPrescription NewEntity()
@@ -65,7 +76,7 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
                 medicationScreen.ShowAll(false,true);
                 Write.InColor($"> Digite o id do medicamento {i + 1}: ", ConsoleColor.Yellow, true);
                 int medicationId = Validator.GetValidInt();
-                Medication medication = medicationScreen.Repository.GetById(medicationId)!;
+                Medication? medication = medicationScreen.FindRegister(medicationId) ? medicationRepository.GetById(medicationId) : null;
 
                 Write.InColor($"> Digite a dosagem do medicamento {i + 1}: ", ConsoleColor.Yellow, true);
                 string dosage = Console.ReadLine()!.Trim().ToTitleCase();
@@ -77,6 +88,7 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
                 string period = Console.ReadLine()!.Trim().ToTitleCase();
 
                 PrescriptionMedication prescriptionMedication = new PrescriptionMedication(medication, dosage, medicationQuantity, period);
+                
                 if (!IsAPresciptionMedicationValid(prescriptionMedication))
                 {
                     Write.InColor(">> Medicamento inválido, Pressione Enter para tentar novamente!", ConsoleColor.Red, true);

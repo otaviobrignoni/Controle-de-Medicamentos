@@ -7,12 +7,12 @@ namespace Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 
 public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
 {
-    SupplierScreen supplierScreen {get; set; }
+    SupplierScreen SupplierScreen {get; set; }
     ISupplierRepository supplierRepository { get; set; }
 
     public MedicationScreen(IMedicationRepository repository, SupplierScreen supplierScreen, ISupplierRepository supplierRepository) : base(repository, "Medicamento")
     {
-        this.supplierScreen = supplierScreen;
+        this.SupplierScreen = supplierScreen;
         this.supplierRepository = supplierRepository;
     }
 
@@ -44,6 +44,15 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
         }
     }
 
+    public override void Add()
+    {
+        Console.Clear();
+        if (!SupplierScreen.ExistRegisters())
+            return;
+
+        base.Add();
+    }
+
     protected override Medication NewEntity()
     {
         Write.InColor("> Digite o nome do medicamento: ", ConsoleColor.Yellow, true);
@@ -55,10 +64,10 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
         Write.InColor("> Digite a quantidade do medicamento: ", ConsoleColor.Yellow, true);
         int quantity = Validator.GetValidInt();
 
-        supplierScreen.ShowAll(false);
+        SupplierScreen.ShowAll(false);
         Write.InColor("> Digite o ID do fornecedor do medicamento: ", ConsoleColor.Yellow, true);
         int idSuplier = Validator.GetValidInt();
-        Supplier supplier = supplierRepository.GetById(idSuplier)!;
+        Supplier? supplier = SupplierScreen.FindRegister(idSuplier) ? supplierRepository.GetById(idSuplier) : null;   
 
         return new Medication(name, description, quantity, supplier);
     }
