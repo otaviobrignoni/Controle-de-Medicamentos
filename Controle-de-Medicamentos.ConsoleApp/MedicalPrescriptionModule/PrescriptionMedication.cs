@@ -30,7 +30,6 @@ public class PrescriptionMedication : BaseEntity<PrescriptionMedication>
     public override string Validate()
     {
         string errors = "";
-        int pillLimit = 30;
 
         if (Medication == null)
             errors += "O Campo 'Medicamento' é obrigatório\n";
@@ -41,8 +40,11 @@ public class PrescriptionMedication : BaseEntity<PrescriptionMedication>
         if (!Regex.IsMatch(Dosage, @"^(?!0+(,0+)?$)\d+(,\d+)?$"))
             errors += "A Dosagem deve ser um número inteiro maior que zero\n";
 
-        if (Quantity > pillLimit)
-            errors += $"A quantidade de comprimidos não pode ser maior que {pillLimit}\n";
+        if (Quantity <= 0)
+            errors += "A quantidade de comprimidos deve ser maior que zero\n";
+
+        if (Quantity > Medication.Quantity)
+            errors += $"A quantidade de comprimidos não pode ser maior que a quantidade disponível do medicamento ({Medication.Quantity})\n";
 
         if (string.IsNullOrEmpty(Period))
             errors += "O Campo 'Período' é obrigatório\n";
@@ -51,5 +53,21 @@ public class PrescriptionMedication : BaseEntity<PrescriptionMedication>
             errors += "O Período deve conter um número seguido de uma unidade de medida (ex: 2 vezes ao dia ou 1 vez por semana)\n";
 
         return errors;
+    }
+
+    /// <summary>
+    /// Verifica se a prescrição excede limites estabelecidos e retorna mensagens de alerta correspondentes.
+    /// Pode incluir múltiplas validações de excesso, conforme regras de negócio.
+    /// </summary>
+    /// <returns>
+    /// Retorna uma ou mais mensagens de alerta caso algum limite seja ultrapassado; caso contrário, retorna uma string vazia.
+    /// </returns>
+    public string ExceededLimits() 
+    {
+        string alert = "";
+        int pillLimit = 30;
+        if (Quantity > pillLimit)
+            alert += $" !!Alerta!! A quantidade de comprimidos ultrapassa o limite regulamentado de {pillLimit}\n";
+        return alert;
     }
 }
