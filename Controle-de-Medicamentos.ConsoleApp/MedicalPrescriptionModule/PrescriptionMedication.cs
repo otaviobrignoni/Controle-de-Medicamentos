@@ -4,10 +4,11 @@ using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
 
-class PrescriptionMedication : BaseEntity<PrescriptionMedication>
+public class PrescriptionMedication : BaseEntity<PrescriptionMedication>
 {
     Medication Medication { get; set; }
     string Dosage { get; set; }
+    int Quantity { get; set; }
     string Period { get; set; }
 
     public PrescriptionMedication() { }
@@ -29,6 +30,7 @@ class PrescriptionMedication : BaseEntity<PrescriptionMedication>
     public override string Validate()
     {
         string errors = "";
+        int pillLimit = 30;
 
         if (Medication == null)
             errors += "O Campo 'Medicamento' é obrigatório\n";
@@ -36,8 +38,11 @@ class PrescriptionMedication : BaseEntity<PrescriptionMedication>
         if (string.IsNullOrEmpty(Dosage))
             errors += "O Campo 'Dosagem' é obrigatório\n";
 
-        if (!Regex.IsMatch(Dosage, @"^\s*(\d+(?:[.,]\d+)?)(\s+.+)$"))
-            errors += "A Dosagem deve conter um número seguido de uma unidade de medida (ex: 500mg ou 2 gotas)\n";
+        if (!Regex.IsMatch(Dosage, @"^(?!0+(,0+)?$)\d+(,\d+)?$"))
+            errors += "A Dosagem deve ser um número inteiro maior que zero\n";
+
+        if (Quantity > pillLimit)
+            errors += $"A quantidade de comprimidos não pode ser maior que {pillLimit}\n";
 
         if (string.IsNullOrEmpty(Period))
             errors += "O Campo 'Período' é obrigatório\n";
