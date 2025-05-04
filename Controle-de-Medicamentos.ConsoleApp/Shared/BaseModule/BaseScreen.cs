@@ -204,7 +204,6 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         if (Repository.GetById(id) == null)
         {
             Write.InColor($">> (×) {EntityName} não encontrado!", ConsoleColor.Red);
-            Write.ShowExitMessage();
             return false;
         }
         return true;

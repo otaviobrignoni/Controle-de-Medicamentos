@@ -59,5 +59,4 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
             Console.WriteLine("");
         }
     }
-    
 }
