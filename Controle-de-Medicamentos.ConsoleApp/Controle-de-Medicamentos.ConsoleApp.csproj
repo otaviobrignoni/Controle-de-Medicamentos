@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MedicalPrescriptionsModule\" />
     <Folder Include="InboundRequestsModule\" />
     <Folder Include="PatientModule\" />
   </ItemGroup>
