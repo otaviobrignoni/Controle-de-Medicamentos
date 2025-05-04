@@ -1,5 +1,4 @@
-﻿using Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionsModule;
-using Controle_de_Medicamentos.ConsoleApp.Shared;
+﻿using Controle_de_Medicamentos.ConsoleApp.Shared;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;

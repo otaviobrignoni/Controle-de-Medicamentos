@@ -31,7 +31,7 @@ public class InRequest : BaseEntity<InRequest>
         string errors = "";
 
         if (Date < DateTime.Now)
-            errors += "Não é possível entregar medicamentos no passado";
+            errors += "Não é possível obter medicamentos no passado";
         if (Medication == null)
             errors += "O Campo \"Medicamento\" é obrigatório";
         if (Employee == null)
