@@ -13,9 +13,10 @@ public class PrescriptionMedication : BaseEntity<PrescriptionMedication>
 
     public PrescriptionMedication() { }
 
-    public PrescriptionMedication(Medication medication, string dosage, string period)
+    public PrescriptionMedication(Medication medication, string dosage, int quantity, string period)
     {
         Medication = medication;
+        Quantity = quantity;
         Dosage = dosage;
         Period = period;
     }
