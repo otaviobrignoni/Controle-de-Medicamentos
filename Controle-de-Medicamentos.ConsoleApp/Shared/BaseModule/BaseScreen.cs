@@ -167,6 +167,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     {
         if (!Repository.IsEntityValid(newEntity, out string errors))
         {
+            Write.InColor($">> (×) Erro ao cadastrar {EntityName}!", ConsoleColor.Red);
             Write.InColor(errors, ConsoleColor.Red, true);
             Write.ShowExitMessage();
             return false;
