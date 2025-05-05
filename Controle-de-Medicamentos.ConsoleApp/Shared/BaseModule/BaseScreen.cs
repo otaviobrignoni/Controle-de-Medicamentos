@@ -42,7 +42,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
 
         Write.InColor($">> (✓) {EntityName} registrado com sucesso!", ConsoleColor.Green);
 
-        Write.ShowExitMessage();
+        Write.ShowExit();
     }
 
     /// <summary>
@@ -76,7 +76,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         Repository.Edit(id, entity);
 
         Write.InColor($">> (✓) {EntityName} editado com sucesso!", ConsoleColor.Green);
-        Write.ShowExitMessage();
+        Write.ShowExit();
 
     }
 
@@ -106,7 +106,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         Repository.Remove(id);
 
         Write.InColor($">> (✓) {EntityName} removido com sucesso!", ConsoleColor.Green);
-        Write.ShowExitMessage();
+        Write.ShowExit();
     }
 
     /// <summary>
@@ -138,7 +138,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         ShowEndOfTable();
 
         if (showExit) 
-            Write.ShowExitMessage();
+            Write.ShowExit();
     }
 
     /// <summary>
@@ -176,7 +176,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         {
             Write.InColor($">> (×) Erro ao cadastrar {EntityName}!", ConsoleColor.Red);
             Write.InColor(errors, ConsoleColor.Red, true);
-            Write.ShowExitMessage();
+            Write.ShowExit();
             return false;
         }
         return true;
@@ -193,7 +193,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         if (Repository.Count() == 0)
         {
             Write.InColor($">> (×) Não há {EntityName}s cadastrados!", ConsoleColor.Red);
-            Write.ShowExitMessage();
+            Write.ShowExit();
             return false;
         }
         return true;

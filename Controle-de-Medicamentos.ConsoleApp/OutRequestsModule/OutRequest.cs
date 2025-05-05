@@ -35,7 +35,7 @@ public class OutRequest : BaseEntity<OutRequest>
             errors += "O Campo \"Paciente\" é obrigatório";
         if (MedicalPrescription == null)
             errors += "O Campo \"Prescrição Médica\" é obrigatório";
-        if (!MedicalPrescription.IsMedicalPrescriptionValid())
+        if (!MedicalPrescription.IsValid())
             errors += "A prescrição médica é inválida";
         foreach (PrescriptionMedication pm in MedicalPrescription.Medications)
         {

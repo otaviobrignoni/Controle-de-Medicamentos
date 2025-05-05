@@ -32,7 +32,7 @@ namespace Controle_de_Medicamentos.ConsoleApp.SupplierModule
                     case "3": Remove(); break;
                     case "4": ShowAll(true, true); break;
                     case "5": return;
-                    default: Write.ShowInvalidOptionMessage(); break;
+                    default: Write.ShowInvalidOption(); break;
                 }
             }
         }

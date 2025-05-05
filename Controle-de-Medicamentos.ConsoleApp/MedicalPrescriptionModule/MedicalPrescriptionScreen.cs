@@ -1,4 +1,5 @@
-﻿using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
+﻿using Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
+using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 using Controle_de_Medicamentos.ConsoleApp.Shared.Extensions;
 using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
@@ -36,7 +37,7 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
                 case "1": Add(); break;
                 case "2": ShowAll(true, true); break;
                 case "3": return;
-                default: Write.ShowInvalidOptionMessage(); break;
+                default: Write.ShowInvalidOption(); break;
             }
         }
     }
@@ -88,26 +89,26 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
 
                 PrescriptionMedication prescriptionMedication = new PrescriptionMedication(medication, dosage, medicationQuantity, period);
                 
-                if (!IsAPresciptionMedicationValid(prescriptionMedication))
+                if (!IsValid(prescriptionMedication))
                     continue;
 
                 medications.Add(prescriptionMedication);
                 Write.InColor($">> Medicamento n°{i + 1} adicionado com sucesso!", ConsoleColor.Green);
-                Write.ShowExitMessage();
+                Write.ShowExit();
                 break;
             }
         }
         return medications;
     }
 
-    public bool IsAPresciptionMedicationValid(PrescriptionMedication prescription)
+    public bool IsValid(PrescriptionMedication prescription)
     {
         string errors = prescription.Validate();
         if (string.IsNullOrEmpty(errors))
             return true;
         Write.InColor($">> (×) Erro ao cadastrar o Medicamento!", ConsoleColor.Red);
         Write.InColor(errors, ConsoleColor.Red);
-        Write.ShowTryAgainMessage();
+        Write.ShowTryAgain();
         return false;
     }
 

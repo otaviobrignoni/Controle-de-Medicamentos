@@ -55,19 +55,19 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>
     /// <returns>
     /// Retorna <c>true</c> se a prescrição atender aos critérios; caso contrário, <c>false</c>.
     /// </returns>
-    public bool IsMedicalPrescriptionValid() // usar na saida
+    public bool IsValid()
     {
-        if (IsMedicalPrescriptionClosed() && IsMedicalPrescriptionExpired())
+        if (IsClosed() && IsExpired())
             return false;
         return true;
     }
 
-    private bool IsMedicalPrescriptionExpired()
+    private bool IsExpired()
     {
         return (DateTime.Now - Date).TotalDays <= 30;
     }
 
-    private bool IsMedicalPrescriptionClosed()
+    private bool IsClosed()
     {
         return Status == "Fechada";
     }
