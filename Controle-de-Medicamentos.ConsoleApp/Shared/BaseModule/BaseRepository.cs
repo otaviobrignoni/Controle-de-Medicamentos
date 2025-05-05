@@ -70,7 +70,7 @@ public abstract class BaseRepository<T> where T : BaseEntity<T>
     /// Seleciona todos os registros da lista.
     /// </summary>
     /// <returns>Retorna a lista de registros</returns>
-    public List<T> GetAll()
+    public virtual List<T> GetAll()
     {
         return List;
     }

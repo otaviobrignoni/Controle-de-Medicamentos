@@ -77,20 +77,28 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
         return new[] { "Id", "Nome", "Descrição", "Quantidade", "Fornecedor", "Status de Estoque" };
     }
 
-    //protected override void PrintRow(Medication entity)
-    //{
-    //    Console.Write("│ {0, -2} │ {1, -20} │ {2, -30} │ {3, -10} │ {4, -25} │ ",
-    //          entity.Id, entity.Name, entity.Description, entity.Quantity, entity.Supplier.Name);
+    public override void PrintRow(string[] row, int[] widths)
+    {
+        Console.Write("│");
+        for (int i = 0; i < row.Length; i++)
+        {
+            string cell = row[i];
+            string padded = cell.PadRight(widths[i]);
 
-    //    if (entity.IsLowStock())
-    //    {
-    //        Write.InColor("Em Falta".PadRight(18), ConsoleColor.Red, true);
-    //    }
-    //    else
-    //    {
-    //        Write.InColor("Ok".PadRight(18), ConsoleColor.Green, true);
-    //    }
 
-    //    Console.WriteLine("│");
-    //}
+            var originalColor = Console.ForegroundColor;
+
+            if (cell == "Em Falta")
+                Console.ForegroundColor = ConsoleColor.Red;
+            else if (cell == "Ok")
+                Console.ForegroundColor = ConsoleColor.Green;
+
+            Console.Write(" " + padded + " ");
+
+            Console.ForegroundColor = originalColor;
+
+            Console.Write("│");
+        }
+        Console.WriteLine();
+    }
 }

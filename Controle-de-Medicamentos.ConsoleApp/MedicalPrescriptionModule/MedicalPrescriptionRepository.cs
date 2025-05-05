@@ -11,4 +11,14 @@ public class MedicalPrescriptionRepository : BaseRepository<MedicalPrescription>
     {
         return Context.MedicalPrescriptions;
     }
+
+    public override List<MedicalPrescription> GetAll() 
+    { 
+        foreach (MedicalPrescription item in List)
+        {
+           item.SetExpired();
+        }
+        Context.SaveData();
+        return List;
+    }
 }

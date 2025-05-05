@@ -12,17 +12,17 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>, ITableConver
 
     public MedicalPrescription() { }
 
-    public MedicalPrescription(string doctorCRM, DateTime date, List<PrescriptionMedication> medications)
+    public MedicalPrescription(string doctorCRM, List<PrescriptionMedication> medications)
     {
         DoctorCRM = doctorCRM;
-        Date = date;
+        Date = DateTime.Now;
         Medications = medications;
     }
 
     public override void UpdateEntity(MedicalPrescription entity)
     {
         DoctorCRM = entity.DoctorCRM;
-        Date = entity.Date;
+        Date = DateTime.Now;
         Medications = entity.Medications;
     }
 
@@ -36,30 +36,15 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>, ITableConver
         if (!Regex.IsMatch(DoctorCRM, @"^\d{6}$"))
             errors += "O 'CRM do médico' deve conter 6 dígitos\n";
 
-        if (Date <= DateTime.Now)
-            errors += "A 'data' da receita deve ser uma data futura\n";
-
         if (Medications == null || Medications.Count == 0)
             errors += "A receita deve conter pelo menos um 'medicamento'\n";
 
         return errors;
     }
 
-    public void CloseMedicalPrescription()
-
     public string[] ToLineStrings()
     {
         return new string[] { Id.ToString(), DoctorCRM, Date.ToString("dd/MM/yyyy"), Medications.Count().ToString(), Status };
-    }
-
-    public void CloseMedicalPrescription() // usar na saida
-    {
-        Status = "Fechada";
-    }
-
-    public void ExpireMedicalPrescription()
-    {
-        Status = "Expirada";
     }
 
     /// <summary>
@@ -75,9 +60,20 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>, ITableConver
         return true;
     }
 
+    public void ClosePrescription() // usar na saida
+    {
+        Status = "Fechada";
+    }
+
+    public void SetExpired()
+    {
+        if (IsExpired())
+            Status = "Expirada";
+    }
+
     private bool IsExpired()
     {
-        return (DateTime.Now - Date).TotalDays <= 30;
+        return (DateTime.Now - Date).TotalDays > 30;
     }
 
     private bool IsClosed()
