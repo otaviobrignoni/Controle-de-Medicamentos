@@ -155,11 +155,11 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         }
 
         PrintTopBorder(widths);
-        PrintRow(headers, widths);
+        PrintLine(headers, widths);
         PrintSeparator(widths);
 
-        foreach (string[] row in lines)
-            PrintRow(row, widths);
+        foreach (string[] line in lines)
+            PrintLine(line, widths);
 
         PrintBottomBorder(widths);
 
@@ -202,7 +202,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         Console.WriteLine();
     }
 
-    protected void PrintRow(string[] row, int[] widths)
+    protected void PrintLine(string[] row, int[] widths)
     {
         Console.Write("│");
         for (int i = 0; i < row.Length; i++)
