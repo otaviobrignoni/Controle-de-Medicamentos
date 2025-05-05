@@ -44,9 +44,15 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>
 
         return errors;
     }
-    public void CloseMedicalPrescription() // usar na saida
+
+    public void CloseMedicalPrescription()
     {
         Status = "Fechada";
+    }
+
+    public void ExpireMedicalPrescription()
+    {
+        Status = "Expirada";
     }
 
     /// <summary>
