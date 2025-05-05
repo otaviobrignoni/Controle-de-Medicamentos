@@ -155,11 +155,11 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         }
 
         PrintTopBorder(widths);
-        PrintRow(headers, widths);
+        PrintLine(headers, widths);
         PrintSeparator(widths);
 
-        foreach (string[] row in lines)
-            PrintRow(row, widths);
+        foreach (string[] line in lines)
+            PrintLine(line, widths);
 
         PrintBottomBorder(widths);
 
