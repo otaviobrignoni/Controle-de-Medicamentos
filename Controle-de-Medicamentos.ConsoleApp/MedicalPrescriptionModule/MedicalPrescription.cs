@@ -45,6 +45,8 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>, ITableConver
         return errors;
     }
 
+    public void CloseMedicalPrescription()
+
     public string[] ToLineStrings()
     {
         return new string[] { Id.ToString(), DoctorCRM, Date.ToString("dd/MM/yyyy"), Medications.Count().ToString(), Status };
@@ -53,6 +55,11 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>, ITableConver
     public void CloseMedicalPrescription() // usar na saida
     {
         Status = "Fechada";
+    }
+
+    public void ExpireMedicalPrescription()
+    {
+        Status = "Expirada";
     }
 
     /// <summary>
