@@ -52,20 +52,4 @@ public class PrescriptionMedication : BaseEntity<PrescriptionMedication>
 
         return errors;
     }
-
-    /// <summary>
-    /// Verifica se a prescrição excede limites estabelecidos e retorna mensagens de alerta correspondentes.
-    /// Pode incluir múltiplas validações de excesso, conforme regras de negócio.
-    /// </summary>
-    /// <returns>
-    /// Retorna uma ou mais mensagens de alerta caso algum limite seja ultrapassado; caso contrário, retorna uma string vazia.
-    /// </returns>
-    public string ExceededLimits() // Otavio usar no de Saida como validar // perguntar novamente qual regras é pra ter
-    {
-        string alert = "";
-        int pillLimit = 30;
-        if (Quantity > pillLimit)
-            alert += $" !!! Alerta !!! A quantidade de comprimidos ultrapassa o limite regulamentado de ({pillLimit}) !!!\n";
-        return alert;
-    }
 }
