@@ -74,12 +74,31 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
 
     protected override void ShowTableHeader()
     {
-        // O sistema deve destacar medicamentos com menos de 20 unidades como "em falta"
-        Console.WriteLine("");
+        Console.WriteLine("┌────┬──────────────────────┬────────────────────────────────┬────────────┬───────────────────────────┬───────────────────┐");
+        Console.WriteLine("│ {0, -2} │ {1, -20} │ {2, -30} │ {3, -10} │ {4, -25} │ {5, -14} │",
+                           "Id", "Nome", "Descrição", "Quantidade", "Fornecedor", "Status de Estoque" );
+        Console.WriteLine("├────┼──────────────────────┼────────────────────────────────┼────────────┼───────────────────────────┼───────────────────┤");
     }
 
     protected override void ShowTableRow(Medication entity)
     {
-        Console.WriteLine("");
+        Console.Write("│ {0, -2} │ {1, -20} │ {2, -30} │ {3, -10} │ {4, -25} │ ",
+              entity.Id, entity.Name, entity.Description, entity.Quantity, entity); // arrumar fornecedor
+
+        if (entity.IsLowStock())
+        {
+            Write.InColor("Em Falta".PadRight(18), ConsoleColor.Red, true);
+        }
+        else
+        {
+            Write.InColor("Ok".PadRight(18), ConsoleColor.Green, true);
+        }
+
+        Console.WriteLine("│");
+    }
+
+    protected override void ShowEndOfTable()
+    {
+        Console.WriteLine("└────┴──────────────────────┴────────────────────────────────┴────────────┴───────────────────────────┴───────────────────┘");
     }
 }

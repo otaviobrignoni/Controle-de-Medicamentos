@@ -5,9 +5,9 @@ namespace Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 public class Medication : BaseEntity<Medication>
 {
     public string Name {get; set; }
-    private string Description { get; set; }
+    public string Description { get; set; }
     public int Quantity { get; set; }
-    private Supplier Supplier { get; set; }
+    public Supplier Supplier { get; set; }
 
     public Medication(){}
 

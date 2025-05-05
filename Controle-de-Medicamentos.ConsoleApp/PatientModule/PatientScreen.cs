@@ -37,13 +37,13 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
 
         protected override Patient NewEntity()
         {
-            Console.WriteLine("> Digite o nome do paciente: ", ConsoleColor.Yellow, true);
+            Write.InColor("> Digite o nome do paciente: ", ConsoleColor.Yellow, true);
             string name = Console.ReadLine()!.Trim().ToTitleCase();
 
-            Console.WriteLine("> Digite o telefone do paciente: ", ConsoleColor.Yellow, true);
+            Write.InColor("> Digite o telefone do paciente: ", ConsoleColor.Yellow, true);
             string phone = Console.ReadLine()!.Trim().ToTitleCase();
 
-            Console.WriteLine("> Digite o cartão do SUS do paciente: ", ConsoleColor.Yellow, true);
+            Write.InColor("> Digite o cartão do SUS do paciente: ", ConsoleColor.Yellow, true);
             string susCard = Console.ReadLine()!.Trim().ToTitleCase();
 
             return new Patient(name, phone, susCard);
@@ -51,12 +51,21 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
 
         protected override void ShowTableHeader()
         {
-            Console.WriteLine("");
+            Console.WriteLine("┌────┬──────────────────────┬─────────────────┬──────────────────┐");
+            Console.WriteLine("│ {0, -2} │ {1, -20} │ {2, -15} │ {3, -16} │",
+                               "Id", "Nome", "Telefone", "Cartão SUS");
+            Console.WriteLine("├────┼──────────────────────┼─────────────────┼──────────────────┤");
         }
 
         protected override void ShowTableRow(Patient entity)
         {
-            Console.WriteLine("");
+            Console.WriteLine("│ {0, -2} │ {1, -20} │ {2, -15} │ {3, -16} │",
+                entity.Id, entity.Name, entity.PhoneNumber, entity.SUSCard);
+        }
+
+        protected override void ShowEndOfTable()
+        {
+            Console.WriteLine("└────┴──────────────────────┴─────────────────┴──────────────────┘");
         }
     }
 }

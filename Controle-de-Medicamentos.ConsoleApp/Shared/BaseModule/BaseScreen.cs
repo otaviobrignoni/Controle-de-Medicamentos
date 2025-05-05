@@ -135,6 +135,8 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
             ShowTableRow(entity);
         }
 
+        ShowEndOfTable();
+
         if (showExit) 
             Write.ShowExitMessage();
     }
@@ -155,6 +157,11 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     /// Este método deve ser implementado nas classes filhas para formatar os dados da entidade conforme desejado.
     /// </remarks>
     protected abstract void ShowTableHeader();
+
+    /// <summary>
+    /// Desenha o fim da tabela.
+    /// </summary>
+    protected abstract void ShowEndOfTable();
 
     /// <summary>
     /// Valida a entidade informada utilizando o repositório e exibe os erros no console, caso existam.

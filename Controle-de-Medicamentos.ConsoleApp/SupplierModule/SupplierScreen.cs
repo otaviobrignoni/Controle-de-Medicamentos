@@ -53,12 +53,20 @@ namespace Controle_de_Medicamentos.ConsoleApp.SupplierModule
 
         protected override void ShowTableHeader()
         {
-            Console.WriteLine("");
+            Console.WriteLine("┌────┬──────────────────────┬─────────────────┬─────────────────┐");
+            Console.WriteLine("│ {0, -2} │ {1, -20} │ {2, -15} │ {3, -15} │",
+                               "Id", "Nome", "Telefone", "CNPJ");
+            Console.WriteLine("├────┼──────────────────────┼─────────────────┼─────────────────┤");
         }
 
         protected override void ShowTableRow(Supplier entity)
         {
-            Console.WriteLine("");
+            Console.WriteLine("│ {0, -2} │ {1, -20} │ {2, -15} │ {3, -15} │", 
+                entity.Id, entity.Name, entity.PhoneNumber, entity.CNPJ);
+        }
+        protected override void ShowEndOfTable()
+        {
+            Console.WriteLine("└────┴──────────────────────┴─────────────────┴─────────────────┘");
         }
     }
 }
