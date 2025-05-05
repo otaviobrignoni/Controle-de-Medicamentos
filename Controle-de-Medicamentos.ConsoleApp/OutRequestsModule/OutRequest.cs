@@ -4,7 +4,7 @@ using Controle_de_Medicamentos.ConsoleApp.PatientModule;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.OutRequestsModule;
-public class OutRequest : BaseEntity<OutRequest>
+public class OutRequest : BaseEntity<OutRequest>, ITableConvertible
 {
     public DateTime Date { get; set; }
     public Patient Patient { get; set; }
@@ -25,6 +25,11 @@ public class OutRequest : BaseEntity<OutRequest>
         MedicalPrescription = entity.MedicalPrescription;
     }
 
+    public string[] ToLineStrings()
+    {
+        return new string[] { Id.ToString(), Date.ToString("dd/MM/yyyy"), Patient.Name, MedicalPrescription.Id.ToString() };
+    }
+
     public override string Validate()
     {
         string errors = "";
@@ -37,12 +42,6 @@ public class OutRequest : BaseEntity<OutRequest>
             errors += "O Campo \"Prescrição Médica\" é obrigatório";
         if (!MedicalPrescription.IsValid())
             errors += "A prescrição médica é inválida";
-        foreach (PrescriptionMedication pm in MedicalPrescription.Medications)
-        {
-            if (!string.IsNullOrWhiteSpace(pm.ExceededLimits()))
-                errors += "";
-        }
-           
         
         return errors;
     }

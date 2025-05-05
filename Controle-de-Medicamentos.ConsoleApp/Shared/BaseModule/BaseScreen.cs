@@ -117,51 +117,102 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     /// </param>
     /// <remarks>
     /// O método utiliza <see cref="ExistRegisters"/> para verificar se há dados antes da exibição.<br/><br/>
-    /// O cabeçalho da tabela e as linhas são desenhados utilizando os métodos <see cref="ShowTableHeader"/> e <see cref="ShowTableRow(T)"/>.
+    /// O cabeçalho da tabela e as linhas são desenhados utilizando os métodos <see cref="ShowTableHeader"/> e <see cref="PrintRow(T)"/>.
     /// </remarks>
+
     public virtual void ShowAll(bool showExit, bool useClear = false)
     {
-        if(useClear)
+        if (useClear)
             Console.Clear();
+
         Write.Header($" Listando {EntityName}s");
 
         if (!ExistRegisters())
             return;
 
-        ShowTableHeader();
+        string[] headers = GetHeaders();
 
-        foreach (T entity in Repository.GetAll())
+        List<T> entities = Repository.GetAll();
+        List<string[]> lines = new List<string[]>();
+        foreach (T entity in entities)
         {
-            ShowTableRow(entity);
+            ITableConvertible convertible = entity as ITableConvertible;
+            if (convertible != null)
+                lines.Add(convertible.ToLineStrings());
         }
 
-        ShowEndOfTable();
+        int[] widths = new int[headers.Length];
+        for (int column = 0; column < headers.Length; column++)
+        {
+            int maxLength = headers[column].Length;
+            foreach (string[] line in lines)
+            {
+                int length = line[column].Length;
+                if (length > maxLength)
+                    maxLength = length;
+            }
+            widths[column] = maxLength;
+        }
 
-        if (showExit) 
+        PrintTopBorder(widths);
+        PrintRow(headers, widths);
+        PrintSeparator(widths);
+
+        foreach (string[] row in lines)
+            PrintRow(row, widths);
+
+        PrintBottomBorder(widths);
+
+        if (showExit)
             Write.ShowExit();
     }
 
-    /// <summary>
-    /// Desenha o cabeçalho da tabela no console, representando os títulos das colunas.
-    /// </summary>
-    /// <remarks>
-    /// Este método deve ser implementado nas classes filhas para definir os títulos conforme o modelo da entidade.
-    /// </remarks>
-    protected abstract void ShowTableRow(T entity);
+    public abstract string[] GetHeaders();
 
-    /// <summary>
-    /// Desenha uma linha da tabela no console com os dados de uma entidade específica.
-    /// </summary>
-    /// <param name="entity">Instância da entidade cujos dados serão exibidos na linha.</param>
-    /// <remarks>
-    /// Este método deve ser implementado nas classes filhas para formatar os dados da entidade conforme desejado.
-    /// </remarks>
-    protected abstract void ShowTableHeader();
+    private void PrintTopBorder(int[] widths)
+    {
+        Console.Write("┌");
+        for (int i = 0; i < widths.Length; i++)
+        {
+            Console.Write(new string('─', widths[i] + 2));
+            Console.Write(i < widths.Length - 1 ? "┬" : "┐");
+        }
+        Console.WriteLine();
+    }
 
-    /// <summary>
-    /// Desenha o fim da tabela.
-    /// </summary>
-    protected abstract void ShowEndOfTable();
+    private void PrintSeparator(int[] widths)
+    {
+        Console.Write("├");
+        for (int i = 0; i < widths.Length; i++)
+        {
+            Console.Write(new string('─', widths[i] + 2));
+            Console.Write(i < widths.Length - 1 ? "┼" : "┤");
+        }
+        Console.WriteLine();
+    }
+
+    private void PrintBottomBorder(int[] widths)
+    {
+        Console.Write("└");
+        for (int i = 0; i < widths.Length; i++)
+        {
+            Console.Write(new string('─', widths[i] + 2));
+            Console.Write(i < widths.Length - 1 ? "┴" : "┘");
+        }
+        Console.WriteLine();
+    }
+
+    protected void PrintRow(string[] row, int[] widths)
+    {
+        Console.Write("│");
+        for (int i = 0; i < row.Length; i++)
+        {
+            string padded = row[i].PadRight(widths[i]);
+            Console.Write(" " + padded + " │");
+        }
+        Console.WriteLine();
+    }
+ 
 
     /// <summary>
     /// Valida a entidade informada utilizando o repositório e exibe os erros no console, caso existam.

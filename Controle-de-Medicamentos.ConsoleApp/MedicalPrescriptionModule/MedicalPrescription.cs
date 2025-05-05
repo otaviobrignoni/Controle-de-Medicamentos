@@ -3,7 +3,7 @@ using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
 
-public class MedicalPrescription : BaseEntity<MedicalPrescription>
+public class MedicalPrescription : BaseEntity<MedicalPrescription>, ITableConvertible
 {
     public string DoctorCRM { get; set; }
     public DateTime Date { get; set; }
@@ -46,6 +46,13 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>
     }
 
     public void CloseMedicalPrescription()
+
+    public string[] ToLineStrings()
+    {
+        return new string[] { Id.ToString(), DoctorCRM, Date.ToString("dd/MM/yyyy"), Medications.Count().ToString(), Status };
+    }
+
+    public void CloseMedicalPrescription() // usar na saida
     {
         Status = "Fechada";
     }

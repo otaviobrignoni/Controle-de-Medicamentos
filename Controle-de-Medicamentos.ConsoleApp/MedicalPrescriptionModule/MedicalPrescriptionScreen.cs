@@ -112,18 +112,8 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
         return false;
     }
 
-    protected override void ShowTableHeader()
+    public override string[] GetHeaders()
     {
-        Console.WriteLine("");
-    }
-
-    protected override void ShowTableRow(MedicalPrescription entity)
-    {
-        Console.WriteLine("");
-    }
-
-    protected override void ShowEndOfTable()
-    {
-        Console.WriteLine("");
+        return new string[] { "Id", "CRM do Médico", "Data", "Qtd. Medicamentos", "Status" };
     }
 }

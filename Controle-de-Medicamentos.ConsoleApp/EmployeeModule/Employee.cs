@@ -2,7 +2,7 @@
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
-public class Employee : BaseEntity<Employee>
+public class Employee : BaseEntity<Employee>, ITableConvertible
 {
     public string Name { get; set; }
     public string PhoneNumber { get; set; }
@@ -42,6 +42,11 @@ public class Employee : BaseEntity<Employee>
             errors += "CPF Inválido! Deve ter exatamente 11 números\n";
 
         return errors;
+    }
+
+    public string[] ToLineStrings()
+    {
+        return new string[] { Id.ToString(), Name, PhoneNumber, CPF };
     }
 
     public bool IsSameCPF(Employee employee)

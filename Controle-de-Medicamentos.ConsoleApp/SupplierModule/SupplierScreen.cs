@@ -6,7 +6,7 @@ namespace Controle_de_Medicamentos.ConsoleApp.SupplierModule
 {
     public class SupplierScreen : BaseScreen<Supplier>, ICrudScreen
     {
-        public SupplierScreen(ISupplierRepository repository) : base(repository, "Fornecedor") {}
+        public SupplierScreen(ISupplierRepository repository) : base(repository, "Fornecedor") { }
 
 
         public override void ShowMenu()
@@ -51,22 +51,9 @@ namespace Controle_de_Medicamentos.ConsoleApp.SupplierModule
             return new Supplier(name, phone, cnpj);
         }
 
-        protected override void ShowTableHeader()
+        public override string[] GetHeaders()
         {
-            Console.WriteLine("┌────┬──────────────────────┬─────────────────┬─────────────────┐");
-            Console.WriteLine("│ {0, -2} │ {1, -20} │ {2, -15} │ {3, -15} │",
-                               "Id", "Nome", "Telefone", "CNPJ");
-            Console.WriteLine("├────┼──────────────────────┼─────────────────┼─────────────────┤");
-        }
-
-        protected override void ShowTableRow(Supplier entity)
-        {
-            Console.WriteLine("│ {0, -2} │ {1, -20} │ {2, -15} │ {3, -15} │", 
-                entity.Id, entity.Name, entity.PhoneNumber, entity.CNPJ);
-        }
-        protected override void ShowEndOfTable()
-        {
-            Console.WriteLine("└────┴──────────────────────┴─────────────────┴─────────────────┘");
+            return new[] { "Id", "Nome", "Telefone", "CNPJ" };
         }
     }
 }

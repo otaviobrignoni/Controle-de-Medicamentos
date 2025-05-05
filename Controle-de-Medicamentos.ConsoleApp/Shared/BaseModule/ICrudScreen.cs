@@ -7,4 +7,5 @@ public interface ICrudScreen
     protected abstract void Edit();
     protected abstract void Remove();
     protected abstract void ShowAll(bool showExit, bool useClear = false);
+    protected abstract string[] GetHeaders();
 }

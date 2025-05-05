@@ -72,33 +72,25 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
         return new Medication(name, description, quantity, supplier);
     }
 
-    protected override void ShowTableHeader()
+    public override string[] GetHeaders()
     {
-        Console.WriteLine("┌────┬──────────────────────┬────────────────────────────────┬────────────┬───────────────────────────┬───────────────────┐");
-        Console.WriteLine("│ {0, -2} │ {1, -20} │ {2, -30} │ {3, -10} │ {4, -25} │ {5, -14} │",
-                           "Id", "Nome", "Descrição", "Quantidade", "Fornecedor", "Status de Estoque" );
-        Console.WriteLine("├────┼──────────────────────┼────────────────────────────────┼────────────┼───────────────────────────┼───────────────────┤");
+        return new[] { "Id", "Nome", "Descrição", "Quantidade", "Fornecedor", "Status de Estoque" };
     }
 
-    protected override void ShowTableRow(Medication entity)
-    {
-        Console.Write("│ {0, -2} │ {1, -20} │ {2, -30} │ {3, -10} │ {4, -25} │ ",
-              entity.Id, entity.Name, entity.Description, entity.Quantity, entity.Supplier.Name);
+    //protected override void PrintRow(Medication entity)
+    //{
+    //    Console.Write("│ {0, -2} │ {1, -20} │ {2, -30} │ {3, -10} │ {4, -25} │ ",
+    //          entity.Id, entity.Name, entity.Description, entity.Quantity, entity.Supplier.Name);
 
-        if (entity.IsLowStock())
-        {
-            Write.InColor("Em Falta".PadRight(18), ConsoleColor.Red, true);
-        }
-        else
-        {
-            Write.InColor("Ok".PadRight(18), ConsoleColor.Green, true);
-        }
+    //    if (entity.IsLowStock())
+    //    {
+    //        Write.InColor("Em Falta".PadRight(18), ConsoleColor.Red, true);
+    //    }
+    //    else
+    //    {
+    //        Write.InColor("Ok".PadRight(18), ConsoleColor.Green, true);
+    //    }
 
-        Console.WriteLine("│");
-    }
-
-    protected override void ShowEndOfTable()
-    {
-        Console.WriteLine("└────┴──────────────────────┴────────────────────────────────┴────────────┴───────────────────────────┴───────────────────┘");
-    }
+    //    Console.WriteLine("│");
+    //}
 }
