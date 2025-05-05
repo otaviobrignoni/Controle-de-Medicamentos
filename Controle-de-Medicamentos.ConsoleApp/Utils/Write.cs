@@ -55,7 +55,7 @@ public static class Write
     public static void ShowTryAgain()
     {
         Console.WriteLine();
-        InColor(">> Pressione [Enter] para tentar novamente.", ConsoleColor.Red, true);
+        InColor(">> Pressione [Enter] para tentar novamente.", ConsoleColor.Yellow, true);
         Console.ReadKey();
     }
 

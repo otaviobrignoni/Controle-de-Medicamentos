@@ -202,7 +202,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         Console.WriteLine();
     }
 
-    protected void PrintRow(string[] row, int[] widths)
+    public virtual void PrintRow(string[] row, int[] widths)
     {
         Console.Write("│");
         for (int i = 0; i < row.Length; i++)
