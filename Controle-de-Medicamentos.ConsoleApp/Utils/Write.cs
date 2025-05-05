@@ -22,8 +22,9 @@ public static class Write
             Console.WriteLine(message);
         Console.ResetColor();
     }
+
     /// <summary>
-    /// Exibe uma mensagem no console instruindo o usuário a pressionar Enter para continuar, e aguarda a entrada do usuário.
+    /// Exibe uma mensagem instruindo o usuário a pressionar Enter para continuar, e aguarda a entrada do usuário.
     /// </summary>
     public static void ShowExitMessage()
     {
@@ -45,6 +46,12 @@ public static class Write
         Console.ReadKey();
     }
 
+    /// <summary>
+    /// Exibe uma mensagem instruindo o usuário a pressionar Enter para tentar novamente, e aguarda a entrada do usuário.
+    /// </summary>
+    /// <remarks>
+    /// A mensagem é exibida em vermelho para destacar o erro, seguida de uma pausa com <see cref="Console.ReadKey"/> antes de retornar ao fluxo do sistema.
+    /// </remarks>
     public static void ShowTryAgainMessage()
     {
         Console.WriteLine();
@@ -72,7 +79,7 @@ public static class Write
     /// </summary>
     /// <param name="title">Texto a ser exibido como título no cabeçalho.</param>
     /// <param name="customWidth">Largura total do cabeçalho, usada para formatar as bordas e centralizar o texto.</param>
-    public static void Header(string title, int customWidth) 
+    public static void Header(string title, int customWidth)
     {
         int padding = (customWidth - title.Length) / 2;
         Console.WriteLine("┌" + new string('─', customWidth) + "┐");

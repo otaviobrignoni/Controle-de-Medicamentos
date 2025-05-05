@@ -5,7 +5,6 @@ using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 using Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
 using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 using Controle_de_Medicamentos.ConsoleApp.PatientModule;
-using Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionsModule;
 using Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp;
