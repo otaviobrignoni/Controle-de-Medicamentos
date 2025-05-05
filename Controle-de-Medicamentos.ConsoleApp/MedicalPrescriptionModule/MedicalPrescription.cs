@@ -9,8 +9,9 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>
     public string DoctorCRM { get; set; }
     public DateTime Date { get; set; }
     public List<PrescriptionMedication> Medications { get; set; }
+    public string Status { get; set; } = "Aberta";
 
-    public MedicalPrescription() {}
+    public MedicalPrescription() { }
 
     public MedicalPrescription(string doctorCRM, DateTime date, List<PrescriptionMedication> medications)
     {
@@ -47,14 +48,32 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>
 
     /// <summary>
     /// Verifica se a prescrição médica é válida conforme as regras de negócio definidas.
-    /// Atualmente considera válida se tiver sido emitida há no máximo 30 dias,
-    /// mas o método pode ser expandido para incluir outras validações.
     /// </summary>
     /// <returns>
-    /// Retorna <c>true</c> se a prescrição atender aos critérios de validade; caso contrário, <c>false</c>.
+    /// Retorna <c>true</c> se a prescrição atender aos critérios; caso contrário, <c>false</c>.
     /// </returns>
-    public bool IsMedicalPrescriptionValid()
+    public bool IsMedicalPrescriptionValid() // usar na saida
+    {
+        // pergutar se mantenho as 2 regras
+        if (IsMedicalPrescriptionClosed())
+            return false;
+        if (IsMedicalPrescriptionExpired())
+            return true;
+        return false;
+    }
+
+    private bool IsMedicalPrescriptionExpired()
     {
         return (DateTime.Now - Date).TotalDays <= 30;
+    }
+
+    public bool IsMedicalPrescriptionClosed()
+    {
+        return Status == "Fechada";
+    }
+
+    public void CloseMedicalPrescription() // usar na saida
+    {
+        Status = "Fechada";
     }
 }

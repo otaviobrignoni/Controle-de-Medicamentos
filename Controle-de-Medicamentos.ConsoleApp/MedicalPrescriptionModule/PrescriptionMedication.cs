@@ -44,9 +44,6 @@ public class PrescriptionMedication : BaseEntity<PrescriptionMedication>
         if (Quantity <= 0)
             errors += "A 'quantidade' de comprimidos deve ser maior que zero\n";
 
-        if (Quantity < 20)
-            errors += $"A 'quantidade' não pode ser menor que o disponível do medicamento [{Medication.Quantity}] (inferior a 20un não é permitido retirada)\n";
-
         if (string.IsNullOrEmpty(Period))
             errors += "O Campo 'Período' é obrigatório\n";
 
@@ -63,7 +60,7 @@ public class PrescriptionMedication : BaseEntity<PrescriptionMedication>
     /// <returns>
     /// Retorna uma ou mais mensagens de alerta caso algum limite seja ultrapassado; caso contrário, retorna uma string vazia.
     /// </returns>
-    public string ExceededLimits() 
+    public string ExceededLimits() // Otavio usar no de Saida como validar // perguntar novamente qual regras é pra ter
     {
         string alert = "";
         int pillLimit = 30;

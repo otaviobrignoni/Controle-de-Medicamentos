@@ -92,9 +92,6 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
                 if (!IsAPresciptionMedicationValid(prescriptionMedication))
                     continue;
 
-                string alert = prescriptionMedication.ExceededLimits();
-                Write.InColor(alert, ConsoleColor.DarkYellow);
-
                 medications.Add(prescriptionMedication);
                 Write.InColor($">> Medicamento n°{i + 1} adicionado com sucesso!", ConsoleColor.Green);
                 Write.ShowExitMessage();
