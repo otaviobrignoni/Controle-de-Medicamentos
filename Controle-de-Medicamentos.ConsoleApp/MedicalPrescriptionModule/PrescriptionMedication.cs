@@ -6,10 +6,10 @@ namespace Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
 
 public class PrescriptionMedication : BaseEntity<PrescriptionMedication>
 {
-    Medication Medication { get; set; }
-    string Dosage { get; set; }
-    int Quantity { get; set; }
-    string Period { get; set; }
+    public Medication Medication { get; set; }
+    public string Dosage { get; set; }
+    public int Quantity { get; set; }
+    public string Period { get; set; }
 
     public PrescriptionMedication() { }
 

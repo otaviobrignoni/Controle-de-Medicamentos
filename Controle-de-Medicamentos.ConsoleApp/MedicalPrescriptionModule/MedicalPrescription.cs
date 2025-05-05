@@ -1,8 +1,7 @@
 ﻿using System.Text.RegularExpressions;
-using Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
-namespace Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionsModule;
+namespace Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
 
 public class MedicalPrescription : BaseEntity<MedicalPrescription>
 {

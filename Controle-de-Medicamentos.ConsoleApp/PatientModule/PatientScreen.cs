@@ -4,7 +4,7 @@ using Controle_de_Medicamentos.ConsoleApp.Utils;
 
 namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
 {
-    class PatientScreen : BaseScreen<Patient>, ICrudScreen
+    public class PatientScreen : BaseScreen<Patient>, ICrudScreen
     {
         public PatientScreen(IPatientRepository repository) : base(repository, "Paciente") {}
 
