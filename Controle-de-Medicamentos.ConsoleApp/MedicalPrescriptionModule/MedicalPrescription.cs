@@ -5,16 +5,12 @@ namespace Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
 
 public class MedicalPrescription : BaseEntity<MedicalPrescription>
 {
-    //Campos obrigatórios
-    //○ CRM do médico(6 dígitos)
-    //○ Data(válida)
-    //○ Lista de medicamentos(com dosagem e período) // perguntar quantos medicamentos vai adicionar 
-
     public string DoctorCRM { get; set; }
     public DateTime Date { get; set; }
     public List<PrescriptionMedication> Medications { get; set; }
+    public string Status { get; set; } = "Aberta";
 
-    public MedicalPrescription() {}
+    public MedicalPrescription() { }
 
     public MedicalPrescription(string doctorCRM, DateTime date, List<PrescriptionMedication> medications)
     {
@@ -38,27 +34,45 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>
             errors += "O Campo 'CRM do médico' é obrigatório\n";
 
         if (!Regex.IsMatch(DoctorCRM, @"^\d{6}$"))
-            errors += "O CRM do médico deve conter 6 dígitos\n";
+            errors += "O 'CRM do médico' deve conter 6 dígitos\n";
 
         if (Date <= DateTime.Now)
-            errors += "A data da receita deve ser uma data futura\n";
+            errors += "A 'data' da receita deve ser uma data futura\n";
 
         if (Medications == null || Medications.Count == 0)
-            errors += "A receita deve conter pelo menos um medicamento\n";
+            errors += "A receita deve conter pelo menos um 'medicamento'\n";
 
         return errors;
     }
 
     /// <summary>
     /// Verifica se a prescrição médica é válida conforme as regras de negócio definidas.
-    /// Atualmente considera válida se tiver sido emitida há no máximo 30 dias,
-    /// mas o método pode ser expandido para incluir outras validações.
     /// </summary>
     /// <returns>
-    /// Retorna <c>true</c> se a prescrição atender aos critérios de validade; caso contrário, <c>false</c>.
+    /// Retorna <c>true</c> se a prescrição atender aos critérios; caso contrário, <c>false</c>.
     /// </returns>
-    public bool IsValid()
+    public bool IsMedicalPrescriptionValid() // usar na saida
+    {
+        // pergutar se mantenho as 2 regras
+        if (IsMedicalPrescriptionClosed())
+            return false;
+        if (IsMedicalPrescriptionExpired())
+            return true;
+        return false;
+    }
+
+    private bool IsMedicalPrescriptionExpired()
     {
         return (DateTime.Now - Date).TotalDays <= 30;
+    }
+
+    public bool IsMedicalPrescriptionClosed()
+    {
+        return Status == "Fechada";
+    }
+
+    public void CloseMedicalPrescription() // usar na saida
+    {
+        Status = "Fechada";
     }
 }

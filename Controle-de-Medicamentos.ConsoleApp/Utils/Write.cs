@@ -28,7 +28,7 @@ public static class Write
     public static void ShowExitMessage()
     {
         Console.WriteLine();
-        InColor(">> Pessione Enter para continuar.", ConsoleColor.DarkYellow, true);
+        InColor(">> Pressione [Enter] para continuar.", ConsoleColor.DarkYellow, true);
         Console.ReadKey();
     }
 
@@ -41,7 +41,14 @@ public static class Write
     public static void ShowInvalidOptionMessage()
     {
         Console.WriteLine();
-        InColor(">> (X) Opção inválida, pessione Enter para tentar novamente.", ConsoleColor.Red, true);
+        InColor(">> (X) Opção inválida, pressione [Enter] para tentar novamente.", ConsoleColor.Red, true);
+        Console.ReadKey();
+    }
+
+    public static void ShowTryAgainMessage()
+    {
+        Console.WriteLine();
+        InColor(">> Pressione [Enter] para tentar novamente.", ConsoleColor.Red, true);
         Console.ReadKey();
     }
 

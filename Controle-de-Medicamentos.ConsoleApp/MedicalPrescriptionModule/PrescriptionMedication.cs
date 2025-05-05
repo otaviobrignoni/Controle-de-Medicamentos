@@ -39,19 +39,16 @@ public class PrescriptionMedication : BaseEntity<PrescriptionMedication>
             errors += "O Campo 'Dosagem' é obrigatório\n";
 
         if (!Regex.IsMatch(Dosage, @"^(?!0+(,0+)?$)\d+(,\d+)?$"))
-            errors += "A Dosagem deve ser um número inteiro maior que zero\n";
+            errors += "A 'Dosagem' deve ser um número inteiro maior que zero\n";
 
         if (Quantity <= 0)
-            errors += "A quantidade de comprimidos deve ser maior que zero\n";
-
-        if (Quantity > Medication.Quantity)
-            errors += $"A quantidade de comprimidos não pode ser maior que a quantidade disponível do medicamento ({Medication.Quantity})\n";
+            errors += "A 'quantidade' de comprimidos deve ser maior que zero\n";
 
         if (string.IsNullOrEmpty(Period))
             errors += "O Campo 'Período' é obrigatório\n";
 
         if (!Regex.IsMatch(Period, @"^\s*(\d+(?:[.,]\d+)?)(\s+.+)$"))
-            errors += "O Período deve conter um número seguido de uma unidade de medida (ex: 2 vezes ao dia ou 1 vez por semana)\n";
+            errors += "O 'Período' deve conter um número seguido de uma unidade de medida (ex: 2 vezes ao dia ou 1 vez por semana)\n";
 
         return errors;
     }
@@ -63,12 +60,12 @@ public class PrescriptionMedication : BaseEntity<PrescriptionMedication>
     /// <returns>
     /// Retorna uma ou mais mensagens de alerta caso algum limite seja ultrapassado; caso contrário, retorna uma string vazia.
     /// </returns>
-    public string ExceededLimits() 
+    public string ExceededLimits() // Otavio usar no de Saida como validar // perguntar novamente qual regras é pra ter
     {
         string alert = "";
         int pillLimit = 30;
         if (Quantity > pillLimit)
-            alert += $" !!Alerta!! A quantidade de comprimidos ultrapassa o limite regulamentado de {pillLimit}\n";
+            alert += $" !!! Alerta !!! A quantidade de comprimidos ultrapassa o limite regulamentado de ({pillLimit}) !!!\n";
         return alert;
     }
 }

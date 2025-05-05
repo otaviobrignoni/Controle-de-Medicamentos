@@ -67,7 +67,7 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
         SupplierScreen.ShowAll(false);
         Write.InColor("> Digite o ID do fornecedor do medicamento: ", ConsoleColor.Yellow, true);
         int idSuplier = Validator.GetValidInt();
-        Supplier? supplier = SupplierScreen.FindRegister(idSuplier) ? supplierRepository.GetById(idSuplier) : null;   
+        Supplier? supplier = supplierRepository.GetById(idSuplier);  
 
         return new Medication(name, description, quantity, supplier);
     }

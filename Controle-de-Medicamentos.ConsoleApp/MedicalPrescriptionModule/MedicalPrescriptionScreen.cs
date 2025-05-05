@@ -25,7 +25,7 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
             Write.Header("Gerenciamento de Prescrições Médicas");
             Console.WriteLine();
             Write.InColor(" [1] - Cadastrar Prescrição Médica", ConsoleColor.Cyan);
-            Write.InColor(" [2] - Grar relatórios de Prescrições Médicas", ConsoleColor.Cyan);
+            Write.InColor(" [2] - Gerar relatórios de Prescrições Médicas", ConsoleColor.Cyan);
             Write.InColor(" [3] - Sair", ConsoleColor.Cyan);
             Console.WriteLine();
             Write.InColor(">> Digite a opção desejada: ", ConsoleColor.Yellow, true);
@@ -56,18 +56,18 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
 
         Write.InColor("> Digite a data da prescrição (dd/MM/yyyy): ", ConsoleColor.Yellow, true);
         DateTime date = Validator.GetValidDate();
+      
+        Write.InColor("> Digite a quantidade de medicamentos na prescrição: ", ConsoleColor.Yellow, true);
+        int quantity = Validator.GetValidInt();
 
-        List<PrescriptionMedication> medications = NewPrescriptionMedication();
+        List<PrescriptionMedication> medications = NewPrescriptionMedication(quantity);
 
         return new MedicalPrescription(doctorCRM, date, medications);
     }
 
-    private List<PrescriptionMedication> NewPrescriptionMedication()
+    private List<PrescriptionMedication> NewPrescriptionMedication(int quantity )
     {
-        List<PrescriptionMedication> medications = new List<PrescriptionMedication>();
-        Write.InColor("> Digite a quantidade de medicamentos na prescrição: ", ConsoleColor.Yellow, true);
-        int quantity = Validator.GetValidInt();
-
+        var medications = new List<PrescriptionMedication>();
         for (int i = 0; i < quantity; i++)
         {
             while (true)
@@ -75,7 +75,7 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
                 medicationScreen.ShowAll(false,true);
                 Write.InColor($"> Digite o id do medicamento {i + 1}: ", ConsoleColor.Yellow, true);
                 int medicationId = Validator.GetValidInt();
-                Medication? medication = medicationScreen.FindRegister(medicationId) ? medicationRepository.GetById(medicationId) : null;
+                Medication? medication = medicationRepository.GetById(medicationId);
 
                 Write.InColor($"> Digite a dosagem do medicamento {i + 1}: ", ConsoleColor.Yellow, true);
                 string dosage = Console.ReadLine()!.Trim().ToTitleCase();
@@ -89,18 +89,11 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
                 PrescriptionMedication prescriptionMedication = new PrescriptionMedication(medication, dosage, medicationQuantity, period);
                 
                 if (!IsAPresciptionMedicationValid(prescriptionMedication))
-                {
-                    Write.InColor(">> Medicamento inválido, Pressione Enter para tentar novamente!", ConsoleColor.Red, true);
-                    Console.ReadKey();
                     continue;
-                }
-                string alert = prescriptionMedication.ExceededLimits();
-                Console.WriteLine(alert);
 
                 medications.Add(prescriptionMedication);
-                Write.InColor($">> Medicamento {i + 1} adicionado com sucesso!", ConsoleColor.Green);
-                Write.InColor(">> Pressione Enter para continuar!", ConsoleColor.DarkYellow, true);
-                Console.ReadKey();
+                Write.InColor($">> Medicamento n°{i + 1} adicionado com sucesso!", ConsoleColor.Green);
+                Write.ShowExitMessage();
                 break;
             }
         }
@@ -112,7 +105,9 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
         string errors = prescription.Validate();
         if (string.IsNullOrEmpty(errors))
             return true;
+        Write.InColor($">> (×) Erro ao cadastrar o Medicamento!", ConsoleColor.Red);
         Write.InColor(errors, ConsoleColor.Red);
+        Write.ShowTryAgainMessage();
         return false;
     }
 
