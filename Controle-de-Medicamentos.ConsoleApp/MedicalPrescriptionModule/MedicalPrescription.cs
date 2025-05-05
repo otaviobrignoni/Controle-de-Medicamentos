@@ -44,6 +44,10 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>
 
         return errors;
     }
+    public void CloseMedicalPrescription() // usar na saida
+    {
+        Status = "Fechada";
+    }
 
     /// <summary>
     /// Verifica se a prescrição médica é válida conforme as regras de negócio definidas.
@@ -53,12 +57,9 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>
     /// </returns>
     public bool IsMedicalPrescriptionValid() // usar na saida
     {
-        // pergutar se mantenho as 2 regras
-        if (IsMedicalPrescriptionClosed())
+        if (IsMedicalPrescriptionClosed() && IsMedicalPrescriptionExpired())
             return false;
-        if (IsMedicalPrescriptionExpired())
-            return true;
-        return false;
+        return true;
     }
 
     private bool IsMedicalPrescriptionExpired()
@@ -66,13 +67,8 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>
         return (DateTime.Now - Date).TotalDays <= 30;
     }
 
-    public bool IsMedicalPrescriptionClosed()
+    private bool IsMedicalPrescriptionClosed()
     {
         return Status == "Fechada";
-    }
-
-    public void CloseMedicalPrescription() // usar na saida
-    {
-        Status = "Fechada";
     }
 }
