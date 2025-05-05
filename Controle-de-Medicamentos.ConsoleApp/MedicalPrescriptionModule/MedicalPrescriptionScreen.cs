@@ -121,4 +121,9 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
     {
         Console.WriteLine("");
     }
+
+    protected override void ShowEndOfTable()
+    {
+        Console.WriteLine("");
+    }
 }

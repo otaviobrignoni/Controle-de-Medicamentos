@@ -70,4 +70,9 @@ public class InRequestScreen : BaseScreen<InRequest>, ICrudScreen
     {
         Console.WriteLine("");
     }
+
+    protected override void ShowEndOfTable()
+    {
+        Console.WriteLine("");
+    }
 }

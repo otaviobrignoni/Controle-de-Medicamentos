@@ -52,11 +52,20 @@ public class EmployeeScreen : BaseScreen<Employee>, ICrudScreen
 
     protected override void ShowTableHeader()
     {
-        Console.WriteLine("");
+        Console.WriteLine("┌────┬──────────────────────┬─────────────────┬─────────────────┐");
+        Console.WriteLine("│ {0, -2} │ {1, -20} │ {2, -15} │ {3, -15} │",
+                           "Id", "Nome", "Telefone", "CPF");
+        Console.WriteLine("├────┼──────────────────────┼─────────────────┼─────────────────┤");
     }
 
     protected override void ShowTableRow(Employee entity)
     {
-        Console.WriteLine("");
+        Console.WriteLine("│ {0, -2} │ {1, -20} │ {2, -15} │ {3, -15} │",
+     entity.Id, entity.Name, entity.PhoneNumber, entity.CPF);
+    }
+
+    protected override void ShowEndOfTable()
+    {
+        Console.WriteLine("└────┴──────────────────────┴─────────────────┴─────────────────┘");
     }
 }
