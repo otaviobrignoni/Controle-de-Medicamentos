@@ -5,7 +5,7 @@ using Controle_de_Medicamentos.ConsoleApp.Utils;
 namespace Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 public class EmployeeScreen : BaseScreen<Employee>, ICrudScreen
 {
-    public EmployeeScreen(IEmployeeRepository employeeRepository) : base (employeeRepository, "Funcionário")
+    public EmployeeScreen(IEmployeeRepository employeeRepository) : base(employeeRepository, "Funcionário")
     {
         Repository = employeeRepository;
     }
@@ -31,7 +31,7 @@ public class EmployeeScreen : BaseScreen<Employee>, ICrudScreen
                 case "1": Add(); break;
                 case "2": Edit(); break;
                 case "3": Remove(); break;
-                case "4": ShowAll(true,true); break;
+                case "4": ShowAll(true, true); break;
                 case "5": return;
                 default: Write.ShowInvalidOption(); break;
             }
@@ -46,26 +46,12 @@ public class EmployeeScreen : BaseScreen<Employee>, ICrudScreen
         string phoneNumber = Console.ReadLine().Trim().ToTitleCase();
         Write.InColor("> Digite o CPF do funcionário: ", ConsoleColor.Yellow, true);
         string CPF = Console.ReadLine().Trim().ToTitleCase();
-        
+
         return new Employee(name, phoneNumber, CPF);
     }
 
-    protected override void ShowTableHeader()
+    public override string[] GetHeaders()
     {
-        Console.WriteLine("┌────┬──────────────────────┬─────────────────┬─────────────────┐");
-        Console.WriteLine("│ {0, -2} │ {1, -20} │ {2, -15} │ {3, -15} │",
-                           "Id", "Nome", "Telefone", "CPF");
-        Console.WriteLine("├────┼──────────────────────┼─────────────────┼─────────────────┤");
-    }
-
-    protected override void ShowTableRow(Employee entity)
-    {
-        Console.WriteLine("│ {0, -2} │ {1, -20} │ {2, -15} │ {3, -15} │",
-     entity.Id, entity.Name, entity.PhoneNumber, entity.CPF);
-    }
-
-    protected override void ShowEndOfTable()
-    {
-        Console.WriteLine("└────┴──────────────────────┴─────────────────┴─────────────────┘");
+        return new[] { "Id", "Nome", "Telefone", "CPF" };
     }
 }

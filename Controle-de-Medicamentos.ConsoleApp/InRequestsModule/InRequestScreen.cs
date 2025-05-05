@@ -61,18 +61,8 @@ public class InRequestScreen : BaseScreen<InRequest>, ICrudScreen
         return new InRequest(date, medication, employee, quantity);
     }
 
-    protected override void ShowTableHeader()
+    public override string[] GetHeaders()
     {
-        Console.WriteLine("");
-    }
-
-    protected override void ShowTableRow(InRequest entity)
-    {
-        Console.WriteLine("");
-    }
-
-    protected override void ShowEndOfTable()
-    {
-        Console.WriteLine("");
+        return new string[] { "Id", "Data", "Medicamento", "Funcionário", "Quantidade" };
     }
 }

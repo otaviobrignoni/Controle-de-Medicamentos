@@ -2,7 +2,7 @@
 using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 namespace Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 
-public class Medication : BaseEntity<Medication>
+public class Medication : BaseEntity<Medication>, ITableConvertible
 {
     public string Name {get; set; }
     public string Description { get; set; }
@@ -52,6 +52,11 @@ public class Medication : BaseEntity<Medication>
         return erros;
     }
 
+    public string[] ToLineStrings()
+    {
+        return new string[] { Id.ToString(), Name, Description, Quantity.ToString(), Supplier.Name, IsStockLow() ? "Em Falta" : "Ok" };
+    }
+
     /// <summary>
     /// Atualiza a quantidade em estoque do medicamento, somando o estoque atual com o valor informado.
     /// </summary>
@@ -85,7 +90,7 @@ public class Medication : BaseEntity<Medication>
     /// <remarks>
     /// Esse método sera utilizado para exibir como "EM FALTA" caso atenda ao requisito.
     /// </remarks>
-    public bool IsLowStock()
+    public bool IsStockLow()
     {
         return Quantity < 20;
     }

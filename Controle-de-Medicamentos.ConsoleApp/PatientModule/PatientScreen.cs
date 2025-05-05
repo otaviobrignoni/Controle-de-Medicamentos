@@ -49,23 +49,9 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
             return new Patient(name, phone, susCard);
         }
 
-        protected override void ShowTableHeader()
+        public override string[] GetHeaders()
         {
-            Console.WriteLine("┌────┬──────────────────────┬─────────────────┬──────────────────┐");
-            Console.WriteLine("│ {0, -2} │ {1, -20} │ {2, -15} │ {3, -16} │",
-                               "Id", "Nome", "Telefone", "Cartão SUS");
-            Console.WriteLine("├────┼──────────────────────┼─────────────────┼──────────────────┤");
-        }
-
-        protected override void ShowTableRow(Patient entity)
-        {
-            Console.WriteLine("│ {0, -2} │ {1, -20} │ {2, -15} │ {3, -16} │",
-                entity.Id, entity.Name, entity.PhoneNumber, entity.SUSCard);
-        }
-
-        protected override void ShowEndOfTable()
-        {
-            Console.WriteLine("└────┴──────────────────────┴─────────────────┴──────────────────┘");
+            return new[] { "Id", "Nome", "Telefone", "Cartão SUS" };
         }
     }
 }

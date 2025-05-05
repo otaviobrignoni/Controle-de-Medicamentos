@@ -3,7 +3,7 @@ using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
-public class InRequest : BaseEntity<InRequest>
+public class InRequest : BaseEntity<InRequest>, ITableConvertible
 {
     public DateTime Date { get; set; }
     public Medication Medication { get; set; }
@@ -39,5 +39,11 @@ public class InRequest : BaseEntity<InRequest>
         if (Quantity <= 0)
             errors += "A quantidade deve ser maior que zero";
         return errors;
+    }
+
+    public string[] ToLineStrings()
+    {
+
+        return new string[] { Id.ToString(), Date.ToString("dd/MM/yyyy"), Medication.Name, Employee.Name, Quantity.ToString() };
     }
 }

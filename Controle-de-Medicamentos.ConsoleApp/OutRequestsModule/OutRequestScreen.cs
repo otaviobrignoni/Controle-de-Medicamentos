@@ -59,13 +59,8 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
         return new OutRequest(date, patient, medicalPrescription);
     }
 
-    protected override void ShowTableHeader()
+    public override string[] GetHeaders()
     {
-        Console.WriteLine("");
-    }
-
-    protected override void ShowTableRow(OutRequest entity)
-    {
-        Console.WriteLine("");
+        return new string[] { "Id", "Data", "Paciente", "ID Prescrição" };
     }
 }
