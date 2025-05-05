@@ -33,19 +33,19 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
                 erros += "O Campo 'Nome' é obrigatório\n";
 
             if (Name.Length < 3 || Name.Length > 100)
-                erros += "Nome inválido! Deve ter entre 3 e 100 caracteres.\n";
+                erros += "'Nome' inválido! Deve ter entre 3 e 100 caracteres.\n";
 
             if (string.IsNullOrEmpty(PhoneNumber))
                 erros += "O Campo 'Telefone' é obrigatório\n";
 
             if (!Regex.IsMatch(PhoneNumber, @"^\(\d{2}\) \d{4,5}-\d{4}$"))
-                erros += "O Telefone deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX\n";
+                erros += "O 'Telefone' deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX\n";
 
             if (string.IsNullOrEmpty(SUSCard))
                 erros += "O Campo 'Cartão do SUS' é obrigatório\n";
 
             if (SUSCard.Length != 15)
-                erros += "O Cartão do SUS deve ter 15 dígitos\n";
+                erros += "O 'Cartão do SUS' deve ter 15 dígitos\n";
 
             return erros;
         }

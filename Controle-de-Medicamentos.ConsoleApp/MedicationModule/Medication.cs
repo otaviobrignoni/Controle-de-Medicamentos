@@ -35,16 +35,16 @@ public class Medication : BaseEntity<Medication>
             erros += "O Campo 'Nome' é obrigatório\n";
 
         if (Name.Length < 3 || Name.Length > 100)
-            erros += "Nome inválido! Deve ter entre 3 e 100 caracteres.\n";
+            erros += "'Nome' inválido! Deve ter entre 3 e 100 caracteres.\n";
 
         if (string.IsNullOrEmpty(Description))
             erros += "O Campo 'Descrição' é obrigatório\n";
 
         if (Description.Length < 5 || Description.Length > 255)
-            erros += "Descrição inválida! Deve ter entre 5 e 255 caracteres.\n";
+            erros += "'Descrição' inválida! Deve ter entre 5 e 255 caracteres.\n";
 
         if (Quantity < 0)
-            erros += "Quantidade inválida! Deve ser um número positivo.\n";
+            erros += "'Quantidade' inválida! Deve ser um número positivo.\n";
 
         if (Supplier == null)
             erros += "O Campo 'Fornecedor' é obrigatório\n";

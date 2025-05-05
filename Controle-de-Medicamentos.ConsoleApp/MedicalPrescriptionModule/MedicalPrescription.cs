@@ -6,11 +6,6 @@ namespace Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionsModule;
 
 public class MedicalPrescription : BaseEntity<MedicalPrescription>
 {
-    //Campos obrigatórios
-    //○ CRM do médico(6 dígitos)
-    //○ Data(válida)
-    //○ Lista de medicamentos(com dosagem e período) // perguntar quantos medicamentos vai adicionar 
-
     public string DoctorCRM { get; set; }
     public DateTime Date { get; set; }
     public List<PrescriptionMedication> Medications { get; set; }
@@ -39,13 +34,13 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>
             errors += "O Campo 'CRM do médico' é obrigatório\n";
 
         if (!Regex.IsMatch(DoctorCRM, @"^\d{6}$"))
-            errors += "O CRM do médico deve conter 6 dígitos\n";
+            errors += "O 'CRM do médico' deve conter 6 dígitos\n";
 
         if (Date <= DateTime.Now)
-            errors += "A data da receita deve ser uma data futura\n";
+            errors += "A 'data' da receita deve ser uma data futura\n";
 
         if (Medications == null || Medications.Count == 0)
-            errors += "A receita deve conter pelo menos um medicamento\n";
+            errors += "A receita deve conter pelo menos um 'medicamento'\n";
 
         return errors;
     }
@@ -58,7 +53,7 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>
     /// <returns>
     /// Retorna <c>true</c> se a prescrição atender aos critérios de validade; caso contrário, <c>false</c>.
     /// </returns>
-    public bool IsValid()
+    public bool IsMedicalPrescriptionValid()
     {
         return (DateTime.Now - Date).TotalDays <= 30;
     }

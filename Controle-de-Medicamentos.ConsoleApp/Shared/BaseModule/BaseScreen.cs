@@ -202,10 +202,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     public bool FindRegister(int id)
     {
         if (Repository.GetById(id) == null)
-        {
-            Write.InColor($">> (×) {EntityName} não encontrado!", ConsoleColor.Red);
             return false;
-        }
         return true;
     }
 
