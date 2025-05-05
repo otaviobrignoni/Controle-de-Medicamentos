@@ -5,8 +5,8 @@ using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 using Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
 using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 using Controle_de_Medicamentos.ConsoleApp.PatientModule;
-using Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionsModule;
 using Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
+using Controle_de_Medicamentos.ConsoleApp.OutRequestsModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp;
 
@@ -16,7 +16,8 @@ public class MainScreen
     private DataContext context;
     private IMedicationRepository medicationRepository;
     private IEmployeeRepository employeeRepository;
-    private IInRequestRepository inRequestRepository; 
+    private IInRequestRepository inRequestRepository;
+    private IOutRequestRepository outRequestRepository;
     private ISupplierRepository suplierRepository; 
     private IPatientRepository patientRepository;
     private IMedicalPrescriptionRepository medicalPrescriptionRepository;
@@ -25,6 +26,7 @@ public class MainScreen
     private MedicationScreen medicationScreen;
     private EmployeeScreen employeeScreen;
     private InRequestScreen inRequestScreen;
+    private OutRequestScreen outRequestScreen;
     private SupplierScreen supplierScreen;
     private PatientScreen patientScreen;
     private MedicalPrescriptionScreen medicalPrescriptionScreen;
@@ -36,6 +38,7 @@ public class MainScreen
         medicationRepository = new MedicationRepository(context);
         employeeRepository = new EmployeeRepository(context);
         inRequestRepository = new InRequestRepository(context);
+        outRequestRepository = new OutRequestRepository(context);
         suplierRepository = new SupplierRepository(context);
         patientRepository = new PatientRepository(context);
         medicalPrescriptionRepository = new MedicalPrescriptionRepository(context);
@@ -46,6 +49,7 @@ public class MainScreen
         medicationScreen = new MedicationScreen(medicationRepository, supplierScreen, suplierRepository);
         inRequestScreen = new InRequestScreen(medicationScreen, employeeScreen, inRequestRepository);
         medicalPrescriptionScreen = new MedicalPrescriptionScreen(medicalPrescriptionRepository, medicationScreen, medicationRepository);
+        outRequestScreen = new OutRequestScreen(patientScreen, medicalPrescriptionScreen, outRequestRepository);
     }
 
     public void ShowMainMenu()
@@ -75,7 +79,7 @@ public class MainScreen
                 case "4": medicationScreen.ShowMenu(); break;
                 case "5": medicalPrescriptionScreen.ShowMenu(); break;
                 case "6": inRequestScreen.ShowMenu(); break;
-                case "7": return;
+                case "7": outRequestScreen.ShowMenu(); break;
                 case "8": ShowLeaveMessage(); return;
                 default: Write.ShowInvalidOptionMessage(); ShowMainMenu(); break;
             }

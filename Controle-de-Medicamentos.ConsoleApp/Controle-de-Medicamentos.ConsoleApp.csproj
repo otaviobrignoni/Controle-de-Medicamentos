@@ -9,13 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="OutRequestsModule\**" />
-    <EmbeddedResource Remove="OutRequestsModule\**" />
-    <None Remove="OutRequestsModule\**" />
+    <Compile Remove="InboundRequestsModule\**" />
+    <EmbeddedResource Remove="InboundRequestsModule\**" />
+    <None Remove="InboundRequestsModule\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="InboundRequestsModule\" />
     <Folder Include="PatientModule\" />
   </ItemGroup>
 
