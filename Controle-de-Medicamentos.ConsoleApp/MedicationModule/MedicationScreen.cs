@@ -83,7 +83,7 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
     protected override void ShowTableRow(Medication entity)
     {
         Console.Write("│ {0, -2} │ {1, -20} │ {2, -30} │ {3, -10} │ {4, -25} │ ",
-              entity.Id, entity.Name, entity.Description, entity.Quantity, entity); // arrumar fornecedor
+              entity.Id, entity.Name, entity.Description, entity.Quantity, entity.Supplier.Name);
 
         if (entity.IsLowStock())
         {
