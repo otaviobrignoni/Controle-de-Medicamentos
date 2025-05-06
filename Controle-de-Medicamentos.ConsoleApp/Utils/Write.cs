@@ -29,7 +29,7 @@ public static class Write
     public static void ShowExit()
     {
         Console.WriteLine();
-        InColor(">> Pressione [Enter] para continuar.", ConsoleColor.DarkYellow, true);
+        InColor(">> Pressione [Qualquer tecla] para continuar.", ConsoleColor.DarkYellow, true);
         Console.ReadKey();
     }
 
@@ -42,7 +42,7 @@ public static class Write
     public static void ShowInvalidOption()
     {
         Console.WriteLine();
-        InColor(">> (X) Opção inválida, pressione [Enter] para tentar novamente.", ConsoleColor.Red, true);
+        InColor(">> (X) Opção inválida, pressione [Qualquer tecla] para tentar novamente.", ConsoleColor.Red, true);
         Console.ReadKey();
     }
 
@@ -55,7 +55,7 @@ public static class Write
     public static void ShowTryAgain()
     {
         Console.WriteLine();
-        InColor(">> Pressione [Enter] para tentar novamente.", ConsoleColor.Yellow, true);
+        InColor(">> Pressione [Qualquer tecla] para tentar novamente.", ConsoleColor.Yellow);
         Console.ReadKey();
     }
 
