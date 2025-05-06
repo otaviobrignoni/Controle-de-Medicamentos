@@ -1,7 +1,11 @@
-﻿using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
+﻿using System.Globalization;
+using System.Text;
+using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 using Controle_de_Medicamentos.ConsoleApp.Shared.Extensions;
 using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 using Controle_de_Medicamentos.ConsoleApp.Utils;
+using CsvHelper.Configuration;
+using CsvHelper;
 
 namespace Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 
@@ -18,9 +22,24 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
 
     public override void ShowMenu()
     {
-        string[] options = new[]{"Cadastrar Medicamento", "Editar Medicamento", "Excluir Medicamento", "Visualizar Medicamento", "Voltar"};
+        string[] options = new[]{"Cadastrar Medicamento", "Editar Medicamento", "Excluir Medicamento", "Visualizar Medicamento", "Exportar para Arquivo" ,"Voltar"};
 
         base.ShowMenu("Gerenciamento de Medicamentos", options, ExecuteOption);
+    }
+
+    protected override bool ExecuteOption(int indexSelected)
+    {
+        switch (indexSelected)
+        {
+            case 0: Add(); break;
+            case 1: Edit(); break;
+            case 2: Remove(); break;
+            case 3: ShowAll(true, true); break;
+            case 4: ExportMedications(); break;
+            case 5: return true;
+            default: Write.ShowInvalidOption(); break;
+        }
+        return false;
     }
 
     public override void Add()
@@ -79,5 +98,57 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
             Console.Write("│");
         }
         Console.WriteLine();
+    }
+
+    public void ExportMedications()
+    {
+        string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+        string fileName = $"medicamentos_{timestamp}.csv";
+        string appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ControleDeMedicamentos");
+
+        if (!Directory.Exists(appDataFolder))
+            Directory.CreateDirectory(appDataFolder);
+
+        string filePath = Path.Combine(appDataFolder, fileName);
+
+        CsvConfiguration config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            Delimiter = ",",
+            Quote = '"',
+            Encoding = new UTF8Encoding(true),
+            ShouldQuote = args => true
+        };
+
+        StreamWriter writer = new StreamWriter(filePath, false, config.Encoding);
+        CsvWriter csv = new CsvWriter(writer, config);
+
+        csv.WriteField("Id");
+        csv.WriteField("Nome");
+        csv.WriteField("Descrição");
+        csv.WriteField("Quantidade em Estoque");
+        csv.WriteField("CNPJ do Fornecedor");
+        csv.WriteField("Nome do Fornecedor");
+        csv.WriteField("Telefone do Fornecedor");
+        csv.NextRecord();
+
+        foreach (Medication m in Repository.GetAll())
+        {
+            csv.WriteField(m.Id);
+            csv.WriteField(m.Name);
+            csv.WriteField(m.Description);
+            csv.WriteField(m.Quantity);
+            csv.WriteField(m.Supplier.CNPJ);
+            csv.WriteField(m.Supplier.Name);
+            csv.WriteField(m.Supplier.PhoneNumber);
+            csv.NextRecord();
+        }
+
+        csv.Flush();
+        writer.Close();
+
+
+        Console.Clear();
+        Write.InColor(">> (✓) Exportado arquivo com sucesso!", ConsoleColor.Green);
+        Write.ShowExit();
     }
 }
