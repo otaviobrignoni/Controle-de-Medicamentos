@@ -35,6 +35,8 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
                 Write.InColor($">> (⚠) ALERTA: a medicação {pm.Medication.Name} está entrando em falta!", ConsoleColor.DarkYellow);
         }
 
+        newEntity.MedicalPrescription.ClosePrescription();
+
         Write.InColor($">> (✓) {EntityName} registrado com sucesso!", ConsoleColor.Green);
             
         Write.ShowExit();
