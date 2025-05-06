@@ -17,7 +17,10 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
 
     public override void Add()
     {
+        
         Console.Clear();
+        if (!MedicalPrescriptionScreen.ExistRegisters())
+            return;
         Write.Header($" Registrando {EntityName}");
         OutRequest newEntity = NewEntity();
 
