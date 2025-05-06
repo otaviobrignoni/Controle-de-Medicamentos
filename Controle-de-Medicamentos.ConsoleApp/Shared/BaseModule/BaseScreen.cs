@@ -110,13 +110,14 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
             return;
 
         ShowAll(false);
-        Write.InColor($">> Digite o ID do {EntityName} que deseja editar:", ConsoleColor.Yellow, true);
+        Write.InColor($">> Digite o ID do {EntityName} que deseja editar: ", ConsoleColor.Yellow, true);
         int id = Convert.ToInt32(Console.ReadLine());
 
         if (!FindRegister(id))
             return;
 
         T entity = NewEntity();
+        entity.Id = id;
 
         if (!IsValid(entity))
             return;

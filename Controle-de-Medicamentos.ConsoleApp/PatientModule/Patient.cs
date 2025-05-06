@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
+using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
 {
@@ -20,6 +21,7 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
 
         public override void UpdateEntity(Patient entity)
         {
+            Id = entity.Id;
             Name = entity.Name;
             PhoneNumber = entity.PhoneNumber;
             SUSCard = entity.SUSCard;
@@ -66,7 +68,7 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
         /// </returns>
         public bool IsSameSUSCard(Patient patient)
         {
-            return string.Equals(SUSCard?.Trim(), patient?.SUSCard?.Trim(), StringComparison.OrdinalIgnoreCase);
+            return string.Equals(SUSCard?.Trim(), patient?.SUSCard?.Trim(), StringComparison.OrdinalIgnoreCase) && Id != patient.Id;
         }
     }
 }
