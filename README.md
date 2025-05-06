@@ -27,15 +27,16 @@
 
 O **Controle de Medicamentos** é uma aplicação de console desenvolvida em C# com .NET 8.0, focada na gestão de medicamentos e pacientes. O objetivo é permitir o controle de entrada e saída de medicamentos, vinculando-os a pacientes cadastrados, de maneira clara e persistente.
 
+
 # ✨ Funcionalidades
 
-- 💾 **Persistência via JSON** – Todos os dados do sistema são persistidos em arquivos json.
-- 👨‍⚕️ **Cadastro de Pacientes** – Inclui nome, CPF e outras informações essenciais.
-- 💊 **Cadastro de Medicamentos** – Permite adicionar medicamentos com nome, dosagem, fabricante e quantidade em estoque.
-- 📥 **Registrar Entrada de Medicamentos** – Adiciona unidades ao estoque existente.
-- 📤 **Registrar Saída de Medicamentos** – Reduz a quantidade do estoque e vincula a um paciente.
-- 📊 **Listagens Interativas** – Listagem de medicamentos com quantidade atual e histórico de movimentações.
-- 🧾 **Validações de Entrada** – Interface robusta com validações que evitam dados inválidos ou inconsistentes.
+- 💾 **Persistência via JSON** – Todos os dados são armazenados de forma local e persistente.
+- 🗂️ **Gerenciamento Completo de Registros** – Cadastro, edição, exclusão e listagem de pacientes, medicamentos, funcionários, fornecedores, requisições e prescrições médicas.
+- 📥📤 **Controle de Estoque** – Registra entradas e saídas de medicamentos com rastreamento por funcionário e paciente.
+- 🧾 **Validações de Entrada** – Campos obrigatórios, tipos e formatos verificados para garantir consistência dos dados.
+- 🎛️ **Menu Interativo com Teclado** – Navegação fluida com setas e seleção por Enter, sem necessidade de digitar números.
+- 📊 **Listagens com Destaques Visuais** – Interface colorida destaca status como “Em falta”, “Ok”, “Aberta” ou “Expirada”.
+
 
 
 ## 🧱 Estrutura do Projeto
