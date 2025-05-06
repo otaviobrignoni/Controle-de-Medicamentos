@@ -173,8 +173,6 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         if (useClear)
             Console.Clear();
 
-        Write.Header($" Listando {EntityName}s");
-
         if (!ExistRegisters())
             return;
 
@@ -202,6 +200,10 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
             widths[column] = maxLength;
         }
 
+        int fullWidth = widths.Sum() + widths.Length * 3 - 1;
+
+        Write.Header($" Listando {EntityName}", fullWidth);
+
         PrintTopBorder(widths);
         PrintRow(headers, widths);
         PrintSeparator(widths);
@@ -213,6 +215,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
 
         if (showExit)
             Write.ShowExit();
+        
     }
 
     public abstract string[] GetHeaders();

@@ -82,8 +82,8 @@ public static class Write
     public static void Header(string title, int customWidth)
     {
         int padding = (customWidth - title.Length) / 2;
-        Console.WriteLine("┌" + new string('─', customWidth) + "┐");
-        Console.WriteLine("│" + title.PadLeft(padding + title.Length).PadRight(customWidth) + "│");
-        Console.WriteLine("├" + new string('─', customWidth) + "┤");
+        InColor("┌" + new string('─', customWidth) + "┐", ConsoleColor.Blue);
+        InColor("│" + title.PadLeft(padding + title.Length).PadRight(customWidth) + "│", ConsoleColor.Blue);
+        InColor("└" + new string('─', customWidth) + "┘", ConsoleColor.Blue);
     }
 }
