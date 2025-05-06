@@ -20,7 +20,7 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
         Console.Clear();
         if (!PatientScreen.ExistRegisters())
             return;
- 
+
         if (!MedicalPrescriptionScreen.ExistRegisters())
             return;
 
@@ -29,7 +29,7 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
 
         if (!IsValid(newEntity))
             return;
-        
+
         Repository.Add(newEntity);
 
         foreach (PrescriptionMedication pm in newEntity.MedicalPrescription.Medications)
@@ -41,7 +41,7 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
         newEntity.MedicalPrescription.ClosePrescription();
 
         Write.InColor($">> (✓) {EntityName} registrado com sucesso!", ConsoleColor.Green);
-            
+
         Write.ShowExit();
     }
 
@@ -97,7 +97,7 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
             return;
         }
 
-        Write.Header($" Listando Requisições de Saida do Paciente ID {patient.Id}");
+        Write.Header($" Listando Requisições de Saida do Paciente ID {patient.Id}", 52);
 
         if (!ExistRegisters())
             return;
@@ -135,7 +135,7 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
 
         PrintBottomBorder(widths);
 
-            Write.ShowExit();
+        Write.ShowExit();
     }
 
     public override string[] GetHeaders()
