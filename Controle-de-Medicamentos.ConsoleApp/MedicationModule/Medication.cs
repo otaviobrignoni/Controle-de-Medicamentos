@@ -21,6 +21,7 @@ public class Medication : BaseEntity<Medication>, ITableConvertible
 
     public override void UpdateEntity(Medication entity)
     {
+        Id = entity.Id;
         Name = entity.Name;
         Description = entity.Description;
         Quantity = entity.Quantity;
@@ -108,6 +109,6 @@ public class Medication : BaseEntity<Medication>, ITableConvertible
     /// </remarks>
     public bool IsSameMedication(Medication other)
     {
-        return string.Equals(Name?.Trim(), other?.Name?.Trim(), StringComparison.OrdinalIgnoreCase);
+        return string.Equals(Name?.Trim(), other?.Name?.Trim(), StringComparison.OrdinalIgnoreCase) && Id != other.Id;
     }
 }

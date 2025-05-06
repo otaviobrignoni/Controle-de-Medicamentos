@@ -20,6 +20,7 @@ public class Supplier : BaseEntity<Supplier>, ITableConvertible
 
     public override void UpdateEntity(Supplier entity)
     {
+        Id = entity.Id;
         Name = entity.Name;
         PhoneNumber = entity.PhoneNumber;
         CNPJ = entity.CNPJ;
@@ -62,6 +63,6 @@ public class Supplier : BaseEntity<Supplier>, ITableConvertible
     /// <returns>Retorna true se os CNPJs forem iguais; caso contrário, false.</returns>
     public bool IsSameCNPJ(Supplier supplier)
     {
-        return string.Equals(CNPJ?.Trim(), supplier?.CNPJ?.Trim(), StringComparison.OrdinalIgnoreCase);
+        return string.Equals(CNPJ?.Trim(), supplier?.CNPJ?.Trim(), StringComparison.OrdinalIgnoreCase) && Id != supplier.Id;
     }
 }

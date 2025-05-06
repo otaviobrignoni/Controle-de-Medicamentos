@@ -19,6 +19,7 @@ public class Employee : BaseEntity<Employee>, ITableConvertible
 
     public override void UpdateEntity(Employee entity)
     {
+        Id = entity.Id;
         Name = entity.Name;
         PhoneNumber = entity.PhoneNumber;
         CPF = entity.CPF;
@@ -51,6 +52,6 @@ public class Employee : BaseEntity<Employee>, ITableConvertible
 
     public bool IsSameCPF(Employee employee)
     {
-        return string.Equals(CPF?.Trim(), employee?.CPF?.Trim(), StringComparison.OrdinalIgnoreCase);
+        return string.Equals(CPF?.Trim(), employee?.CPF?.Trim(), StringComparison.OrdinalIgnoreCase) && Id != employee.Id;
     }
 }

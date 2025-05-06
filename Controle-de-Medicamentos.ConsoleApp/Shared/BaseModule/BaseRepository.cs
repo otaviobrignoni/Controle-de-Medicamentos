@@ -30,7 +30,7 @@ public abstract class BaseRepository<T> where T : BaseEntity<T>
         entity.Id = GetNextAvailableId();
         List.Add(entity);
 
-        Context.SaveData(); //salva os dados no arquivo
+        Context.SaveData(); 
     }
 
     /// <summary>

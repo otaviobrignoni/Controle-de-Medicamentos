@@ -27,6 +27,7 @@ namespace Controle_de_Medicamentos.ConsoleApp.SupplierModule
             Write.InColor("> Digite o CNPJ do fornecedor: ", ConsoleColor.Yellow, true);
             string cnpj = Console.ReadLine()!.Trim().ToTitleCase();
 
+
             return new Supplier(name, phone, cnpj);
         }
 
