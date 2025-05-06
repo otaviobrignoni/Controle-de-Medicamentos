@@ -34,6 +34,18 @@ public class InRequestScreen : BaseScreen<InRequest>, ICrudScreen
         return false;
     }
 
+    public override void Add()
+    {
+        Console.Clear();
+        if (!MedicationScreen.ExistRegisters())
+            return;
+
+        if (!EmployeeScreen.ExistRegisters())
+            return;
+
+        base.Add();
+    }
+
     protected override InRequest NewEntity()
     {
         MedicationScreen.ShowAll(false);
