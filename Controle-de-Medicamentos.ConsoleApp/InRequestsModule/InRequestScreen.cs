@@ -36,14 +36,14 @@ public class InRequestScreen : BaseScreen<InRequest>, ICrudScreen
 
     protected override InRequest NewEntity()
     {
-        Write.InColor(">> Digite a data da entrada", ConsoleColor.Yellow, true);
+        Write.InColor(">> Digite a data da entrada: ", ConsoleColor.Yellow, true);
         DateTime date = Validator.GetValidDate();
-        Write.InColor(">> Digite o ID do medicamento desejado: ", ConsoleColor.Yellow, true);
         MedicationScreen.ShowAll(false);
+        Write.InColor(">> Digite o ID do medicamento desejado: ", ConsoleColor.Yellow, true);
         int id1 = Validator.GetValidInt();
         Medication? medication = MedicationScreen.FindRegister(id1) ? MedicationScreen.Repository.GetById(id1) : null;
-        Write.InColor(">> Digite o ID do funcionário desejado: ", ConsoleColor.Yellow, true);
         EmployeeScreen.ShowAll(false);
+        Write.InColor(">> Digite o ID do funcionário desejado: ", ConsoleColor.Yellow, true);
         int id2 = Validator.GetValidInt();
         Employee? employee = EmployeeScreen.FindRegister(id2) ? EmployeeScreen.Repository.GetById(id2) : null;
         Write.InColor(">> Digite a quantidade de medicamentos: ", ConsoleColor.Yellow, true);

@@ -80,7 +80,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     public virtual void Add()
     {
         Console.Clear();
-        Write.Header($" Registrando {EntityName}s");
+        Write.Header($" Registrando {EntityName}");
         T newEntity = NewEntity();
 
         if (!IsValid(newEntity))
