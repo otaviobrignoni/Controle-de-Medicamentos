@@ -51,7 +51,7 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
         Write.InColor("> Digite o CRM do médico (6 dígitos): ", ConsoleColor.Yellow, true);
         string doctorCRM = Console.ReadLine()!.Trim().ToTitleCase();
 
-        Write.InColor("> Digite a quantidade de medicamentos que irá na prescrição: ", ConsoleColor.Yellow, true);
+        Write.InColor("> Digite quantos tipos de medicamentos que irá na prescrição: ", ConsoleColor.Yellow, true);
         int quantity = Validator.GetValidInt();
 
         List<PrescriptionMedication> medications = NewPrescriptionMedication(quantity);
@@ -77,7 +77,7 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
                 Write.InColor($"> Digite a quantidade de comprimidos do medicamento N°{i + 1}: ", ConsoleColor.Yellow, true);
                 int medicationQuantity = Validator.GetValidInt();
 
-                Write.InColor($"> Digite o período do medicamento N°{i + 1} (ex: 1 por dia): ", ConsoleColor.Yellow, true);
+                Write.InColor($"> Digite a posologia do medicamento N°{i + 1} (ex: 1 por dia): ", ConsoleColor.Yellow, true);
                 string period = Console.ReadLine()!.Trim().ToTitleCase();
 
                 PrescriptionMedication prescriptionMedication = new PrescriptionMedication(medication, dosage, medicationQuantity, period);
