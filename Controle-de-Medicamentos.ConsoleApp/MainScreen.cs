@@ -53,43 +53,41 @@ public class MainScreen
 
     public void ShowMainMenu()
     {
-        string[] opcoes = new[]
-        {"Fornecedores", "Pacientes", "Funcionários", "Medicamentos", "Prescrições Médicas", "Requisição de Entrada", "Requisição de Saída", "Sair"};
+        string[] options = new[] {"Fornecedores", "Pacientes", "Funcionários", "Medicamentos", "Prescrições Médicas", "Requisição de Entrada", "Requisição de Saída", "Sair"};
 
-        int indiceSelecionado = 0;
-        ConsoleKey tecla;
+        int indexSelected = 0;
+        ConsoleKey key;
 
-        do
-        {
+        do {
             Console.Clear();
             Write.Header("Controle de Medicamentos");
             Console.WriteLine();
 
-            for (int i = 0; i < opcoes.Length; i++)
+            for (int i = 0; i < options.Length; i++)
             {
-                if (i == indiceSelecionado)
-                    Write.InColor($"-> {opcoes[i]}", ConsoleColor.Green);
+                if (i == indexSelected)
+                    Write.InColor($"-> {options[i]}", ConsoleColor.Green);
 
                 else
-                    Console.WriteLine($"   {opcoes[i]}");
+                    Console.WriteLine($"   {options[i]}");
             }
 
-            tecla = Console.ReadKey(true).Key;
+            key = Console.ReadKey(true).Key;
 
-            switch (tecla)
+            switch (key)
             {
-                case ConsoleKey.UpArrow:indiceSelecionado = (indiceSelecionado == 0) ? opcoes.Length - 1 : indiceSelecionado - 1; break;
+                case ConsoleKey.UpArrow:indexSelected = (indexSelected == 0) ? options.Length - 1 : indexSelected - 1; break;
 
-                case ConsoleKey.DownArrow: indiceSelecionado = (indiceSelecionado + 1) % opcoes.Length; break;
+                case ConsoleKey.DownArrow: indexSelected = (indexSelected + 1) % options.Length; break;
 
-                case ConsoleKey.Enter: ExecutarOpcao(indiceSelecionado); break;
+                case ConsoleKey.Enter: ExecuteOption(indexSelected); break;
             }
-        } while (tecla != ConsoleKey.Escape);
+        } while (key != ConsoleKey.Escape);
     }
 
-    private void ExecutarOpcao(int indice)
+    private void ExecuteOption(int indexSelected)
     {
-        switch (indice)
+        switch (indexSelected)
         {
             case 0: supplierScreen.ShowMenu(); break;
             case 1: patientScreen.ShowMenu(); break;
@@ -103,7 +101,7 @@ public class MainScreen
         }
     }
 
-    public void ShowLeaveMessage()
+    private void ShowLeaveMessage()
     {
         Console.Clear();
         Write.InColor("╔══════════════════════════════════════════════╗", ConsoleColor.DarkCyan);

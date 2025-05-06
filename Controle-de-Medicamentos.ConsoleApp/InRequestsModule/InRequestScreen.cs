@@ -17,50 +17,21 @@ public class InRequestScreen : BaseScreen<InRequest>, ICrudScreen
 
     public override void ShowMenu()
     {
-        string[] opcoes = new[]{"Nova Requisição de Entrada","Visualizar Requisições de Entrada", "Voltar" };
+        string[] options = new[]{"Nova Requisição de Entrada","Visualizar Requisições de Entrada", "Voltar" };
 
-        int indiceSelecionado = 0;
-        ConsoleKey tecla;
-
-        do
-        {
-            Console.Clear();
-            Write.Header("Gerenciamento de Requisições de Entrada");
-            Console.WriteLine();
-
-            for (int i = 0; i < opcoes.Length; i++)
-            {
-                if (i == indiceSelecionado)
-                    Write.InColor($"-> {opcoes[i]}", ConsoleColor.Green);
-                else
-                    Console.WriteLine($"   {opcoes[i]}");
-            }
-
-            tecla = Console.ReadKey(true).Key;
-
-            switch (tecla)
-            {
-                case ConsoleKey.UpArrow: indiceSelecionado = (indiceSelecionado == 0) ? opcoes.Length - 1 : indiceSelecionado - 1; break;
-
-                case ConsoleKey.DownArrow: indiceSelecionado = (indiceSelecionado + 1) % opcoes.Length; break;
-
-                case ConsoleKey.Enter: ExecutarOpcao(indiceSelecionado);
-                    if (indiceSelecionado == 2) return; break;
-
-                case ConsoleKey.Escape: return;
-            }
-        } while (true);
+        base.ShowMenu("Gerenciamento de Requisições de Entrada", options, ExecuteOption);
     }
 
-    private void ExecutarOpcao(int indice)
+    protected override bool ExecuteOption(int indexSelected)
     {
-        switch (indice)
+        switch (indexSelected)
         {
             case 0: Add(); break;
             case 1: ShowAll(true, true); break;
-            case 2: break;
+            case 2: return true;
             default: Write.ShowInvalidOption(); break;
         }
+        return false;
     }
 
     protected override InRequest NewEntity()

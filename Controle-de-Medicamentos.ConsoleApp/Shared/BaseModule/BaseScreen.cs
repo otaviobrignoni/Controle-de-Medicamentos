@@ -13,6 +13,8 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         this.EntityName = EntityName;
     }
 
+    public abstract void ShowMenu();
+
     /// <summary>
     /// Exibe o menu principal da entidade, permitindo a navegação entre as operações disponíveis.
     /// </summary>
@@ -20,7 +22,53 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     /// Este método deve ser implementado nas classes derivadas para definir as opções específicas de interação com a entidade. <br/>
     /// Cada opção do menu executa ações correspondentes.
     /// </remarks>
-    public abstract void ShowMenu();
+    protected virtual void ShowMenu(string title, string[] menuOptions, Func<int, bool> executeOption) 
+    {
+        int indexSelected = 0;
+        ConsoleKey key;
+
+        do {
+            Console.Clear();
+            Write.Header(title);
+            Console.WriteLine();
+
+            for (int i = 0; i < menuOptions.Length; i++)
+            {
+                if (i == indexSelected)
+                    Write.InColor($"-> {menuOptions[i]}", ConsoleColor.Green);
+                else
+                    Console.WriteLine($"   {menuOptions[i]}");
+            }
+
+            key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow: indexSelected = (indexSelected == 0) ? menuOptions.Length - 1 : indexSelected - 1; break;
+
+                case ConsoleKey.DownArrow: indexSelected = (indexSelected + 1) % menuOptions.Length; break;
+
+                case ConsoleKey.Enter: bool exit = executeOption(indexSelected);
+                    if (exit) return; break;
+
+                case ConsoleKey.Escape: return;
+            }
+        } while (true);
+    }
+
+    protected virtual bool ExecuteOption(int indexSelected)
+    {
+        switch (indexSelected)
+        {
+            case 0: Add(); break;
+            case 1: Edit(); break;
+            case 2: Remove(); break;
+            case 3: ShowAll(true, true); break;
+            case 4: return true;
+            default: Write.ShowInvalidOption(); break;
+        }
+        return false;
+    }
 
     /// <summary>
     /// Cadastra uma nova entidade a partir dos dados inseridos pelo usuário.

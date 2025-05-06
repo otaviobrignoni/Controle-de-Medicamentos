@@ -2,10 +2,10 @@
 
 public interface ICrudScreen
 {
-    protected abstract void ShowMenu();
-    protected abstract void Add();
-    protected abstract void Edit();
-    protected abstract void Remove();
-    protected abstract void ShowAll(bool showExit, bool useClear = false);
-    protected abstract string[] GetHeaders();
+    void ShowMenu();
+    void Add();
+    void Edit();
+    void Remove();
+    void ShowAll(bool showExit, bool useClear = false);
+    string[] GetHeaders();
 }
