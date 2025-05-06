@@ -116,7 +116,7 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
             Delimiter = ",",
             Quote = '"',
             Encoding = new UTF8Encoding(true),
-            ShouldQuote = args => true
+            ShouldQuote = args => args.FieldType == typeof(string)
         };
 
         StreamWriter writer = new StreamWriter(filePath, false, config.Encoding);
