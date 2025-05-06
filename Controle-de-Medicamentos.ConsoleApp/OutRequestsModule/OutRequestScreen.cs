@@ -101,7 +101,7 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
 
         string[] headers = GetHeaders();
 
-        List<OutRequest> entities = (List<OutRequest>)Repository.GetAll().Select(or => or.Patient.Id == id);
+        List<OutRequest> entities = Repository.GetAll().Where(or => or.Patient.Id == id).ToList();
         List<string[]> lines = new List<string[]>();
         foreach (OutRequest entity in entities)
         {
