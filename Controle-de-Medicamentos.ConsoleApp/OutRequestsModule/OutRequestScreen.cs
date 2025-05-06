@@ -79,6 +79,8 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
     public void ShowAllPerPatient()
     {
         Console.Clear();
+        if (!MedicalPrescriptionScreen.ExistRegisters())
+            return;
         PatientScreen.ShowAll(false);
         Write.InColor(">> Digite o ID do paciente desejado: ", ConsoleColor.Yellow, true);
         int id = Validator.GetValidInt();
@@ -92,7 +94,7 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
             return;
         }
 
-        Write.Header($" Listando Requisições de Saida do paciente ID {patient.Id}");
+        Write.Header($" Listando Requisições de Saida do Paciente ID {patient.Id}");
 
         if (!ExistRegisters())
             return;
