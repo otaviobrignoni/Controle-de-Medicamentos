@@ -36,8 +36,6 @@ public class InRequestScreen : BaseScreen<InRequest>, ICrudScreen
 
     protected override InRequest NewEntity()
     {
-        Write.InColor(">> Digite a data da entrada: ", ConsoleColor.Yellow, true);
-        DateTime date = Validator.GetValidDate();
         MedicationScreen.ShowAll(false);
         Write.InColor(">> Digite o ID do medicamento desejado: ", ConsoleColor.Yellow, true);
         int id1 = Validator.GetValidInt();
@@ -49,7 +47,7 @@ public class InRequestScreen : BaseScreen<InRequest>, ICrudScreen
         Write.InColor(">> Digite a quantidade de medicamentos: ", ConsoleColor.Yellow, true);
         int quantity = Validator.GetValidInt();
 
-        return new InRequest(date, medication, employee, quantity);
+        return new InRequest(medication, employee, quantity);
     }
 
     public override string[] GetHeaders()

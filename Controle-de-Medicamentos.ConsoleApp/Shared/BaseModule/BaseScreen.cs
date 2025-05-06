@@ -218,7 +218,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
 
     public abstract string[] GetHeaders();
 
-    private void PrintTopBorder(int[] widths)
+    protected void PrintTopBorder(int[] widths)
     {
         Console.Write("┌");
         for (int i = 0; i < widths.Length; i++)
@@ -229,7 +229,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         Console.WriteLine();
     }
 
-    private void PrintSeparator(int[] widths)
+    protected void PrintSeparator(int[] widths)
     {
         Console.Write("├");
         for (int i = 0; i < widths.Length; i++)
@@ -240,7 +240,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         Console.WriteLine();
     }
 
-    private void PrintBottomBorder(int[] widths)
+    protected void PrintBottomBorder(int[] widths)
     {
         Console.Write("└");
         for (int i = 0; i < widths.Length; i++)

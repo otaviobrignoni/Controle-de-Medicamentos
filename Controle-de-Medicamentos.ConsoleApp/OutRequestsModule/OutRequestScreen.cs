@@ -17,7 +17,10 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
 
     public override void Add()
     {
+        
         Console.Clear();
+        if (!MedicalPrescriptionScreen.ExistRegisters())
+            return;
         Write.Header($" Registrando {EntityName}");
         OutRequest newEntity = NewEntity();
 
@@ -31,6 +34,8 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
             if (pm.Medication.IsStockLow())
                 Write.InColor($">> (⚠) ALERTA: a medicação {pm.Medication.Name} está entrando em falta!", ConsoleColor.DarkYellow);
         }
+
+        newEntity.MedicalPrescription.ClosePrescription();
 
         Write.InColor($">> (✓) {EntityName} registrado com sucesso!", ConsoleColor.Green);
             
@@ -59,8 +64,6 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
 
     protected override OutRequest NewEntity()
     {
-        Write.InColor(">> Digite a data da entrada: ", ConsoleColor.Yellow, true);
-        DateTime date = Validator.GetValidDate();
         PatientScreen.ShowAll(false);
         Write.InColor(">> Digite o ID do paciente desejado: ", ConsoleColor.Yellow, true);
         int id1 = Validator.GetValidInt();
@@ -70,33 +73,35 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
         int id2 = Validator.GetValidInt();
         MedicalPrescription? medicalPrescription = MedicalPrescriptionScreen.FindRegister(id2) ? MedicalPrescriptionScreen.Repository.GetById(id2) : null;
 
-        return new OutRequest(date, patient, medicalPrescription);
+        return new OutRequest(patient, medicalPrescription);
     }
 
     public void ShowAllPerPatient()
     {
         Console.Clear();
+        if (!MedicalPrescriptionScreen.ExistRegisters())
+            return;
         PatientScreen.ShowAll(false);
         Write.InColor(">> Digite o ID do paciente desejado: ", ConsoleColor.Yellow, true);
         int id = Validator.GetValidInt();
         Patient? patient = PatientScreen.FindRegister(id) ? PatientScreen.Repository.GetById(id) : null;
         Console.Clear();
 
-        if (patient != null)
+        if (patient == null)
         {
             Write.InColor(">> (X) Paciente Inválido!", ConsoleColor.Red);
             Write.ShowExit();
             return;
         }
 
-        Write.Header($" Listando Requisições de Saida do paciente ID {patient.Id}");
+        Write.Header($" Listando Requisições de Saida do Paciente ID {patient.Id}");
 
         if (!ExistRegisters())
             return;
 
         string[] headers = GetHeaders();
 
-        List<OutRequest> entities = (List<OutRequest>)Repository.GetAll().Select(or => or.Patient.Id == id);
+        List<OutRequest> entities = Repository.GetAll().Where(or => or.Patient.Id == id).ToList();
         List<string[]> lines = new List<string[]>();
         foreach (OutRequest entity in entities)
         {
@@ -117,6 +122,17 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
             }
             widths[column] = maxLength;
         }
+
+        PrintTopBorder(widths);
+        PrintRow(headers, widths);
+        PrintSeparator(widths);
+
+        foreach (string[] line in lines)
+            PrintRow(line, widths);
+
+        PrintBottomBorder(widths);
+
+            Write.ShowExit();
     }
 
     public override string[] GetHeaders()
