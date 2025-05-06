@@ -1,4 +1,5 @@
-﻿using Controle_de_Medicamentos.ConsoleApp.Utils;
+﻿using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
+using Controle_de_Medicamentos.ConsoleApp.Utils;
 
 namespace Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
@@ -7,10 +8,10 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     public IRepository<T> Repository { get; set; }
     public string EntityName { get; set; }
 
-    public BaseScreen(IRepository<T> repository, string EntityName)
+    public BaseScreen(IRepository<T> repository, string entityName)
     {
         Repository = repository;
-        this.EntityName = EntityName;
+        EntityName = entityName;
     }
 
     public abstract void ShowMenu();
@@ -104,7 +105,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     public virtual void Edit()
     {
         Console.Clear();
-        Write.Header($" Editando {EntityName}s");
+        Write.Header($" Editando {EntityName}");
 
         if (!ExistRegisters())
             return;
@@ -140,7 +141,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     public virtual void Remove()
     {
         Console.Clear();
-        Write.Header($" Removendo {EntityName}s");
+        Write.Header($" Removendo {EntityName}");
 
         if (!ExistRegisters())
             return;
@@ -203,7 +204,8 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
 
         int fullWidth = widths.Sum() + widths.Length * 3 - 1;
 
-        Write.Header($" Listando {EntityName}", fullWidth);
+        string sufixo = typeof(T) == typeof(Supplier) ? "es" : "s";
+        Write.Header($" Listando {EntityName}{sufixo}", fullWidth);
 
         PrintTopBorder(widths);
         PrintRow(headers, widths);
@@ -215,8 +217,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         PrintBottomBorder(widths);
 
         if (showExit)
-            Write.ShowExit();
-        
+            Write.ShowExit();       
     }
 
     public abstract string[] GetHeaders();
