@@ -35,13 +35,18 @@ public class OutRequest : BaseEntity<OutRequest>, ITableConvertible
         string errors = "";
 
         if (Date < DateTime.Now)
-            errors += "Não é possível entregar medicamentos no passado";
+            errors += "Não é possível entregar medicamentos no passado\n";
         if (Patient == null)
-            errors += "O Campo \"Paciente\" é obrigatório";
+            errors += "O Campo \"Paciente\" é obrigatório\n";
         if (MedicalPrescription == null)
-            errors += "O Campo \"Prescrição Médica\" é obrigatório";
-        if (!MedicalPrescription.IsValid())
-            errors += "A prescrição médica é inválida";
+            errors += "O Campo \"Prescrição Médica\" é obrigatório\n";
+        else if(!MedicalPrescription.IsValid())
+            errors += "A prescrição médica é inválida\n";
+        foreach (PrescriptionMedication pm in MedicalPrescription.Medications)
+        {
+            if (pm.Medication.Quantity < pm.Quantity)
+                errors += "A quantidade requisitada de uma ou mais medicações excede a quantidade disponível de medicações\n";
+        }
         
         return errors;
     }
