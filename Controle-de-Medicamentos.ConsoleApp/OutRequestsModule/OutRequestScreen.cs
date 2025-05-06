@@ -122,6 +122,17 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
             }
             widths[column] = maxLength;
         }
+
+        PrintTopBorder(widths);
+        PrintRow(headers, widths);
+        PrintSeparator(widths);
+
+        foreach (string[] line in lines)
+            PrintRow(line, widths);
+
+        PrintBottomBorder(widths);
+
+            Write.ShowExit();
     }
 
     public override string[] GetHeaders()
