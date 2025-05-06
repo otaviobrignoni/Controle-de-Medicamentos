@@ -62,8 +62,6 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
 
     protected override OutRequest NewEntity()
     {
-        Write.InColor(">> Digite a data da entrada: ", ConsoleColor.Yellow, true);
-        DateTime date = Validator.GetValidDate();
         PatientScreen.ShowAll(false);
         Write.InColor(">> Digite o ID do paciente desejado: ", ConsoleColor.Yellow, true);
         int id1 = Validator.GetValidInt();
@@ -73,7 +71,7 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
         int id2 = Validator.GetValidInt();
         MedicalPrescription? medicalPrescription = MedicalPrescriptionScreen.FindRegister(id2) ? MedicalPrescriptionScreen.Repository.GetById(id2) : null;
 
-        return new OutRequest(date, patient, medicalPrescription);
+        return new OutRequest(patient, medicalPrescription);
     }
 
     public void ShowAllPerPatient()

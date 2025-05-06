@@ -1,5 +1,4 @@
 ﻿using Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
-using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.PatientModule;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
@@ -11,16 +10,15 @@ public class OutRequest : BaseEntity<OutRequest>, ITableConvertible
     public MedicalPrescription MedicalPrescription { get; set; }
     public OutRequest() { }
 
-    public OutRequest(DateTime date, Patient patient, MedicalPrescription medicalPrescription)
+    public OutRequest(Patient patient, MedicalPrescription medicalPrescription)
     {
-        Date = date;
+        Date = DateTime.Now;
         Patient = patient;
         MedicalPrescription = medicalPrescription;
     }
 
     public override void UpdateEntity(OutRequest entity)
     {
-        Date = entity.Date;
         Patient = entity.Patient;
         MedicalPrescription = entity.MedicalPrescription;
     }
@@ -34,8 +32,6 @@ public class OutRequest : BaseEntity<OutRequest>, ITableConvertible
     {
         string errors = "";
 
-        if (Date < DateTime.Now)
-            errors += "Não é possível entregar medicamentos no passado\n";
         if (Patient == null)
             errors += "O Campo \"Paciente\" é obrigatório\n";
         if (MedicalPrescription == null)

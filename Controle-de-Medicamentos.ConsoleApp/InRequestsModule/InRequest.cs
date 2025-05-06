@@ -10,9 +10,9 @@ public class InRequest : BaseEntity<InRequest>, ITableConvertible
     public Employee Employee { get; set; }
     public int Quantity { get; set; }
     public InRequest() { }
-    public InRequest(DateTime date, Medication medication, Employee employee, int quantity)
+    public InRequest(Medication medication, Employee employee, int quantity)
     {
-        Date = date;
+        Date = DateTime.Now;
         Medication = medication;
         Employee = employee;
         Quantity = quantity;
@@ -20,7 +20,6 @@ public class InRequest : BaseEntity<InRequest>, ITableConvertible
 
     public override void UpdateEntity(InRequest entity)
     {
-        Date = entity.Date;
         Medication = entity.Medication;
         Employee = entity.Employee;
         Quantity = entity.Quantity;
@@ -30,8 +29,6 @@ public class InRequest : BaseEntity<InRequest>, ITableConvertible
     {
         string errors = "";
 
-        if (Date < DateTime.Now)
-            errors += "Não é possível obter medicamentos no passado";
         if (Medication == null)
             errors += "O Campo \"Medicamento\" é obrigatório";
         if (Employee == null)
