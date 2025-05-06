@@ -18,28 +18,51 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
         this.medicationRepository = medicationRepository;
 
     }
-
     public override void ShowMenu()
     {
-        while (true)
+        string[] opcoes = new[] {"Cadastrar Prescrição Médica", "Gerar relatórios de Prescrições Médicas", "Voltar" };
+
+        int indiceSelecionado = 0;
+        ConsoleKey tecla;
+
+        do
         {
             Console.Clear();
             Write.Header("Gerenciamento de Prescrições Médicas");
             Console.WriteLine();
-            Write.InColor(" [1] - Cadastrar Prescrição Médica", ConsoleColor.Cyan);
-            Write.InColor(" [2] - Gerar relatórios de Prescrições Médicas", ConsoleColor.Cyan);
-            Write.InColor(" [3] - Sair", ConsoleColor.Cyan);
-            Console.WriteLine();
-            Write.InColor(">> Digite a opção desejada: ", ConsoleColor.Yellow, true);
-            string option = Console.ReadLine()!;
 
-            switch (option)
+            for (int i = 0; i < opcoes.Length; i++)
             {
-                case "1": Add(); break;
-                case "2": ShowAll(true, true); break;
-                case "3": return;
-                default: Write.ShowInvalidOption(); break;
+                if (i == indiceSelecionado)
+                    Write.InColor($"-> {opcoes[i]}", ConsoleColor.Green);
+                else
+                    Console.WriteLine($"   {opcoes[i]}");
             }
+
+            tecla = Console.ReadKey(true).Key;
+
+            switch (tecla)
+            {
+                case ConsoleKey.UpArrow: indiceSelecionado = (indiceSelecionado == 0) ? opcoes.Length - 1 : indiceSelecionado - 1; break;
+
+                case ConsoleKey.DownArrow: indiceSelecionado = (indiceSelecionado + 1) % opcoes.Length; break;
+
+                case ConsoleKey.Enter: ExecutarOpcao(indiceSelecionado);
+                    if (indiceSelecionado == 2) return; break;
+
+                case ConsoleKey.Escape: return;
+            }
+        } while (true);
+    }
+
+    private void ExecutarOpcao(int indice)
+    {
+        switch (indice)
+        {
+            case 0: Add(); break;
+            case 1: ShowAll(true, true); break;
+            case 2: break;
+            default: Write.ShowInvalidOption(); break;
         }
     }
 

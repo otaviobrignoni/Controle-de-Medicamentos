@@ -12,7 +12,6 @@ namespace Controle_de_Medicamentos.ConsoleApp;
 
 public class MainScreen
 {
-    private string option;
     private DataContext context;
     private IMedicationRepository medicationRepository;
     private IEmployeeRepository employeeRepository;
@@ -54,35 +53,53 @@ public class MainScreen
 
     public void ShowMainMenu()
     {
-        while (true)
+        string[] opcoes = new[]
+        {"Fornecedores", "Pacientes", "Funcionários", "Medicamentos", "Prescrições Médicas", "Requisição de Entrada", "Requisição de Saída", "Sair"};
+
+        int indiceSelecionado = 0;
+        ConsoleKey tecla;
+
+        do
         {
             Console.Clear();
             Write.Header("Controle de Medicamentos");
             Console.WriteLine();
-            Write.InColor(" [1] - Fornecedores", ConsoleColor.Cyan);
-            Write.InColor(" [2] - Pacientes", ConsoleColor.Cyan);
-            Write.InColor(" [3] - Funcionários", ConsoleColor.Cyan);
-            Write.InColor(" [4] - Medicamentos", ConsoleColor.Cyan);
-            Write.InColor(" [5] - Prescrições Médicas", ConsoleColor.Cyan);
-            Write.InColor(" [6] - Requisição de Entrada", ConsoleColor.Cyan);
-            Write.InColor(" [7] - Requisição de Saída", ConsoleColor.Cyan);
-            Write.InColor(" [8] - Sair", ConsoleColor.Cyan);
-            Console.WriteLine();
-            Write.InColor(">> Digite a opção desejada: ", ConsoleColor.Yellow, true);
-            option = Console.ReadLine()!;
 
-            switch (option)
+            for (int i = 0; i < opcoes.Length; i++)
             {
-                case "1": supplierScreen.ShowMenu(); break;
-                case "2": patientScreen.ShowMenu(); break;
-                case "3": employeeScreen.ShowMenu(); break;
-                case "4": medicationScreen.ShowMenu(); break;
-                case "5": medicalPrescriptionScreen.ShowMenu(); break;
-                case "6": inRequestScreen.ShowMenu(); break;
-                case "7": outRequestScreen.ShowMenu(); break;
-                case "8": ShowLeaveMessage(); return;
-                default: Write.ShowInvalidOption(); ShowMainMenu(); break;
+                if (i == indiceSelecionado)
+                    Write.InColor($"-> {opcoes[i]}", ConsoleColor.Green);
+
+                else
+                    Console.WriteLine($"   {opcoes[i]}");
             }
+
+            tecla = Console.ReadKey(true).Key;
+
+            switch (tecla)
+            {
+                case ConsoleKey.UpArrow:indiceSelecionado = (indiceSelecionado == 0) ? opcoes.Length - 1 : indiceSelecionado - 1; break;
+
+                case ConsoleKey.DownArrow: indiceSelecionado = (indiceSelecionado + 1) % opcoes.Length; break;
+
+                case ConsoleKey.Enter: ExecutarOpcao(indiceSelecionado); break;
+            }
+        } while (tecla != ConsoleKey.Escape);
+    }
+
+    private void ExecutarOpcao(int indice)
+    {
+        switch (indice)
+        {
+            case 0: supplierScreen.ShowMenu(); break;
+            case 1: patientScreen.ShowMenu(); break;
+            case 2: employeeScreen.ShowMenu(); break;
+            case 3: medicationScreen.ShowMenu(); break;
+            case 4: medicalPrescriptionScreen.ShowMenu(); break;
+            case 5: inRequestScreen.ShowMenu(); break;
+            case 6: outRequestScreen.ShowMenu(); break;
+            case 7: ShowLeaveMessage(); Environment.Exit(0); break;
+            default: Write.ShowInvalidOption(); break;
         }
     }
 
