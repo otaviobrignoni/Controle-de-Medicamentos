@@ -85,7 +85,7 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
         Patient? patient = PatientScreen.FindRegister(id) ? PatientScreen.Repository.GetById(id) : null;
         Console.Clear();
 
-        if (patient != null)
+        if (patient == null)
         {
             Write.InColor(">> (X) Paciente Inválido!", ConsoleColor.Red);
             Write.ShowExit();
