@@ -32,7 +32,7 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
         foreach (PrescriptionMedication pm in newEntity.MedicalPrescription.Medications)
         {
             if (pm.Medication.IsStockLow())
-                Write.InColor($">> (⚠) ALERTA: a medicação {pm.Medication.Name} está entrando em falta!", ConsoleColor.DarkYellow);
+                Write.InColor($">> (!) ALERTA: a medicação {pm.Medication.Name} está entrando em falta!", ConsoleColor.DarkYellow);
         }
 
         newEntity.MedicalPrescription.ClosePrescription();
