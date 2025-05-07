@@ -29,7 +29,7 @@ public class InRequestScreen : BaseScreen<InRequest>, ICrudScreen
             case 0: Add(); break;
             case 1: ShowAll(true, true); break;
             case 2: return true;
-            default: Write.ShowInvalidOption(); break;
+            default: Write.InvalidOption(); break;
         }
         return false;
     }

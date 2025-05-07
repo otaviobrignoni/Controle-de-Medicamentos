@@ -40,7 +40,7 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
             case 3: ShowAll(true, true); break;
             case 4: ExportMedications(); break;
             case 5: return true;
-            default: Write.ShowInvalidOption(); break;
+            default: Write.InvalidOption(); break;
         }
         return false;
     }
@@ -79,7 +79,7 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
         if(InRequestRepository.HasRequisitionsForMedication(medication))
         {
             Write.InColor($"\nO medicamento {medication.Name} não pode ser excluído, pois está vinculado a requisições.", ConsoleColor.Red);
-            Write.ShowExit();
+            Write.Exit();
             return false;
         }
         return true;
@@ -134,7 +134,7 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
 
         Console.Clear();
         Write.InColor(">> (✓) Exportado arquivo com sucesso!", ConsoleColor.Green);
-        Write.ShowExit();
+        Write.Exit();
     }
 
     public override void PrintRow(string[] row, int[] widths)

@@ -66,7 +66,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
             case 2: Remove(); break;
             case 3: ShowAll(true, true); break;
             case 4: return true;
-            default: Write.ShowInvalidOption(); break;
+            default: Write.InvalidOption(); break;
         }
         return false;
     }
@@ -91,7 +91,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
 
         Write.InColor($">> (✓) {EntityName} registrado com sucesso!", ConsoleColor.Green);
 
-        Write.ShowExit();
+        Write.Exit();
     }
 
     /// <summary>
@@ -126,7 +126,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         Repository.Edit(id, entity);
 
         Write.InColor($">> (✓) {EntityName} editado com sucesso!", ConsoleColor.Green);
-        Write.ShowExit();
+        Write.Exit();
 
     }
 
@@ -159,7 +159,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         Repository.Remove(id);
 
         Write.InColor($">> (✓) {EntityName} removido com sucesso!", ConsoleColor.Green);
-        Write.ShowExit();
+        Write.Exit();
     }
 
     public virtual bool CanRemove(int id)
@@ -213,7 +213,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         int fullWidth = widths.Sum() + widths.Length * 3 - 1;
 
         string sufixo = typeof(T) == typeof(Supplier) ? "es" : "s";
-        Write.Header($" Listando {EntityName}{sufixo}", fullWidth);
+        Write.CustomHeader($" Listando {EntityName}{sufixo}", fullWidth);
 
         PrintTopBorder(widths);
         PrintRow(headers, widths);
@@ -225,7 +225,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         PrintBottomBorder(widths);
 
         if (showExit)
-            Write.ShowExit();       
+            Write.Exit();       
     }
 
     public abstract string[] GetHeaders();
@@ -288,7 +288,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         {
             Write.InColor($">> (×) Erro ao cadastrar {EntityName}!", ConsoleColor.Red);
             Write.InColor(errors, ConsoleColor.Red, true);
-            Write.ShowExit();
+            Write.Exit();
             return false;
         }
         return true;
@@ -305,7 +305,7 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         if (Repository.Count() == 0)
         {
             Write.InColor($">> (×) Não há {EntityName}s cadastrados!", ConsoleColor.Red);
-            Write.ShowExit();
+            Write.Exit();
             return false;
         }
         return true;

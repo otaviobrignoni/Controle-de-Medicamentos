@@ -97,7 +97,7 @@ public class MainScreen
             case 5: inRequestScreen.ShowMenu(); break;
             case 6: outRequestScreen.ShowMenu(); break;
             case 7: ShowLeaveMessage(); Environment.Exit(0); break;
-            default: Write.ShowInvalidOption(); break;
+            default: Write.InvalidOption(); break;
         }
     }
 

@@ -26,7 +26,7 @@ public static class Write
     /// <summary>
     /// Exibe uma mensagem instruindo o usuário a pressionar Enter para continuar, e aguarda a entrada do usuário.
     /// </summary>
-    public static void ShowExit()
+    public static void Exit()
     {
         Console.WriteLine();
         InColor(">> Pressione [Qualquer tecla] para continuar.", ConsoleColor.DarkYellow, true);
@@ -39,7 +39,7 @@ public static class Write
     /// <remarks>
     /// A mensagem é exibida em vermelho para destacar o erro, seguida de uma pausa com <see cref="Console.ReadKey"/> antes de retornar ao fluxo do sistema.
     /// </remarks>
-    public static void ShowInvalidOption()
+    public static void InvalidOption()
     {
         Console.WriteLine();
         InColor(">> (X) Opção inválida, pressione [Qualquer tecla] para tentar novamente.", ConsoleColor.Red, true);
@@ -52,7 +52,7 @@ public static class Write
     /// <remarks>
     /// A mensagem é exibida em vermelho para destacar o erro, seguida de uma pausa com <see cref="Console.ReadKey"/> antes de retornar ao fluxo do sistema.
     /// </remarks>
-    public static void ShowTryAgain()
+    public static void TryAgain()
     {
         Console.WriteLine();
         InColor(">> Pressione [Qualquer tecla] para tentar novamente.", ConsoleColor.Yellow);
@@ -79,7 +79,7 @@ public static class Write
     /// </summary>
     /// <param name="title">Texto a ser exibido como título no cabeçalho.</param>
     /// <param name="customWidth">Largura total do cabeçalho, usada para formatar as bordas e centralizar o texto.</param>
-    public static void Header(string title, int customWidth)
+    public static void CustomHeader(string title, int customWidth)
     {
         int padding = (customWidth - title.Length) / 2;
         InColor("┌" + new string('─', customWidth) + "┐", ConsoleColor.Blue);

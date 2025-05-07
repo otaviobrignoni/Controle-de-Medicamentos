@@ -38,7 +38,7 @@ public class EmployeeScreen : BaseScreen<Employee>, ICrudScreen
         if(InRequestRepository.HasRequisitionsForEmployee(employee))
         {
             Write.InColor($"\nO funcionário {employee.Name} não pode ser excluído, pois está vinculado a requisições.", ConsoleColor.Red);
-            Write.ShowExit();
+            Write.Exit();
             return false;
         }
         return true;

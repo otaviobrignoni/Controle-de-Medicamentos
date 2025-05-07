@@ -42,7 +42,7 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
 
         Write.InColor($">> (✓) {EntityName} registrado com sucesso!", ConsoleColor.Green);
 
-        Write.ShowExit();
+        Write.Exit();
     }
 
     public override void ShowMenu()
@@ -60,7 +60,7 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
             case 1: ShowAll(true, true); break;
             case 2: ShowAllPerPatient(); break;
             case 3: return true;
-            default: Write.ShowInvalidOption(); break;
+            default: Write.InvalidOption(); break;
         }
         return false;
     }
@@ -93,11 +93,11 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
         if (patient == null)
         {
             Write.InColor(">> (X) Paciente Inválido!", ConsoleColor.Red);
-            Write.ShowExit();
+            Write.Exit();
             return;
         }
 
-        Write.Header($" Listando Requisições de Saida do Paciente ID {patient.Id}", 52);
+        Write.CustomHeader($" Listando Requisições de Saida do Paciente ID {patient.Id}", 52);
 
         if (!ExistRegisters())
             return;
@@ -135,7 +135,7 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
 
         PrintBottomBorder(widths);
 
-        Write.ShowExit();
+        Write.Exit();
     }
 
     public override string[] GetHeaders()

@@ -33,7 +33,7 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
             case 0: Add(); break;
             case 1: ShowAll(true, true); break;
             case 2: return true;
-            default: Write.ShowInvalidOption(); break;
+            default: Write.InvalidOption(); break;
         }
         return false;
     }
@@ -87,7 +87,7 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
 
                 medications.Add(prescriptionMedication);
                 Write.InColor($">> Medicamento N°{i + 1} adicionado com sucesso!", ConsoleColor.Green);
-                Write.ShowExit();
+                Write.Exit();
                 break;
             }
         }
@@ -101,7 +101,7 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
             return true;
         Write.InColor($">> (×) Erro ao cadastrar o Medicamento!", ConsoleColor.Red);
         Write.InColor(errors, ConsoleColor.Red);
-        Write.ShowTryAgain();
+        Write.TryAgain();
         return false;
     }
 

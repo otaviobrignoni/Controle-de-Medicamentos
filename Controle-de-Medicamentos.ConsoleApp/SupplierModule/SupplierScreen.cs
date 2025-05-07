@@ -42,7 +42,7 @@ namespace Controle_de_Medicamentos.ConsoleApp.SupplierModule
             if(MedicationRepository.HasMedicationForSupplier(supplier))
             {
                 Write.InColor($"\nO fornecedor {supplier.Name} não pode ser excluído, pois está vinculado a medicamentos.", ConsoleColor.Red);
-                Write.ShowExit();
+                Write.Exit();
                 return false;
             }
             return true;
