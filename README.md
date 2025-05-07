@@ -67,9 +67,9 @@ Essa divisão modular, com herança de comportamentos comuns, torna o projeto **
 
 # 📁 Arquivos Relacionados
 
-- [📄 Documento de Requisitos](https://github.com/Code-Oblivion/Controle-de-Medicamentos/blob/master/Controle-de-Medicamentos.ConsoleApp/Docs/requisitos.pdf)
-- [🧠 Diagrama de Classes](https://github.com/Code-Oblivion/Controle-de-Medicamentos/blob/master/Controle-de-Medicamentos.ConsoleApp/Docs/diagrama.png)
-- [🗺️ Organização](https://github.com/Code-Oblivion/Controle-de-Medicamentos/blob/master/Controle-de-Medicamentos.ConsoleApp/Docs/organizacao.png)
+- [📄 Documento de Requisitos](https://github.com/Code-Oblivion/Controle-de-Medicamentos/blob/master/Controle-de-Medicamentos.ConsoleApp/docs/Revisado%20-%20Controle%20de%20Medicamentos%20-%202025.pdf)
+- [🧠 Diagrama de Classes](https://github.com/Code-Oblivion/Controle-de-Medicamentos/blob/master/Controle-de-Medicamentos.ConsoleApp/docs/diagram.png)
+- [🗺️ Organização](https://github.com/Code-Oblivion/Controle-de-Medicamentos/blob/master/Controle-de-Medicamentos.ConsoleApp/docs/organizacao.png)
 
 # 🔧 Tecnologias usadas
 
