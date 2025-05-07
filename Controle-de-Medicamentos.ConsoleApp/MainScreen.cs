@@ -7,6 +7,7 @@ using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 using Controle_de_Medicamentos.ConsoleApp.PatientModule;
 using Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
 using Controle_de_Medicamentos.ConsoleApp.OutRequestsModule;
+using QuestPDF.Infrastructure;
 
 namespace Controle_de_Medicamentos.ConsoleApp;
 
@@ -32,6 +33,7 @@ public class MainScreen
 
     public MainScreen()
     {
+        QuestPDF.Settings.License = LicenseType.Community;
         context = new DataContext(true);
 
         medicationRepository = new MedicationRepository(context);

@@ -7,12 +7,15 @@ using Controle_de_Medicamentos.ConsoleApp.Utils;
 using CsvHelper.Configuration;
 using CsvHelper;
 using Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 
 namespace Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 
 public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
 {
-    SupplierScreen SupplierScreen {get; set; }
+    SupplierScreen SupplierScreen { get; set; }
     ISupplierRepository SupplierRepository { get; set; }
     IInRequestRepository InRequestRepository { get; set; }
 
@@ -25,7 +28,7 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
 
     public override void ShowMenu()
     {
-        string[] options = new[]{"Cadastrar Medicamento", "Editar Medicamento", "Excluir Medicamento", "Visualizar Medicamento", "Exportar para Arquivo" ,"Voltar"};
+        string[] options = new[] { "Cadastrar Medicamento", "Editar Medicamento", "Excluir Medicamento", "Visualizar Medicamento", "Exportar para Arquivo", "Exportar Dados no formato PDF", "Voltar" };
 
         base.ShowMenu("Gerenciamento de Medicamentos", options, ExecuteOption);
     }
@@ -39,7 +42,8 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
             case 2: Remove(); break;
             case 3: ShowAll(true, true); break;
             case 4: ExportMedications(); break;
-            case 5: return true;
+            case 5: ExportMedicationsToPdf(); break;
+            case 6: return true;
             default: Write.InvalidOption(); break;
         }
         return false;
@@ -68,7 +72,7 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
         SupplierScreen.ShowAll(false);
         Write.InColor("> Digite o ID do fornecedor do medicamento: ", ConsoleColor.Yellow, true);
         int idSuplier = Validator.GetValidInt();
-        Supplier? supplier = SupplierRepository.GetById(idSuplier);  
+        Supplier? supplier = SupplierRepository.GetById(idSuplier);
 
         return new Medication(name, description, quantity, supplier);
     }
@@ -76,7 +80,7 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
     public override bool CanRemove(int id)
     {
         Medication medication = Repository.GetById(id);
-        if(InRequestRepository.HasRequisitionsForMedication(medication))
+        if (InRequestRepository.HasRequisitionsForMedication(medication))
         {
             Write.InColor($"\nO medicamento {medication.Name} não pode ser excluído, pois está vinculado a requisições.", ConsoleColor.Red);
             Write.Exit();
@@ -143,6 +147,100 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
         Console.Clear();
         Write.InColor(">> (✓) Exportado arquivo com sucesso!", ConsoleColor.Green);
         Write.Exit();
+    }
+
+    public void ExportMedicationsToPdf()
+    {
+        string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+        string fileName = $"medicamentos_{timestamp}.pdf";
+        string appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ControleDeMedicamentos");
+
+        if (!Directory.Exists(appDataFolder))
+            Directory.CreateDirectory(appDataFolder);
+
+        string filePath = Path.Combine(appDataFolder, fileName);
+        List<Medication> medications = Repository.GetAll();
+
+        Document.Create(container =>
+        {
+            container.Page(page =>
+            {
+                page.Margin(30);
+                page.Header()
+                    .Text($"Lista de Medicamentos - {DateTime.Now:dd/MM/yyyy}")
+                    .FontSize(20).Bold().AlignCenter();
+
+                page.DefaultTextStyle(x => x.FontSize(10));
+                page.Content().Table(table =>
+                {
+                    string[] headers = new[] { "Id", "Nome", "Descrição", "Quantidade", "CNPJ", "Fornecedor", "Telefone" };
+
+                    table.ColumnsDefinition(columns =>
+                    {
+                        columns.ConstantColumn(20);
+                        columns.RelativeColumn(2);
+                        columns.RelativeColumn(2);
+                        columns.ConstantColumn(64);
+                        columns.RelativeColumn(3);
+                        columns.RelativeColumn(2);
+                        columns.RelativeColumn(2);
+                    });
+
+
+                    table.Header(header =>
+                    {
+                        foreach (var h in headers)
+                            header.Cell().Element(CellStyle).Text(h).Bold();
+                    });
+
+                    foreach (var m in medications)
+                    {
+                        var isCritical = m.Quantity < 5;
+                        table.Cell().Element(CellStyle).Text(m.Id.ToString());
+                        table.Cell().Element(CellStyle).Text(m.Name);
+                        table.Cell().Element(CellStyle).Text(Hyphenate(m.Description, 25));
+                        table.Cell().Element(CellStyle).Text(m.Quantity.ToString())
+                            .FontColor(isCritical ? Colors.Red.Medium : Colors.Black);
+                        table.Cell().Element(CellStyle).Text(m.Supplier.CNPJ);
+                        table.Cell().Element(CellStyle).Text(Hyphenate(m.Supplier.Name, 20));
+                        table.Cell().Element(CellStyle).Text(m.Supplier.PhoneNumber);
+                    }
+
+                    IContainer CellStyle(IContainer container) =>
+                        container.Padding(5).BorderBottom(1).BorderColor(Colors.Grey.Lighten2);
+                });
+
+                page.Footer().AlignCenter().Text(text =>
+                {
+                    text.Span($"Gerado em {DateTime.Now:dd/MM/yyyy HH:mm:ss} — Total: {medications.Count} registros");
+                });
+            });
+        }).GeneratePdf(filePath);
+
+        Console.Clear();
+        Write.Loading();
+        Write.InColor(">> (✓) PDF exportado com sucesso!", ConsoleColor.Green);
+        Write.Exit();
+    }
+
+    private string Hyphenate(string text, int maxSegmentLength)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+            return text;
+
+        var result = new StringBuilder();
+        int current = 0;
+        while (current < text.Length)
+        {
+            int take = Math.Min(maxSegmentLength, text.Length - current);
+            result.Append(text.Substring(current, take));
+
+            current += take;
+
+            if (current < text.Length)
+                result.Append("-\n");
+        }
+        return result.ToString();
     }
 
     public override void PrintRow(string[] row, int[] widths)
