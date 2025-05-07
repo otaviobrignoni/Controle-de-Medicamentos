@@ -90,7 +90,6 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         Repository.Add(newEntity);
 
         Write.InColor($">> (✓) {EntityName} registrado com sucesso!", ConsoleColor.Green);
-
         Write.Exit();
     }
 
@@ -127,7 +126,6 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
 
         Write.InColor($">> (✓) {EntityName} editado com sucesso!", ConsoleColor.Green);
         Write.Exit();
-
     }
 
     /// <summary>
@@ -177,7 +175,6 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     /// O método utiliza <see cref="ExistRegisters"/> para verificar se há dados antes da exibição.<br/><br/>
     /// O cabeçalho da tabela e as linhas são desenhados utilizando os métodos <see cref="ShowTableHeader"/> e <see cref="PrintRow(T)"/>.
     /// </remarks>
-
     public virtual void ShowAll(bool showExit, bool useClear = false)
     {
         if (useClear)
@@ -273,7 +270,6 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         }
         Console.WriteLine();
     }
- 
 
     /// <summary>
     /// Valida a entidade informada utilizando o repositório e exibe os erros no console, caso existam.

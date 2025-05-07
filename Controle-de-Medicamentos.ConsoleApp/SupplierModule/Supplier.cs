@@ -9,7 +9,7 @@ public class Supplier : BaseEntity<Supplier>, ITableConvertible
     public string PhoneNumber { get; set; }
     public string CNPJ { get; set; }
 
-    public Supplier() { }
+    public Supplier() {}
 
     public Supplier(string name, string phone, string cnpj)
     {

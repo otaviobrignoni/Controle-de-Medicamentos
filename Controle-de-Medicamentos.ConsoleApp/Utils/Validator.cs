@@ -7,7 +7,6 @@ public static class Validator
         int isInt;
             while (!int.TryParse(Console.ReadLine(), out isInt))
                 Write.InColor("> (X) O Valor precisa ser um número! Digite novamente: ", ConsoleColor.Red, true);
-
         return isInt;
     }
 

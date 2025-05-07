@@ -27,9 +27,9 @@ public class EmployeeScreen : BaseScreen<Employee>, ICrudScreen
         Write.InColor("> Digite o telefone do funcionário: ", ConsoleColor.Yellow, true);
         string phoneNumber = Console.ReadLine().Trim().ToTitleCase();
         Write.InColor("> Digite o CPF do funcionário: ", ConsoleColor.Yellow, true);
-        string CPF = Console.ReadLine().Trim().ToTitleCase();
+        string cpf = Console.ReadLine().Trim().ToTitleCase();
 
-        return new Employee(name, phoneNumber, CPF);
+        return new Employee(name, phoneNumber, cpf);
     }
 
     public override bool CanRemove(int id)

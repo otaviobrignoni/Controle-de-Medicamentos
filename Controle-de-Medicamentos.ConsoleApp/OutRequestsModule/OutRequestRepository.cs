@@ -6,14 +6,13 @@ namespace Controle_de_Medicamentos.ConsoleApp.OutRequestsModule;
 public class OutRequestRepository : BaseRepository<OutRequest>, IOutRequestRepository
 {
 
-    public OutRequestRepository(DataContext context) : base(context)
-    {
-    }
+    public OutRequestRepository(DataContext context) : base(context) {}
 
     public override void Add(OutRequest entity)
     {
         foreach (PrescriptionMedication pm in entity.MedicalPrescription.Medications)
             pm.Medication.SubstractQuantity(pm.Quantity);
+
         base.Add(entity);
     }
 

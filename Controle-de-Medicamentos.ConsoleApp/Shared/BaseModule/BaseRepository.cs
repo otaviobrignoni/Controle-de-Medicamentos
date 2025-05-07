@@ -29,7 +29,6 @@ public abstract class BaseRepository<T> where T : BaseEntity<T>
     {
         entity.Id = GetNextAvailableId();
         List.Add(entity);
-
         Context.SaveData(); 
     }
 
@@ -45,7 +44,6 @@ public abstract class BaseRepository<T> where T : BaseEntity<T>
     {
         T entity = GetById(id);
         List.Remove(entity);
-
         Context.SaveData();
     }
 
@@ -62,7 +60,6 @@ public abstract class BaseRepository<T> where T : BaseEntity<T>
     {
         T entity = GetById(id);
         entity.UpdateEntity(editedEntity);
-
         Context.SaveData();
     }
 

@@ -9,14 +9,13 @@ namespace Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
 
 public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudScreen
 {
-    MedicationScreen medicationScreen { get; set; }
-    IMedicationRepository medicationRepository { get; set; }
+    MedicationScreen MedicationScreen { get; set; }
+    IMedicationRepository MedicationRepository { get; set; }
 
     public MedicalPrescriptionScreen(IMedicalPrescriptionRepository repository, MedicationScreen medicationScreen, IMedicationRepository medicationRepository) : base(repository, "Prescrição Médica")
     {
-        this.medicationScreen = medicationScreen;
-        this.medicationRepository = medicationRepository;
-
+        MedicationScreen = medicationScreen;
+        MedicationRepository = medicationRepository;
     }
     
     public override void ShowMenu()
@@ -41,7 +40,7 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
     public override void Add()
     {
         Console.Clear();
-        if (!medicationScreen.ExistRegisters())
+        if (!MedicationScreen.ExistRegisters())
             return;
         base.Add();
     }
@@ -66,10 +65,10 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
         {
             while (true)
             {
-                medicationScreen.ShowAll(false, false);
+                MedicationScreen.ShowAll(false, false);
                 Write.InColor($"> Digite o id do medicamento N°{i + 1}: ", ConsoleColor.Yellow, true);
                 int medicationId = Validator.GetValidInt();
-                Medication? medication = medicationRepository.GetById(medicationId);
+                Medication? medication = MedicationRepository.GetById(medicationId);
 
                 Write.InColor($"> Digite a dosagem do medicamento N°{i + 1} (Apenas o valor): ", ConsoleColor.Yellow, true);
                 string dosage = Console.ReadLine()!.Trim().ToTitleCase();

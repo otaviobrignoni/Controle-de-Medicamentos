@@ -4,8 +4,8 @@
     {
         static void Main(string[] args)
         {
-            MainScreen MainScreen = new MainScreen();
-            MainScreen.ShowMainMenu();
+            MainScreen mainScreen = new MainScreen();
+            mainScreen.ShowMainMenu();
         }
     }
 }

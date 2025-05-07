@@ -9,7 +9,9 @@ public class InRequest : BaseEntity<InRequest>, ITableConvertible
     public Medication Medication { get; set; }
     public Employee Employee { get; set; }
     public int Quantity { get; set; }
-    public InRequest() { }
+
+    public InRequest() {}
+
     public InRequest(Medication medication, Employee employee, int quantity)
     {
         Date = DateTime.Now;
@@ -40,7 +42,6 @@ public class InRequest : BaseEntity<InRequest>, ITableConvertible
 
     public string[] ToLineStrings()
     {
-
         return new string[] { Id.ToString(), Date.ToString("dd/MM/yyyy"), Medication.Name, Employee.Name, Quantity.ToString() };
     }
 }

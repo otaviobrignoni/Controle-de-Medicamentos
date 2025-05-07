@@ -20,7 +20,6 @@ public class DataContext
     public List<Patient> Patients { get;  set; }
     public List<MedicalPrescription> MedicalPrescriptions { get; set; }
 
-
     /// <summary>
     /// Caminho onde os dados da aplicação são salvos no formato JSON.
     /// </summary>
