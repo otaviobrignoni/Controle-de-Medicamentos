@@ -4,9 +4,8 @@
 ![banner](https://i.imgur.com/vdeYeV6.png)
 
 # 📌 Demonstração
-
->![Demonstração do Projeto](gif em produção)
-
+ Navegações e cadastros
+>![Demonstração do Projeto](https://i.imgur.com/WrLEsbs.gif)
 
 # 💡 Índice
 - [Demonstração](#demonstracao)
