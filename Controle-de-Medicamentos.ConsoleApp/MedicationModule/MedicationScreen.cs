@@ -28,7 +28,7 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
 
     public override void ShowMenu()
     {
-        string[] options = new[] { "Cadastrar Medicamento", "Editar Medicamento", "Excluir Medicamento", "Visualizar Medicamento", "Exportar para Arquivo", "Exportar Dados no formato PDF", "Voltar" };
+        string[] options = new[] { "Cadastrar Medicamento", "Editar Medicamento", "Excluir Medicamento", "Visualizar Medicamento", "Exportar Dados no formato CSV", "Importar Dados no formato CSV", "Exportar Dados no formato PDF", "Voltar" };
 
         base.ShowMenu("Gerenciamento de Medicamentos", options, ExecuteOption);
     }
@@ -42,8 +42,9 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
             case 2: Remove(); break;
             case 3: ShowAll(true, true); break;
             case 4: ExportMedications(); break;
-            case 5: ExportMedicationsToPdf(); break;
-            case 6: return true;
+            case 5: ImportMedications(); break;
+            case 6: ExportMedicationsToPdf(); break;
+            case 7: return true;
             default: Write.InvalidOption(); break;
         }
         return false;
@@ -99,6 +100,7 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
     /// </remarks>
     public void ExportMedications()
     {
+        
         string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
         string fileName = $"medicamentos_{timestamp}.csv";
         string appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ControleDeMedicamentos");
@@ -143,9 +145,111 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
         csv.Flush();
         writer.Close();
 
-
         Console.Clear();
+        Write.Loading();
         Write.InColor(">> (✓) Exportado arquivo com sucesso!", ConsoleColor.Green);
+        Write.Exit();
+    }
+
+    public void ImportMedications()
+    {
+        Console.Clear();
+        Write.InColor(">> Informe o caminho completo do arquivo CSV para importar: ", ConsoleColor.Yellow, true);
+        string path = Console.ReadLine();
+
+        if (!File.Exists(path))
+        {
+            Write.InColor(">> (X) Arquivo não encontrado!", ConsoleColor.Red);
+            Write.Exit();
+            return;
+        }
+
+        CsvConfiguration config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            Delimiter = ",",
+            Encoding = new UTF8Encoding(true),
+            PrepareHeaderForMatch = args => args.Header.ToLower().Replace(" ", "").Replace("ç", "c"),
+            MissingFieldFound = null,
+            HeaderValidated = null
+        };
+
+        using var reader = new StreamReader(path, config.Encoding);
+        using var csv = new CsvReader(reader, config);
+
+        csv.Read();
+        csv.ReadHeader();
+
+        while (csv.Read())
+        {
+            try
+            {
+                int id = csv.GetField<int>("id");
+                string name = csv.GetField<string>("nome");
+                string description = csv.GetField<string>("descrição");
+                int quantity = csv.GetField<int>("quantidadeemestoque");
+                string cnpj = csv.GetField<string>("cnpjdofornecedor");
+                string supplierName = csv.GetField<string>("nomedofornecedor");
+                string supplierPhone = csv.GetField<string>("telefonedofornecedor");
+
+                if (string.IsNullOrWhiteSpace(name) || name.Length < 3 || name.Length > 100)
+                {
+                    Write.InColor(">> (X) Nome inválido", ConsoleColor.Red);
+                    continue;
+                }
+
+                if (string.IsNullOrWhiteSpace(description) || description.Length < 5 || description.Length > 255)
+                {
+                    Write.InColor(">> (X) Descrição inválida", ConsoleColor.Red);
+                    continue;
+                }
+
+                if (quantity < 0)
+                {
+                    Write.InColor(">> (X) Quantidade deve ser ≥ 0", ConsoleColor.Red);
+                    continue;
+                }
+
+                if (cnpj.Length != 14)
+                {
+                    Write.InColor(">> (X) CNPJ inválido (14 dígitos)", ConsoleColor.Red);
+                    continue;
+                }
+
+                var existingSupplier = SupplierScreen.Repository.GetAll().FirstOrDefault(s => s.CNPJ == cnpj);
+
+                if (existingSupplier == null)
+                {
+                    existingSupplier = new Supplier(supplierName, supplierPhone, cnpj);
+                    SupplierScreen.Repository.Add(existingSupplier);
+                }
+                else
+                {
+                    existingSupplier.UpdateEntity(new Supplier(supplierName, supplierPhone, cnpj));
+                }
+
+                Medication existing = Repository.GetById(id);
+                var medication = new Medication(name, description, quantity, existingSupplier);
+
+                string validationErrors = medication.Validate();
+                if (!string.IsNullOrEmpty(validationErrors))
+                {
+                    Write.InColor($">> (X) Erro ao validar o medicamento: {validationErrors}", ConsoleColor.Red);
+                    continue;
+                }
+
+                if (existing == null)
+                    Repository.Add(medication);
+                else
+                    Repository.Edit(id, medication);
+
+            }
+            catch (Exception ex)
+            {
+                Write.InColor($">> Erro ao processar linha: {ex.Message}", ConsoleColor.Red);
+            }
+        }
+        Write.Loading();
+        Write.InColor(">> (✓) Importação concluída!", ConsoleColor.Green);
         Write.Exit();
     }
 
@@ -216,7 +320,6 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
                 });
             });
         }).GeneratePdf(filePath);
-
         Console.Clear();
         Write.Loading();
         Write.InColor(">> (✓) PDF exportado com sucesso!", ConsoleColor.Green);
