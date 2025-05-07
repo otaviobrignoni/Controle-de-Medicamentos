@@ -78,6 +78,14 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
         return new OutRequest(patient, medicalPrescription);
     }
 
+    /// <summary>
+    /// Exibe todas as requisições de saída vinculadas a um paciente específico.
+    /// </summary>
+    /// <remarks>
+    /// O método solicita ao usuário que selecione um paciente, validando o ID informado. <br/>
+    /// Em seguida, filtra e exibe todas as requisições de saída associadas a esse paciente em formato tabular. <br/>
+    /// Se não houver prescrições ou o paciente for inválido, mensagens apropriadas são exibidas.
+    /// </remarks>
     public void ShowAllPerPatient()
     {
         Console.Clear();

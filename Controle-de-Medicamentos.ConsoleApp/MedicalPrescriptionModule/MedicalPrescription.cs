@@ -61,22 +61,26 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>, ITableConver
         return true;
     }
 
-    public void ClosePrescription() // usar na saida
+    /// <summary>Define o status da prescrição como "Fechada".</summary>
+    public void ClosePrescription()
     {
         Status = "Fechada";
     }
 
+    /// <summary>Define o status da prescrição como "Expirada", se estiver vencida.</summary>
     public void SetExpired()
     {
         if (IsExpired())
             Status = "Expirada";
     }
 
+    /// <summary>Verifica se a prescrição está expirada (mais de 30 dias).</summary>
     private bool IsExpired()
     {
         return (DateTime.Now - Date).TotalDays > 30;
     }
 
+    /// <summary>Verifica se a prescrição está com status "Fechada".</summary>
     private bool IsClosed()
     {
         return Status == "Fechada";

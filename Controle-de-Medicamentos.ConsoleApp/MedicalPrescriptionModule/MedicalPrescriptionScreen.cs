@@ -58,6 +58,15 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
         return new MedicalPrescription(doctorCRM, medications);
     }
 
+    /// <summary>
+    /// Cria uma lista de medicamentos prescritos com base na entrada do usuário.
+    /// </summary>
+    /// <param name="quantity">Número de medicamentos a serem adicionados na prescrição.</param>
+    /// <returns>Lista de objetos <see cref="PrescriptionMedication"/> válidos.</returns>
+    /// <remarks>
+    /// Para cada medicamento, o sistema exibe os medicamentos disponíveis, solicita ID, dosagem, quantidade e posologia. <br/>
+    /// O processo se repete até que os dados fornecidos sejam válidos, utilizando <see cref="IsValid"/> para validação.
+    /// </remarks>
     private List<PrescriptionMedication> NewPrescriptionMedication(int quantity)
     {
         var medications = new List<PrescriptionMedication>();
@@ -93,6 +102,16 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
         return medications;
     }
 
+    /// <summary>
+    /// Valida os campos de um medicamento prescrito.
+    /// </summary>
+    /// <param name="prescription">Instância de <see cref="PrescriptionMedication"/> a ser validada.</param>
+    /// <returns>
+    /// <c>true</c> se a prescrição for válida; caso contrário, <c>false</c>.
+    /// </returns>
+    /// <remarks>
+    /// Em caso de erro, exibe mensagens descritivas no console e solicita nova tentativa.
+    /// </remarks>
     public bool IsValid(PrescriptionMedication prescription)
     {
         string errors = prescription.Validate();

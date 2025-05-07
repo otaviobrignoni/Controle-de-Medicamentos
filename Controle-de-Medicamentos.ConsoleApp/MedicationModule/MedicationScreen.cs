@@ -85,6 +85,14 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
         return true;
     }
 
+    /// <summary>
+    /// Exporta a lista de medicamentos para um arquivo CSV localizado na pasta de dados do usuário.
+    /// </summary>
+    /// <remarks>
+    /// O arquivo é salvo com um nome único baseado na data e hora da exportação (ex: <c>medicamentos_20250506_230859.csv</c>). <br/>
+    /// O conteúdo inclui informações básicas do medicamento e dados do fornecedor. <br/>
+    /// O arquivo é armazenado em <c>%APPDATA%\ControleDeMedicamentos</c>.
+    /// </remarks>
     public void ExportMedications()
     {
         string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");

@@ -13,11 +13,12 @@ public class InRequestRepository : BaseRepository<InRequest>, IInRequestReposito
         inRequest.Medication.UpdateQuantity(inRequest.Quantity);
         base.Add(inRequest);
     }
+
     public override List<InRequest> GetList()
     {
         return Context.InRequests;
     }
-
+  
     public bool HasRequisitionsForMedication(Medication medication)
     {
         return List.Any(i => i.Medication.Id == medication.Id);

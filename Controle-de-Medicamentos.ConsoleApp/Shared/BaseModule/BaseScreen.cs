@@ -14,14 +14,23 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         EntityName = entityName;
     }
 
+    /// <summary>
+    /// Metodo abstrato que deve ser implementado nas classes derivadas para exibir o menu principal da tela.
+    /// <summary>
     public abstract void ShowMenu();
 
     /// <summary>
-    /// Exibe o menu principal da entidade, permitindo a navegação entre as operações disponíveis.
+    /// Exibe um menu interativo no console com base nas opções fornecidas, permitindo navegação com as teclas.
     /// </summary>
+    /// <param name="title">Título exibido no topo do menu.</param>
+    /// <param name="menuOptions">Lista de opções que serão mostradas no menu.</param>
+    /// <param name="executeOption">
+    /// Função que será executada quando o usuário pressionar Enter.
+    /// Deve retornar <c>true</c> se o menu deve ser encerrado, ou <c>false</c> para continuar exibindo.
+    /// </param>
     /// <remarks>
-    /// Este método deve ser implementado nas classes derivadas para definir as opções específicas de interação com a entidade. <br/>
-    /// Cada opção do menu executa ações correspondentes.
+    /// O usuário pode navegar pelas opções utilizando as setas ↑ ↓ e selecionar com Enter.
+    /// Pressionar Esc encerra o menu imediatamente.
     /// </remarks>
     protected virtual void ShowMenu(string title, string[] menuOptions, Func<int, bool> executeOption) 
     {
@@ -57,6 +66,17 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         } while (true);
     }
 
+    /// <summary>
+    /// Executa a ação correspondente à opção selecionada no menu principal.
+    /// </summary>
+    /// <param name="indexSelected">Índice da opção selecionada pelo usuário.</param>
+    /// <returns>
+    /// Retorna <c>true</c> se a opção selecionada indicar saída do menu; caso contrário, <c>false</c>.
+    /// </returns>
+    /// <remarks>
+    /// Este método é responsável por mapear os índices do menu para métodos como <c>Add</c>, <c>Edit</c>, <c>Remove</c> e <c>ShowAll</c>.
+    /// Pode ser sobrescrito para adicionar ou alterar comportamentos específicos por entidade.
+    /// </remarks>
     protected virtual bool ExecuteOption(int indexSelected)
     {
         switch (indexSelected)
@@ -132,9 +152,16 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
     /// Remove uma entidade existente com base no ID informado pelo usuário.
     /// </summary>
     /// <remarks>
-    /// O método verifica se existem registros com <see cref="ExistRegisters"/> e exibe todos com <see cref="ShowAll"/>. <br/>
-    /// Em seguida, solicita o ID do item a ser removido, verifica sua existência com <see cref="FindRegister(int)"/>,
-    /// e remove o item do repositório. Ao final, exibe uma mensagem de confirmação.
+    /// Este método limpa o console e exibe o cabeçalho com o nome da entidade. <br/>
+    /// Em seguida:
+    /// <list type="number">
+    /// <item>Verifica se existem registros com <see cref="ExistRegisters"/>.</item>
+    /// <item>Exibe os itens disponíveis com <see cref="ShowAll"/>.</item>
+    /// <item>Solicita o ID da entidade a ser removida.</item>
+    /// <item>Verifica se o item existe com <see cref="FindRegister(int)"/>.</item>
+    /// <item>Valida se a remoção é permitida com <see cref="CanRemove(int)"/>.</item>
+    /// <item>Se tudo for válido, remove a entidade e exibe uma mensagem de sucesso.</item>
+    /// </list>
     /// </remarks>
     public virtual void Remove()
     {
@@ -160,20 +187,29 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         Write.Exit();
     }
 
+    /// <summary>
+    /// Verifica se a entidade com o ID informado pode ser removida.
+    /// </summary>
+    /// <param name="id">ID da entidade a ser verificada.</param>
+    /// <returns>
+    /// <c>true</c> se a remoção for permitida; caso contrário, <c>false</c>.
+    /// </returns>
+    /// <remarks>
+    /// Este método pode ser sobrescrito nas telas específicas para aplicar regras de negócio.
+    /// Exemplo: impedir exclusão de medicamentos com requisições vinculadas, ou fornecedores vinculados a medicamentos.
+    /// </remarks>
     public virtual bool CanRemove(int id)
     {
         return true;
     }
 
     /// <summary>
-    /// Exibe todos os registros da entidade, com cabeçalho e linhas formatadas.
+    /// Exibe todos os registros da entidade em formato tabular.
     /// </summary>
-    /// <param name="showExit">
-    /// Define se uma mensagem de encerramento ("Pressione Enter para voltar") será exibida ao final da listagem.
-    /// </param>
+    /// <param name="showExit">Se <c>true</c>, exibe mensagem de retorno ao final.</param>
+    /// <param name="useClear">Se <c>true</c>, limpa o console antes da exibição.</param>
     /// <remarks>
-    /// O método utiliza <see cref="ExistRegisters"/> para verificar se há dados antes da exibição.<br/><br/>
-    /// O cabeçalho da tabela e as linhas são desenhados utilizando os métodos <see cref="ShowTableHeader"/> e <see cref="PrintRow(T)"/>.
+    /// Usa <see cref="ITableConvertible.ToLineStrings"/> para renderizar os dados em tabela com bordas.
     /// </remarks>
     public virtual void ShowAll(bool showExit, bool useClear = false)
     {
@@ -225,8 +261,15 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
             Write.Exit();       
     }
 
+    /// <summary>
+    /// Retorna os títulos das colunas exibidas na listagem.
+    /// </summary>
+    /// <returns>Array com os nomes das colunas.</returns>
     public abstract string[] GetHeaders();
 
+    /// <summary>
+    /// Imprime a borda superior da tabela com base na largura das colunas.
+    /// </summary>
     protected void PrintTopBorder(int[] widths)
     {
         Console.Write("┌");
@@ -238,6 +281,9 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         Console.WriteLine();
     }
 
+    /// <summary>
+    /// Imprime a linha separadora entre o cabeçalho e os dados.
+    /// </summary>
     protected void PrintSeparator(int[] widths)
     {
         Console.Write("├");
@@ -249,6 +295,9 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         Console.WriteLine();
     }
 
+    /// <summary>
+    /// Imprime a borda inferior da tabela.
+    /// </summary>
     protected void PrintBottomBorder(int[] widths)
     {
         Console.Write("└");
@@ -260,6 +309,11 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         Console.WriteLine();
     }
 
+    /// <summary>
+    /// Imprime uma linha da tabela com espaçamento proporcional à largura de cada coluna.
+    /// </summary>
+    /// <param name="row">Valores da linha.</param>
+    /// <param name="widths">Largura máxima de cada coluna.</param>
     public virtual void PrintRow(string[] row, int[] widths)
     {
         Console.Write("│");
