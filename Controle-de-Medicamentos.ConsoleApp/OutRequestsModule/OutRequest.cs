@@ -19,6 +19,7 @@ public class OutRequest : BaseEntity<OutRequest>, ITableConvertible
 
     public override void UpdateEntity(OutRequest entity)
     {
+        Id = entity.Id;
         Patient = entity.Patient;
         MedicalPrescription = entity.MedicalPrescription;
     }

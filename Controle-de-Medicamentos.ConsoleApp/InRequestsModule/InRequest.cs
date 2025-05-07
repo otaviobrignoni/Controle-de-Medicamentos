@@ -22,6 +22,7 @@ public class InRequest : BaseEntity<InRequest>, ITableConvertible
 
     public override void UpdateEntity(InRequest entity)
     {
+        Id = entity.Id;
         Medication = entity.Medication;
         Employee = entity.Employee;
         Quantity = entity.Quantity;
