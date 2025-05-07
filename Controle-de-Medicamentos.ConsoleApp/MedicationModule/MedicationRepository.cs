@@ -1,5 +1,6 @@
 ﻿using Controle_de_Medicamentos.ConsoleApp.Shared;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
+using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 
@@ -38,5 +39,10 @@ public class MedicationRepository : BaseRepository<Medication>, IMedicationRepos
             return true;
         }
         return false;
+    }
+
+    public bool HasMedicationForSupplier(Supplier supplier)
+    {
+        return List.Any(m => m.Supplier.Id == supplier.Id);
     }
 }

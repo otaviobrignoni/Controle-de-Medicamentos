@@ -1,13 +1,16 @@
-﻿using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
+﻿using Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
+using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 using Controle_de_Medicamentos.ConsoleApp.Shared.Extensions;
 using Controle_de_Medicamentos.ConsoleApp.Utils;
 
 namespace Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 public class EmployeeScreen : BaseScreen<Employee>, ICrudScreen
 {
-    public EmployeeScreen(IEmployeeRepository employeeRepository) : base(employeeRepository, "Funcionário")
+    IInRequestRepository InRequestRepository { get; set; }
+
+    public EmployeeScreen(IEmployeeRepository employeeRepository, IInRequestRepository inRequestRepository) : base(employeeRepository, "Funcionário")
     {
-        Repository = employeeRepository;
+        InRequestRepository = inRequestRepository;
     }
 
     public override void ShowMenu()
@@ -16,7 +19,7 @@ public class EmployeeScreen : BaseScreen<Employee>, ICrudScreen
 
         base.ShowMenu("Gerenciamento de Funcionários", options, ExecuteOption);
     }
-
+    
     protected override Employee NewEntity()
     {
         Write.InColor("> Digite o nome do funcionário: ", ConsoleColor.Yellow, true);
@@ -29,6 +32,17 @@ public class EmployeeScreen : BaseScreen<Employee>, ICrudScreen
         return new Employee(name, phoneNumber, CPF);
     }
 
+    public override bool CanRemove(int id)
+    {
+        Employee employee = Repository.GetById(id);
+        if(InRequestRepository.HasRequisitionsForEmployee(employee))
+        {
+            Write.InColor($"\nO funcionário {employee.Name} não pode ser excluído, pois está vinculado a requisições.", ConsoleColor.Red);
+            Write.ShowExit();
+            return false;
+        }
+        return true;
+    }
     public override string[] GetHeaders()
     {
         return new[] { "Id", "Nome", "Telefone", "CPF" };

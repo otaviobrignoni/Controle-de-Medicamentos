@@ -147,16 +147,24 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
             return;
 
         ShowAll(false);
-        Write.InColor($">> Digite o ID do {EntityName} que deseja remover:", ConsoleColor.Yellow, true);
+        Write.InColor($">> Digite o ID do {EntityName} que deseja remover: ", ConsoleColor.Yellow, true);
         int id = Convert.ToInt32(Console.ReadLine());
 
         if (!FindRegister(id))
+            return;
+
+        if (!CanRemove(id))
             return;
 
         Repository.Remove(id);
 
         Write.InColor($">> (✓) {EntityName} removido com sucesso!", ConsoleColor.Green);
         Write.ShowExit();
+    }
+
+    public virtual bool CanRemove(int id)
+    {
+        return true;
     }
 
     /// <summary>

@@ -43,9 +43,9 @@ public class MainScreen
         medicalPrescriptionRepository = new MedicalPrescriptionRepository(context);
 
         patientScreen = new PatientScreen(patientRepository);
-        supplierScreen = new SupplierScreen(suplierRepository);
-        employeeScreen = new EmployeeScreen(employeeRepository);
-        medicationScreen = new MedicationScreen(medicationRepository, supplierScreen, suplierRepository);
+        supplierScreen = new SupplierScreen(suplierRepository, medicationRepository);
+        employeeScreen = new EmployeeScreen(employeeRepository,inRequestRepository);
+        medicationScreen = new MedicationScreen(medicationRepository, supplierScreen, suplierRepository, inRequestRepository);
         inRequestScreen = new InRequestScreen(medicationScreen, employeeScreen, inRequestRepository);
         medicalPrescriptionScreen = new MedicalPrescriptionScreen(medicalPrescriptionRepository, medicationScreen, medicationRepository);
         outRequestScreen = new OutRequestScreen(patientScreen, medicalPrescriptionScreen, outRequestRepository);

@@ -1,4 +1,6 @@
-﻿using Controle_de_Medicamentos.ConsoleApp.Shared;
+﻿using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
+using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
+using Controle_de_Medicamentos.ConsoleApp.Shared;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
@@ -20,4 +22,13 @@ public class InRequestRepository : BaseRepository<InRequest>, IInRequestReposito
         return Context.InRequests;
     }
 
+    public bool HasRequisitionsForMedication(Medication medication)
+    {
+        return List.Any(i => i.Medication.Id == medication.Id);
+    }
+
+    public bool HasRequisitionsForEmployee(Employee employee)
+    {
+        return List.Any(i => i.Employee.Id == employee.Id);
+    }
 }

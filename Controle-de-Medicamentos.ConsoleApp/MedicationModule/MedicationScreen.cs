@@ -6,18 +6,21 @@ using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 using Controle_de_Medicamentos.ConsoleApp.Utils;
 using CsvHelper.Configuration;
 using CsvHelper;
+using Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 
 public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
 {
     SupplierScreen SupplierScreen {get; set; }
-    ISupplierRepository supplierRepository { get; set; }
+    ISupplierRepository SupplierRepository { get; set; }
+    IInRequestRepository InRequestRepository { get; set; }
 
-    public MedicationScreen(IMedicationRepository repository, SupplierScreen supplierScreen, ISupplierRepository supplierRepository) : base(repository, "Medicamento")
+    public MedicationScreen(IMedicationRepository repository, SupplierScreen supplierScreen, ISupplierRepository supplierRepository, IInRequestRepository inRequestRepository) : base(repository, "Medicamento")
     {
-        this.SupplierScreen = supplierScreen;
-        this.supplierRepository = supplierRepository;
+        SupplierScreen = supplierScreen;
+        SupplierRepository = supplierRepository;
+        InRequestRepository = inRequestRepository;
     }
 
     public override void ShowMenu()
@@ -65,39 +68,21 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
         SupplierScreen.ShowAll(false);
         Write.InColor("> Digite o ID do fornecedor do medicamento: ", ConsoleColor.Yellow, true);
         int idSuplier = Validator.GetValidInt();
-        Supplier? supplier = supplierRepository.GetById(idSuplier);  
+        Supplier? supplier = SupplierRepository.GetById(idSuplier);  
 
         return new Medication(name, description, quantity, supplier);
     }
 
-    public override string[] GetHeaders()
+    public override bool CanRemove(int id)
     {
-        return new[] { "Id", "Nome", "Descrição", "Quantidade", "Fornecedor", "Status de Estoque" };
-    }
-
-    public override void PrintRow(string[] row, int[] widths)
-    {
-        Console.Write("│");
-        for (int i = 0; i < row.Length; i++)
+        Medication medication = Repository.GetById(id);
+        if(InRequestRepository.HasRequisitionsForMedication(medication))
         {
-            string cell = row[i];
-            string padded = cell.PadRight(widths[i]);
-
-
-            var originalColor = Console.ForegroundColor;
-
-            if (cell == "Em Falta")
-                Console.ForegroundColor = ConsoleColor.Red;
-            else if (cell == "Ok")
-                Console.ForegroundColor = ConsoleColor.Green;
-
-            Console.Write(" " + padded + " ");
-
-            Console.ForegroundColor = originalColor;
-
-            Console.Write("│");
+            Write.InColor($"\nO medicamento {medication.Name} não pode ser excluído, pois está vinculado a requisições.", ConsoleColor.Red);
+            Write.ShowExit();
+            return false;
         }
-        Console.WriteLine();
+        return true;
     }
 
     public void ExportMedications()
@@ -150,5 +135,35 @@ public class MedicationScreen : BaseScreen<Medication>, ICrudScreen
         Console.Clear();
         Write.InColor(">> (✓) Exportado arquivo com sucesso!", ConsoleColor.Green);
         Write.ShowExit();
+    }
+
+    public override void PrintRow(string[] row, int[] widths)
+    {
+        Console.Write("│");
+        for (int i = 0; i < row.Length; i++)
+        {
+            string cell = row[i];
+            string padded = cell.PadRight(widths[i]);
+
+
+            var originalColor = Console.ForegroundColor;
+
+            if (cell == "Em Falta")
+                Console.ForegroundColor = ConsoleColor.Red;
+            else if (cell == "Ok")
+                Console.ForegroundColor = ConsoleColor.Green;
+
+            Console.Write(" " + padded + " ");
+
+            Console.ForegroundColor = originalColor;
+
+            Console.Write("│");
+        }
+        Console.WriteLine();
+    }
+
+    public override string[] GetHeaders()
+    {
+        return new[] { "Id", "Nome", "Descrição", "Quantidade", "Fornecedor", "Status de Estoque" };
     }
 }

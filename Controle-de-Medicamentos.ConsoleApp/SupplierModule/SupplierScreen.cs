@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 using Controle_de_Medicamentos.ConsoleApp.Shared.Extensions;
 using Controle_de_Medicamentos.ConsoleApp.Utils;
@@ -7,7 +7,12 @@ namespace Controle_de_Medicamentos.ConsoleApp.SupplierModule
 {
     public class SupplierScreen : BaseScreen<Supplier>, ICrudScreen
     {
-        public SupplierScreen(ISupplierRepository repository) : base(repository, "Fornecedor") { }
+        public IMedicationRepository MedicationRepository;
+
+        public SupplierScreen(ISupplierRepository repository, IMedicationRepository medicationRepository) : base(repository, "Fornecedor") 
+        {
+            MedicationRepository = medicationRepository;
+        }
 
         public override void ShowMenu()
         {
@@ -15,7 +20,7 @@ namespace Controle_de_Medicamentos.ConsoleApp.SupplierModule
 
             base.ShowMenu("Gerenciamento de Fornecedores", options, ExecuteOption);
         }
-
+        
         protected override Supplier NewEntity()
         {
             Write.InColor("> Digite o nome do fornecedor: ", ConsoleColor.Yellow, true);
@@ -29,6 +34,18 @@ namespace Controle_de_Medicamentos.ConsoleApp.SupplierModule
 
 
             return new Supplier(name, phone, cnpj);
+        }
+
+        public override bool CanRemove(int id)
+        {
+            Supplier supplier = Repository.GetById(id);
+            if(MedicationRepository.HasMedicationForSupplier(supplier))
+            {
+                Write.InColor($"\nO fornecedor {supplier.Name} não pode ser excluído, pois está vinculado a medicamentos.", ConsoleColor.Red);
+                Write.ShowExit();
+                return false;
+            }
+            return true;
         }
 
         public override string[] GetHeaders()
