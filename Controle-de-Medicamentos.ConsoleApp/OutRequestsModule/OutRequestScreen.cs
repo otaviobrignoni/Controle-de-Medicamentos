@@ -40,6 +40,8 @@ public class OutRequestScreen : BaseScreen<OutRequest>, ICrudScreen
 
         newEntity.MedicalPrescription.ClosePrescription();
 
+        Write.Loading();
+
         Write.InColor($">> (✓) {EntityName} registrado com sucesso!", ConsoleColor.Green);
         Write.Exit();
     }

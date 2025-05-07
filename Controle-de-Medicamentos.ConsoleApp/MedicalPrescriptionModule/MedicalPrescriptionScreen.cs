@@ -94,6 +94,9 @@ public class MedicalPrescriptionScreen : BaseScreen<MedicalPrescription>, ICrudS
                     continue;
 
                 medications.Add(prescriptionMedication);
+
+                Write.Loading();
+
                 Write.InColor($">> Medicamento N°{i + 1} adicionado com sucesso!", ConsoleColor.Green);
                 Write.Exit();
                 break;

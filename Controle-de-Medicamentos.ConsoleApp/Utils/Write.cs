@@ -1,4 +1,6 @@
-﻿namespace Controle_de_Medicamentos.ConsoleApp.Utils;
+﻿using System.Runtime.CompilerServices;
+
+namespace Controle_de_Medicamentos.ConsoleApp.Utils;
 
 public static class Write
 {
@@ -58,6 +60,29 @@ public static class Write
         InColor(">> Pressione [Qualquer tecla] para tentar novamente.", ConsoleColor.Yellow);
         Console.ReadKey();
     }
+
+    /// <summary>
+    /// Exibe uma pequena animação de carregamento no console.
+    /// </summary>
+    /// <remarks>
+    /// Exibe três pontos na cor amarela, aguarda 1 segundo e pula uma linha.  
+    /// Pode ser utilizado para indicar ao usuário que uma operação está em andamento.
+    /// </remarks>
+    public static void Loading()
+    {
+        Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.Yellow;
+
+        for (int i = 0; i < 3; i++)
+        {
+            Console.Write(". ");
+            Thread.Sleep(400); // exibe um ponto a cada 400ms
+        }
+
+        Console.ResetColor();
+        Console.WriteLine("\n");
+    }
+
 
     /// <summary>
     /// Exibe um cabeçalho formatado com bordas no console, centralizando o título informado.

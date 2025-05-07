@@ -109,6 +109,8 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
        
         Repository.Add(newEntity);
 
+        Write.Loading();
+
         Write.InColor($">> (✓) {EntityName} registrado com sucesso!", ConsoleColor.Green);
         Write.Exit();
     }
@@ -143,6 +145,8 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
             return;
 
         Repository.Edit(id, entity);
+
+        Write.Loading();
 
         Write.InColor($">> (✓) {EntityName} editado com sucesso!", ConsoleColor.Green);
         Write.Exit();
@@ -181,7 +185,13 @@ public abstract class BaseScreen<T> where T : BaseEntity<T>
         if (!CanRemove(id))
             return;
 
+        Write.InColor(">> (!) Tem certeza que deseja excluir? (s/n): ", ConsoleColor.Yellow, true);
+        if (Console.ReadLine()?.ToLower() != "s") 
+            return;
+
         Repository.Remove(id);
+
+        Write.Loading();
 
         Write.InColor($">> (✓) {EntityName} removido com sucesso!", ConsoleColor.Green);
         Write.Exit();
