@@ -8,19 +8,20 @@
 >![Demonstração do Projeto](https://i.imgur.com/WrLEsbs.gif)
 
 # 💡 Índice
-- [Demonstração](#demonstracao)
-- [Introdução](#introducao)
-- [Funcionalidades](#funcionalidades)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Arquivos Relacionados](#arquivos-relacionados)
-- [Tecnologias Usadas](#tecnologias-usadas)
-- [Commits e Convenções](#commits-e-convencoes)
-- [Como Usar](#como-usar)
-- [Contribuidores](#contribuidores)
-- [Mentores](#mentores)
-- [Sobre o Projeto](#sobre-o-projeto)
-- [FeedBack](#feedback)
-- [Como Contribuir](#como-contribuir)
+
+- [Demonstração](#-demonstração)
+- [Introdução](#-introdução)
+- [Funcionalidades](#-funcionalidades)
+- [Estrutura do Projeto](#-estrutura-do-projeto)
+- [Arquivos Relacionados](#-arquivos-relacionados)
+- [Tecnologias Usadas](#-tecnologias-usadas)
+- [Commits e Convenções](#-commits-e-convenções)
+- [Como Usar](#-como-usar)
+- [Contribuidores](#-contribuidores)
+- [Mentores](#-mentores)
+- [Sobre o Projeto](#-sobre-o-projeto)
+- [FeedBack](#-feedback)
+- [Como Contribuir](#-como-contribuir)
 
 # 📚 Introdução
 
