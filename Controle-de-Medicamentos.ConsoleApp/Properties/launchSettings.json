@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Controle-de-Medicamentos.ConsoleApp": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:51438;http://localhost:51439"
+    }
+  }
+}
