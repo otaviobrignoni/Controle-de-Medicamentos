@@ -1,5 +1,5 @@
 ﻿# Controle De Medicamentos
-![Status Finalizado](https://img.shields.io/badge/Status-Finalizado-green?color=Green)
+![Status Finalizado](https://img.shields.io/badge/Status-Em desenvolvimento-yellow?color=Yellow)
 
 ![banner](https://i.imgur.com/vdeYeV6.png)
 
