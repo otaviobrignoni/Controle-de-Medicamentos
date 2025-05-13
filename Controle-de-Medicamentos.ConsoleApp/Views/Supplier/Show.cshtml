@@ -1,0 +1,35 @@
+﻿@using Controle_de_Medicamentos.ConsoleApp.SupplierModule
+@{
+    List<Supplier> suppliers = ViewBag.Suppliers;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Visualizar Fornecedores - Controle de Medicamentos</title>
+</head>
+
+<body>
+    <h1>Controle de Medicamentos</h1>
+
+    <hr />
+
+    <a href="/">Página Inicial</a> /
+    <a href="/suppliers/add">Cadastrar Novo Fabricante</a> /
+
+    <hr />
+
+    <h3>Visualizar Fornecedores</h3>
+
+    <ul>
+        @foreach (Supplier s in suppliers)
+        {
+            <li>
+                @s.ToString() / <a href="/suppliers/edit/@s.Id">Editar</a> /
+                <a href="/suppliers/remove/@s.Id">Remover</a>
+            </li>
+        }
+    </ul>
+</body>
+</html>

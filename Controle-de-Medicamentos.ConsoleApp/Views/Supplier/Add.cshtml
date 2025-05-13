@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Cadastrar Fornecedor - Controle de Medicamentos</title>
+</head>
+
+<body>
+    <h1>Controle de Medicamentos</h1>
+
+    <hr />
+
+    <a href="/">Página Inicial</a> /
+    <a href="/suppliers/show">Visualizar fornecedores</a>
+
+    <hr />
+
+    <h3>Cadastrar Fornecedor</h3>
+
+    <form action="/suppliers/add" method="post">
+        <label>Nome do fornecedor:</label>
+        <br />
+        <input type="text" name="name" />
+
+        <br />
+
+        <label>Telefone do fornecedor:</label>
+        <br />
+        <input type="text" name="phoneNumber" />
+
+        <br />
+
+        <label>CNPJ do fornecedor:</label>
+        <br />
+        <input type="text" name="cnpj" />
+        <hr />
+
+        <button type="submit">Gravar</button>
+    </form>
+</body>
+</html>

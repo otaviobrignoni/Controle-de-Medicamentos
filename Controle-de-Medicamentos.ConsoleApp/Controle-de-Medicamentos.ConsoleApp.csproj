@@ -1,26 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>Controle_de_Medicamentos.ConsoleApp</RootNamespace>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<RootNamespace>Controle_de_Medicamentos.ConsoleApp</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="InboundRequestsModule\**" />
-    <EmbeddedResource Remove="InboundRequestsModule\**" />
-    <None Remove="InboundRequestsModule\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="InboundRequestsModule\**" />
+		<EmbeddedResource Remove="InboundRequestsModule\**" />
+		<None Remove="InboundRequestsModule\**" />
+		<Compile Remove="Html\**" />
+		<EmbeddedResource Remove="Html\**" />
+		<None Remove="Html\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="PatientModule\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="PatientModule\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="CsvHelper" Version="33.0.1" />
-    <PackageReference Include="QuestPDF" Version="2025.4.3" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="CsvHelper" Version="33.0.1" />
+		<PackageReference Include="QuestPDF" Version="2025.4.3" />
+	</ItemGroup>
 
 </Project>

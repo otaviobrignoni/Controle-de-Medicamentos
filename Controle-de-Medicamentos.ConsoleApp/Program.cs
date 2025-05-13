@@ -6,17 +6,15 @@
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddControllersWithViews();
+
             WebApplication app = builder.Build();
 
-            app.MapGet("/", HomePage);
+            app.UseRouting();
+            app.MapControllers();
 
             app.Run();
-        }
-        static Task HomePage(HttpContext context)
-        {
-            string html = File.ReadAllText("Html/home.html");
 
-            return context.Response.WriteAsync(html);
         }
     }
 }

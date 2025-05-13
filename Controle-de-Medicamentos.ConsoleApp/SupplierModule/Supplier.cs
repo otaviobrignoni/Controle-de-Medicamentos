@@ -51,6 +51,11 @@ public class Supplier : BaseEntity<Supplier>, ITableConvertible
         return erros;
     }
 
+    public override string ToString()
+    {
+        return $"Id: {Id}, Nome: {Name}, Telefone: {PhoneNumber}, CNPJ {CNPJ}";
+    }
+
     public string[] ToLineStrings()
     {
         return new string[] { Id.ToString(), Name, PhoneNumber, CNPJ };
