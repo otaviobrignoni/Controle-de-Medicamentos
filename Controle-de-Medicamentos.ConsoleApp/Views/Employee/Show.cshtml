@@ -1,0 +1,35 @@
+﻿@using Controle_de_Medicamentos.ConsoleApp.EmployeeModule
+@{
+    List<Employee> employees = ViewBag.Employees;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Visualizar Funcionários - Controle de Medicamentos</title>
+</head>
+
+<body>
+    <h1>Controle de Medicamentos</h1>
+
+    <hr />
+
+    <a href="/">Página Inicial</a> /
+    <a href="/employees/add">Cadastrar novo funcionário</a> /
+
+    <hr />
+
+    <h3>Visualizar Funcionários</h3>
+
+    <ul>
+        @foreach (Employee e in employees)
+        {
+            <li>
+                @e.ToString() / <a href="/employees/edit/@e.Id">Editar</a> /
+                <a href="/employees/remove/@e.Id">Remover</a>
+            </li>
+        }
+    </ul>
+</body>
+</html>

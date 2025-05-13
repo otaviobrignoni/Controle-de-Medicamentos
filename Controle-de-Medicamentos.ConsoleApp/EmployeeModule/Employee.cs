@@ -45,6 +45,10 @@ public class Employee : BaseEntity<Employee>, ITableConvertible
         return errors;
     }
 
+    public override string ToString()
+    {
+        return $"Id: {Id}, Nome: {Name}, Telefone: {PhoneNumber}, CPF {CPF}";
+    }
     public string[] ToLineStrings()
     {
         return new string[] { Id.ToString(), Name, PhoneNumber, CPF };

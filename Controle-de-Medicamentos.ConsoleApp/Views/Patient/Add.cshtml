@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Cadastrar Paciente - Controle de Medicamentos</title>
+</head>
+
+<body>
+    <h1>Controle de Medicamentos</h1>
+
+    <hr />
+
+    <a href="/">Página Inicial</a> /
+    <a href="/patients/show">Visualizar pacientees</a>
+
+    <hr />
+
+    <h3>Cadastrar Paciente</h3>
+
+    <form action="/patients/add" method="post">
+        <label>Nome do paciente:</label>
+        <br />
+        <input type="text" name="name" />
+
+        <br />
+
+        <label>Telefone do paciente:</label>
+        <br />
+        <input type="text" name="phoneNumber" />
+
+        <br />
+
+        <label>Cartão SUS do paciente:</label>
+        <br />
+        <input type="text" name="suscard" />
+        <hr />
+
+        <button type="submit">Gravar</button>
+    </form>
+</body>
+</html>

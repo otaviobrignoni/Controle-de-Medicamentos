@@ -1,0 +1,35 @@
+﻿@using Controle_de_Medicamentos.ConsoleApp.PatientModule
+@{
+    List<Patient> patients = ViewBag.Patients;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Visualizar Pacientes - Controle de Medicamentos</title>
+</head>
+
+<body>
+    <h1>Controle de Medicamentos</h1>
+
+    <hr />
+
+    <a href="/">Página Inicial</a> /
+    <a href="/patients/add">Cadastrar novo paciente</a> /
+
+    <hr />
+
+    <h3>Visualizar Pacientes</h3>
+
+    <ul>
+        @foreach (Patient p in patients)
+        {
+            <li>
+                @p.ToString() / <a href="/patients/edit/@p.Id">Editar</a> /
+                <a href="/patients/remove/@p.Id">Remover</a>
+            </li>
+        }
+    </ul>
+</body>
+</html>

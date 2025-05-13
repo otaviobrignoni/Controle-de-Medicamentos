@@ -1,0 +1,47 @@
+﻿@using Controle_de_Medicamentos.ConsoleApp.PatientModule
+@{
+    Patient p = ViewBag.Patient;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Editar Paciente - Controle de Medicamentos</title>
+</head>
+
+<body>
+    <h1>Controle de Medicamentos</h1>
+
+    <hr />
+
+    <a href="/">Página Inicial</a> /
+    <a href="/patients/add">Cadastrar novo paciente</a> /
+    <a href="/patients/show">Visualizar pacientees</a>
+
+    <hr />
+
+    <h3>Editar Paciente</h3>
+
+    <form action="/patients/edit/@p.Id" method="post">
+        <label>Nome do paciente:</label>
+        <br />
+        <input type="text" name="name" value="@p.Name" />
+
+        <br />
+
+        <label>Telefone do paciente:</label>
+        <br />
+        <input type="text" name="phoneNumber" value="@p.PhoneNumber" />
+
+        <br />
+
+        <label>Cartão do paciente:</label>
+        <br />
+        <input type="text" name="suscard" value="@p.SUSCard" />
+        <hr />
+
+        <button type="submit">Gravar</button>
+    </form>
+</body>
+</html>

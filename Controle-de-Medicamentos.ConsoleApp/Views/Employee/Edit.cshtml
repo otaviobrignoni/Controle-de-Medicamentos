@@ -1,0 +1,47 @@
+﻿@using Controle_de_Medicamentos.ConsoleApp.EmployeeModule
+@{
+    Employee e = ViewBag.Employee;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Editar Funcionário - Controle de Medicamentos</title>
+</head>
+
+<body>
+    <h1>Controle de Medicamentos</h1>
+
+    <hr />
+
+    <a href="/">Página Inicial</a> /
+    <a href="/employees/add">Cadastrar novo funcionário</a> /
+    <a href="/employees/show">Visualizar funcionários</a>
+
+    <hr />
+
+    <h3>Editar Fornecedor</h3>
+
+    <form action="/suppliers/edit/@e.Id" method="post">
+        <label>Nome do funcionário:</label>
+        <br />
+        <input type="text" name="name" value="@e.Name" />
+
+        <br />
+
+        <label>Telefone do funcionário:</label>
+        <br />
+        <input type="text" name="phoneNumber" value="@e.PhoneNumber" />
+
+        <br />
+
+        <label>CPF do funcionário:</label>
+        <br />
+        <input type="text" name="cpf" value="@e.CPF" />
+        <hr />
+
+        <button type="submit">Gravar</button>
+    </form>
+</body>
+</html>

@@ -52,6 +52,11 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
             return erros;
         }
 
+        public override string ToString()
+        {
+            return $"Id: {Id}, Nome: {Name}, Telefone: {PhoneNumber}, Cartão SUS {SUSCard}";
+        }
+
         public string[] ToLineStrings()
         {
             return new string[] { Id.ToString(), Name, PhoneNumber, SUSCard };

@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Cadastrar Funcionário - Controle de Medicamentos</title>
+</head>
+
+<body>
+    <h1>Controle de Medicamentos</h1>
+
+    <hr />
+
+    <a href="/">Página Inicial</a> /
+    <a href="/employees/show">Visualizar funcionarios</a>
+
+    <hr />
+
+    <h3>Cadastrar Funcionário</h3>
+
+    <form action="/employees/add" method="post">
+        <label>Nome do funcionário:</label>
+        <br />
+        <input type="text" name="name" />
+
+        <br />
+
+        <label>Telefone do funcionário:</label>
+        <br />
+        <input type="text" name="phoneNumber" />
+
+        <br />
+
+        <label>CPF do funcionário:</label>
+        <br />
+        <input type="text" name="cpf" />
+        <hr />
+
+        <button type="submit">Gravar</button>
+    </form>
+</body>
+</html>

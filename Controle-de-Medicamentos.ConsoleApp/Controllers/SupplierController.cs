@@ -1,5 +1,4 @@
-﻿using System.Xml.Linq;
-using Controle_de_Medicamentos.ConsoleApp.Shared;
+﻿using Controle_de_Medicamentos.ConsoleApp.Shared;
 using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 using Microsoft.AspNetCore.Mvc;
 
