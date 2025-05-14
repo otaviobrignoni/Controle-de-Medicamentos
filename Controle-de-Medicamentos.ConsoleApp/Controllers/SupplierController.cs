@@ -27,9 +27,9 @@ public class SupplierController : Controller
 
         supplierRepo.Add(newSupplier);
 
-        ViewBag.Message = $"O registro \"{addViewModel.Name}\" foi cadastrado com sucesso!";
+        NotificationViewModel notificationViewModel = new NotificationViewModel("Fornecedor cadastrado!", $"O registro \"{addViewModel.Name}\" foi cadastrado com sucesso!");
 
-        return View("Notification");
+        return View("Notification", notificationViewModel);
     }
 
     [HttpGet("edit/{id:int}")]
@@ -56,13 +56,13 @@ public class SupplierController : Controller
         DataContext dataContext = new DataContext(true);
         ISupplierRepository supplierRepo = new SupplierRepository(dataContext);
 
-        Supplier editedSupplier = new Supplier(editViewModel.Name, editViewModel.PhoneNumber, editViewModel.CNPJ);
+        Supplier editedSupplier = editViewModel.ToEntity();
 
         supplierRepo.Edit(id, editedSupplier);
 
-        ViewBag.Message = $"O registro \"{editViewModel.Name}\" foi editado com sucesso!";
+        NotificationViewModel notificationViewModel = new NotificationViewModel("Fornecedor editado!", $"O registro \"{editedSupplier.Name}\" foi editado com sucesso!");
 
-        return View("Notification");
+        return View("Notification", notificationViewModel);
     }
 
     [HttpGet("remove/{id:int}")]
@@ -86,9 +86,9 @@ public class SupplierController : Controller
 
         supplierRepo.Remove(id);
 
-        ViewBag.Message = $"O registro foi excluído com sucesso!";
+        NotificationViewModel notificationViewModel = new NotificationViewModel("Fornecedor removido!", $"O registro foi excluído com sucesso!");
 
-        return View("Notification");
+        return View("Notification", notificationViewModel);
     }
 
     [HttpGet("show")]

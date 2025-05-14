@@ -1,8 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Controle_de_Medicamentos.ConsoleApp.Models
+@model NotificationViewModel;
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Notificação - Controle de Medicamentos</title>
+    <title>@Model.Title - Controle de Medicamentos</title>
 </head>
 
 <body>
@@ -16,6 +19,6 @@
 
     <h3>Notificação</h3>
 
-    <p>@ViewBag.Message</p>
+    <p>@Model.Message</p>
 </body>
 </html>
