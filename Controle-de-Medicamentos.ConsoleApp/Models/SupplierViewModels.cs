@@ -26,7 +26,8 @@ public class EditSupplierViewModel : SupplierFormViewModel
 {
     public int Id { get; set; }
 
-    public EditSupplierViewModel(int id, string name, string phoneNumber, string cnpj)
+    public EditSupplierViewModel() { }
+    public EditSupplierViewModel(int id, string name, string phoneNumber, string cnpj) : this()
     {
         Id = id;
         Name = name;
@@ -40,7 +41,8 @@ public class RemoveSupplierViewModel
     public int Id { get; set; }
     public string Name { get; set; }
 
-    public RemoveSupplierViewModel(int id, string name)
+    public RemoveSupplierViewModel() { }
+    public RemoveSupplierViewModel(int id, string name) : this() {
     {
         Id = id;
         Name = name;
