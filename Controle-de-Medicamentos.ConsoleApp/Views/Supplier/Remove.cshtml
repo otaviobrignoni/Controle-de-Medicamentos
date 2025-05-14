@@ -1,7 +1,5 @@
-﻿@using Controle_de_Medicamentos.ConsoleApp.SupplierModule
-@{
-    Supplier s = ViewBag.Supplier;
-}
+﻿@using Controle_de_Medicamentos.ConsoleApp.Models
+@model RemoveSupplierViewModel;
 
 <!DOCTYPE html>
 <html>
@@ -23,9 +21,9 @@
 
     <h3>Remover Fornecedor</h3>
 
-    <p>Você tem certeza que deseja excluir o registro "@s.Name"?</p>
+    <p>Você tem certeza que deseja excluir o registro "@Model.Name"?</p>
 
-    <form action="/suppliers/remove/@s.Id" method="post">
+    <form action="/suppliers/remove/@Model.Id" method="post">
         <button type="submit">Confirmar</button>
         <a href="/suppliers/show">Voltar</a>
     </form>

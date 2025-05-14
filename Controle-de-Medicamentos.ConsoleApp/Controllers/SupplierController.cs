@@ -1,4 +1,6 @@
-﻿using Controle_de_Medicamentos.ConsoleApp.Shared;
+﻿using Controle_de_Medicamentos.ConsoleApp.Extensions;
+using Controle_de_Medicamentos.ConsoleApp.Models;
+using Controle_de_Medicamentos.ConsoleApp.Shared;
 using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,24 +13,21 @@ public class SupplierController : Controller
     [HttpGet("add")]
     public IActionResult ShowAddSupplierForm()
     {
-        return View("Add");
+        AddSupplierViewModel addViewModel = new AddSupplierViewModel();
+        return View("Add", addViewModel);
     }
 
     [HttpPost("add")]
-    public IActionResult AddSupplier(
-        [FromForm] string name,
-        [FromForm] string phoneNumber,
-        [FromForm] string cnpj
-    )
+    public IActionResult AddSupplier(AddSupplierViewModel addViewModel)
     {
         DataContext dataContext = new DataContext(true);
         ISupplierRepository supplierRepo = new SupplierRepository(dataContext);
 
-        Supplier newSupplier = new Supplier(name, phoneNumber, cnpj);
+        Supplier newSupplier = addViewModel.ToEntity();
 
         supplierRepo.Add(newSupplier);
 
-        ViewBag.Message = $"O registro \"{newSupplier.Name}\" foi cadastrado com sucesso!";
+        ViewBag.Message = $"O registro \"{addViewModel.Name}\" foi cadastrado com sucesso!";
 
         return View("Notification");
     }
@@ -39,29 +38,29 @@ public class SupplierController : Controller
         DataContext dataContext = new DataContext(true);
         ISupplierRepository supplierRepo = new SupplierRepository(dataContext);
 
-        Supplier newSupplier = supplierRepo.GetById(id);
+        Supplier selectedSupplier = supplierRepo.GetById(id);
 
-        ViewBag.Supplier = newSupplier;
+        EditSupplierViewModel editViewModel = new EditSupplierViewModel(
+            id,
+            selectedSupplier.Name,
+            selectedSupplier.PhoneNumber,
+            selectedSupplier.CNPJ
+        );
 
-        return View("Edit");
+        return View("Edit", editViewModel);
     }
 
     [HttpPost("edit/{id:int}")]
-    public IActionResult EditSupplier(
-        [FromRoute] int id,
-        [FromForm] string name,
-        [FromForm] string phoneNumber,
-        [FromForm] string cnpj
-    )
+    public IActionResult EditSupplier([FromRoute] int id, EditSupplierViewModel editViewModel)
     {
         DataContext dataContext = new DataContext(true);
         ISupplierRepository supplierRepo = new SupplierRepository(dataContext);
 
-        Supplier editedSupplier = new Supplier(name, phoneNumber, cnpj);
+        Supplier editedSupplier = new Supplier(editViewModel.Name, editViewModel.PhoneNumber, editViewModel.CNPJ);
 
         supplierRepo.Edit(id, editedSupplier);
 
-        ViewBag.Message = $"O registro \"{editedSupplier.Name}\" foi editado com sucesso!";
+        ViewBag.Message = $"O registro \"{editViewModel.Name}\" foi editado com sucesso!";
 
         return View("Notification");
     }
@@ -74,9 +73,9 @@ public class SupplierController : Controller
 
         Supplier selectedSupplier = supplierRepo.GetById(id);
 
-        ViewBag.Supplier = selectedSupplier;
+        RemoveSupplierViewModel removeViewModel = new RemoveSupplierViewModel(selectedSupplier.Id, selectedSupplier.Name);
 
-        return View("Remove");
+        return View("Remove", removeViewModel);
     }
 
     [HttpPost("remove/{id:int}")]
@@ -100,8 +99,8 @@ public class SupplierController : Controller
 
         List<Supplier> suppliers = supplierRepo.GetAll();
 
-        ViewBag.Suppliers = suppliers;
+        ShowSuppliersViewModel showViewModel = new ShowSuppliersViewModel(suppliers);
 
-        return View("Show");
+        return View("Show", showViewModel);
     }
 }
