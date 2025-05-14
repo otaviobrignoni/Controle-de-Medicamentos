@@ -1,7 +1,5 @@
-﻿@using Controle_de_Medicamentos.ConsoleApp.PatientModule
-@{
-    Patient s = ViewBag.Patient;
-}
+﻿@using Controle_de_Medicamentos.ConsoleApp.Models
+@model RemovePatientViewModel;
 
 <!DOCTYPE html>
 <html>
@@ -17,15 +15,15 @@
 
     <a href="/">Página Inicial</a> /
     <a href="/patients/add">Cadastrar novo paciente</a> /
-    <a href="/patients/show">Visualizar pacientees</a>
+    <a href="/patients/show">Visualizar pacientes</a>
 
     <hr />
 
     <h3>Remover Paciente</h3>
 
-    <p>Você tem certeza que deseja excluir o registro "@s.Name"?</p>
+    <p>Você tem certeza que deseja excluir o registro "@Model.Name"?</p>
 
-    <form action="/patients/remove/@s.Id" method="post">
+    <form action="/patients/remove/@Model.Id" method="post">
         <button type="submit">Confirmar</button>
         <a href="/patients/show">Voltar</a>
     </form>

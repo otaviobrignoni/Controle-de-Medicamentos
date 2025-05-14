@@ -1,9 +1,10 @@
-﻿using Controle_de_Medicamentos.ConsoleApp.PatientModule;
+﻿using Controle_de_Medicamentos.ConsoleApp.Extensions;
+using Controle_de_Medicamentos.ConsoleApp.Models;
 using Controle_de_Medicamentos.ConsoleApp.Shared;
+using Controle_de_Medicamentos.ConsoleApp.PatientModule;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Controle_de_Medicamentos.ConsoleApp.Controllers;
-
 
 [Route("patients")]
 public class PatientController : Controller
@@ -11,26 +12,26 @@ public class PatientController : Controller
     [HttpGet("add")]
     public IActionResult ShowAddPatientForm()
     {
-        return View("Add");
+        AddPatientViewModel addViewModel = new AddPatientViewModel();
+        return View("Add", addViewModel);
     }
 
     [HttpPost("add")]
-    public IActionResult AddPatient(
-        [FromForm] string name,
-        [FromForm] string phoneNumber,
-        [FromForm] string suscard
-    )
+    public IActionResult AddPatient(AddPatientViewModel addViewModel)
     {
         DataContext dataContext = new DataContext(true);
         IPatientRepository patientRepo = new PatientRepository(dataContext);
 
-        Patient newPatient = new Patient(name, phoneNumber, suscard);
+        Patient newPatient = addViewModel.ToEntity();
 
         patientRepo.Add(newPatient);
 
-        ViewBag.Message = $"O registro \"{newPatient.Name}\" foi cadastrado com sucesso!";
+        NotificationViewModel notificationViewModel = new NotificationViewModel(
+            "Paciente cadastrado!",
+            $"O registro \"{addViewModel.Name}\" foi cadastrado com sucesso!"
+        );
 
-        return View("Notification");
+        return View("Notification", notificationViewModel);
     }
 
     [HttpGet("edit/{id:int}")]
@@ -39,31 +40,34 @@ public class PatientController : Controller
         DataContext dataContext = new DataContext(true);
         IPatientRepository patientRepo = new PatientRepository(dataContext);
 
-        Patient newPatient = patientRepo.GetById(id);
+        Patient selectedPatient = patientRepo.GetById(id);
 
-        ViewBag.Patient = newPatient;
+        EditPatientViewModel editViewModel = new EditPatientViewModel(
+            id,
+            selectedPatient.Name,
+            selectedPatient.PhoneNumber,
+            selectedPatient.SUSCard
+        );
 
-        return View("Edit");
+        return View("Edit", editViewModel);
     }
 
     [HttpPost("edit/{id:int}")]
-    public IActionResult EditPatient(
-        [FromRoute] int id,
-        [FromForm] string name,
-        [FromForm] string phoneNumber,
-        [FromForm] string cnpj
-    )
+    public IActionResult EditPatient([FromRoute] int id, EditPatientViewModel editViewModel)
     {
         DataContext dataContext = new DataContext(true);
         IPatientRepository patientRepo = new PatientRepository(dataContext);
 
-        Patient editedPatient = new Patient(name, phoneNumber, cnpj);
+        Patient editedPatient = editViewModel.ToEntity();
 
         patientRepo.Edit(id, editedPatient);
 
-        ViewBag.Message = $"O registro \"{editedPatient.Name}\" foi editado com sucesso!";
+        NotificationViewModel notificationViewModel = new NotificationViewModel(
+            "Paciente editado!",
+            $"O registro \"{editedPatient.Name}\" foi editado com sucesso!"
+        );
 
-        return View("Notification");
+        return View("Notification", notificationViewModel);
     }
 
     [HttpGet("remove/{id:int}")]
@@ -74,9 +78,9 @@ public class PatientController : Controller
 
         Patient selectedPatient = patientRepo.GetById(id);
 
-        ViewBag.Patient = selectedPatient;
+        RemovePatientViewModel removeViewModel = new RemovePatientViewModel(selectedPatient.Id, selectedPatient.Name);
 
-        return View("Remove");
+        return View("Remove", removeViewModel);
     }
 
     [HttpPost("remove/{id:int}")]
@@ -87,9 +91,12 @@ public class PatientController : Controller
 
         patientRepo.Remove(id);
 
-        ViewBag.Message = $"O registro foi excluído com sucesso!";
+        NotificationViewModel notificationViewModel = new NotificationViewModel(
+            "Paciente removido!",
+            "O registro foi excluído com sucesso!"
+        );
 
-        return View("Notification");
+        return View("Notification", notificationViewModel);
     }
 
     [HttpGet("show")]
@@ -100,10 +107,8 @@ public class PatientController : Controller
 
         List<Patient> patients = patientRepo.GetAll();
 
-        ViewBag.Patients = patients;
+        ShowPatientsViewModel showViewModel = new ShowPatientsViewModel(patients);
 
-        return View("Show");
+        return View("Show", showViewModel);
     }
-
-
 }

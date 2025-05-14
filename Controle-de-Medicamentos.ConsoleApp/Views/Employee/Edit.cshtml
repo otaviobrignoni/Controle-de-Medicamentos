@@ -1,7 +1,5 @@
-﻿@using Controle_de_Medicamentos.ConsoleApp.EmployeeModule
-@{
-    Employee e = ViewBag.Employee;
-}
+﻿@using Controle_de_Medicamentos.ConsoleApp.Models
+@model EditEmployeeViewModel;
 
 <!DOCTYPE html>
 <html>
@@ -21,24 +19,24 @@
 
     <hr />
 
-    <h3>Editar Fornecedor</h3>
+    <h3>Editar Funcionário</h3>
 
-    <form action="/suppliers/edit/@e.Id" method="post">
+    <form action="/employees/edit/@Model.Id" method="post">
         <label>Nome do funcionário:</label>
         <br />
-        <input type="text" name="name" value="@e.Name" />
+        <input type="text" name="name" value="@Model.Name" />
 
         <br />
 
         <label>Telefone do funcionário:</label>
         <br />
-        <input type="text" name="phoneNumber" value="@e.PhoneNumber" />
+        <input type="text" name="phoneNumber" value="@Model.PhoneNumber" />
 
         <br />
 
         <label>CPF do funcionário:</label>
         <br />
-        <input type="text" name="cpf" value="@e.CPF" />
+        <input type="text" name="cpf" value="@Model.CPF" />
         <hr />
 
         <button type="submit">Gravar</button>

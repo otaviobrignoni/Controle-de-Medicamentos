@@ -1,5 +1,7 @@
-﻿using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
+﻿using Controle_de_Medicamentos.ConsoleApp.Extensions;
+using Controle_de_Medicamentos.ConsoleApp.Models;
 using Controle_de_Medicamentos.ConsoleApp.Shared;
+using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Controle_de_Medicamentos.ConsoleApp.Controllers;
@@ -10,26 +12,26 @@ public class EmployeeController : Controller
     [HttpGet("add")]
     public IActionResult ShowAddEmployeeForm()
     {
-        return View("Add");
+        AddEmployeeViewModel addViewModel = new AddEmployeeViewModel();
+        return View("Add", addViewModel);
     }
 
     [HttpPost("add")]
-    public IActionResult AddEmployee(
-        [FromForm] string name,
-        [FromForm] string phoneNumber,
-        [FromForm] string cpf
-    )
+    public IActionResult AddEmployee(AddEmployeeViewModel addViewModel)
     {
         DataContext dataContext = new DataContext(true);
         IEmployeeRepository employeeRepo = new EmployeeRepository(dataContext);
 
-        Employee newEmployee = new Employee(name, phoneNumber, cpf);
+        Employee newEmployee = addViewModel.ToEntity();
 
         employeeRepo.Add(newEmployee);
 
-        ViewBag.Message = $"O registro \"{newEmployee.Name}\" foi cadastrado com sucesso!";
+        NotificationViewModel notificationViewModel = new NotificationViewModel(
+            "Funcionário cadastrado!",
+            $"O registro \"{addViewModel.Name}\" foi cadastrado com sucesso!"
+        );
 
-        return View("Notification");
+        return View("Notification", notificationViewModel);
     }
 
     [HttpGet("edit/{id:int}")]
@@ -38,31 +40,34 @@ public class EmployeeController : Controller
         DataContext dataContext = new DataContext(true);
         IEmployeeRepository employeeRepo = new EmployeeRepository(dataContext);
 
-        Employee newEmployee = employeeRepo.GetById(id);
+        Employee selectedEmployee = employeeRepo.GetById(id);
 
-        ViewBag.Employee = newEmployee;
+        EditEmployeeViewModel editViewModel = new EditEmployeeViewModel(
+            id,
+            selectedEmployee.Name,
+            selectedEmployee.PhoneNumber,
+            selectedEmployee.CPF
+        );
 
-        return View("Edit");
+        return View("Edit", editViewModel);
     }
 
     [HttpPost("edit/{id:int}")]
-    public IActionResult EditEmployee(
-        [FromRoute] int id,
-        [FromForm] string name,
-        [FromForm] string phoneNumber,
-        [FromForm] string cpf
-    )
+    public IActionResult EditEmployee([FromRoute] int id, EditEmployeeViewModel editViewModel)
     {
         DataContext dataContext = new DataContext(true);
         IEmployeeRepository employeeRepo = new EmployeeRepository(dataContext);
 
-        Employee editedSupplier = new Employee(name, phoneNumber, cpf);
+        Employee editedEmployee = editViewModel.ToEntity();
 
-        employeeRepo.Edit(id, editedSupplier);
+        employeeRepo.Edit(id, editedEmployee);
 
-        ViewBag.Message = $"O registro \"{editedSupplier.Name}\" foi editado com sucesso!";
+        NotificationViewModel notificationViewModel = new NotificationViewModel(
+            "Funcionário editado!",
+            $"O registro \"{editedEmployee.Name}\" foi editado com sucesso!"
+        );
 
-        return View("Notification");
+        return View("Notification", notificationViewModel);
     }
 
     [HttpGet("remove/{id:int}")]
@@ -73,9 +78,9 @@ public class EmployeeController : Controller
 
         Employee selectedEmployee = employeeRepo.GetById(id);
 
-        ViewBag.Employee = selectedEmployee;
+        RemoveEmployeeViewModel removeViewModel = new RemoveEmployeeViewModel(selectedEmployee.Id, selectedEmployee.Name);
 
-        return View("Remove");
+        return View("Remove", removeViewModel);
     }
 
     [HttpPost("remove/{id:int}")]
@@ -86,9 +91,12 @@ public class EmployeeController : Controller
 
         employeeRepo.Remove(id);
 
-        ViewBag.Message = $"O registro foi excluído com sucesso!";
+        NotificationViewModel notificationViewModel = new NotificationViewModel(
+            "Funcionário removido!",
+            "O registro foi excluído com sucesso!"
+        );
 
-        return View("Notification");
+        return View("Notification", notificationViewModel);
     }
 
     [HttpGet("show")]
@@ -97,10 +105,10 @@ public class EmployeeController : Controller
         DataContext dataContext = new DataContext(true);
         IEmployeeRepository employeeRepo = new EmployeeRepository(dataContext);
 
-        List<Employee> Employees = employeeRepo.GetAll();
+        List<Employee> employees = employeeRepo.GetAll();
 
-        ViewBag.Employees = Employees;
+        ShowEmployeesViewModel showViewModel = new ShowEmployeesViewModel(employees);
 
-        return View("Show");
+        return View("Show", showViewModel);
     }
 }

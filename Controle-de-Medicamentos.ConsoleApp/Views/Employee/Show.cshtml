@@ -1,7 +1,5 @@
-﻿@using Controle_de_Medicamentos.ConsoleApp.EmployeeModule
-@{
-    List<Employee> employees = ViewBag.Employees;
-}
+﻿@using Controle_de_Medicamentos.ConsoleApp.Models
+@model ShowEmployeesViewModel;
 
 <!DOCTYPE html>
 <html>
@@ -23,7 +21,7 @@
     <h3>Visualizar Funcionários</h3>
 
     <ul>
-        @foreach (Employee e in employees)
+        @foreach (EmployeeDetailsViewModel e in Model.List)
         {
             <li>
                 @e.ToString() / <a href="/employees/edit/@e.Id">Editar</a> /

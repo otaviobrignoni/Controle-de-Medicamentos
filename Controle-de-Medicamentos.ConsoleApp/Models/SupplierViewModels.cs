@@ -42,13 +42,14 @@ public class RemoveSupplierViewModel
     public string Name { get; set; }
 
     public RemoveSupplierViewModel() { }
-    public RemoveSupplierViewModel(int id, string name) : this() {
+    public RemoveSupplierViewModel(int id, string name) : this()
     {
-        Id = id;
-        Name = name;
+        {
+            Id = id;
+            Name = name;
+        }
     }
 }
-
 public class ShowSuppliersViewModel
 {
     public List<SupplierDetailsViewModel> List { get; } = new List<SupplierDetailsViewModel>();
@@ -76,7 +77,6 @@ public class SupplierDetailsViewModel
         PhoneNumber = phoneNumber;
         CNPJ = cnpj;
     }
-
     public override string ToString()
     {
         return $"Id: {Id}, Nome: {Name}, Telefone: {PhoneNumber}, CNPJ {CNPJ}";

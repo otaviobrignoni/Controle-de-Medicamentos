@@ -1,7 +1,5 @@
-﻿@using Controle_de_Medicamentos.ConsoleApp.EmployeeModule
-@{
-    Employee s = ViewBag.Employee;
-}
+﻿@using Controle_de_Medicamentos.ConsoleApp.Models
+@model RemoveEmployeeViewModel;
 
 <!DOCTYPE html>
 <html>
@@ -23,9 +21,9 @@
 
     <h3>Remover Funcionário</h3>
 
-    <p>Você tem certeza que deseja excluir o registro "@s.Name"?</p>
+    <p>Você tem certeza que deseja excluir o registro "@Model.Name"?</p>
 
-    <form action="/employees/remove/@s.Id" method="post">
+    <form action="/employees/remove/@Model.Id" method="post">
         <button type="submit">Confirmar</button>
         <a href="/employees/show">Voltar</a>
     </form>

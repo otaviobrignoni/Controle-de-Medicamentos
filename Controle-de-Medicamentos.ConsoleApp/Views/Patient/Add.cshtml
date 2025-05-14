@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Controle_de_Medicamentos.ConsoleApp.Models
+@model AddPatientViewModel;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -11,7 +13,7 @@
     <hr />
 
     <a href="/">Página Inicial</a> /
-    <a href="/patients/show">Visualizar pacientees</a>
+    <a href="/patients/show">Visualizar pacientes</a>
 
     <hr />
 
@@ -32,7 +34,7 @@
 
         <label>Cartão SUS do paciente:</label>
         <br />
-        <input type="text" name="suscard" />
+        <input type="text" name="susCard" />
         <hr />
 
         <button type="submit">Gravar</button>
