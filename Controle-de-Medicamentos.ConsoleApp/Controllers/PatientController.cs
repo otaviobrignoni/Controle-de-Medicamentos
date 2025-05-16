@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Controle_de_Medicamentos.ConsoleApp.Controllers;
 
-[Route("patients")]
+[Route("patient")]
 public class PatientController : Controller
 {
     [HttpGet("add")]

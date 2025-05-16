@@ -1,4 +1,5 @@
 ﻿using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
+using Controle_de_Medicamentos.ConsoleApp.Extensions;
 namespace Controle_de_Medicamentos.ConsoleApp.Models;
 
 public abstract class EmployeeFormViewModel
@@ -66,10 +67,13 @@ public class EmployeeDetailsViewModel
 
 public class ShowEmployeesViewModel
 {
-    public List<EmployeeDetailsViewModel> List { get; } = new();
+    public List<EmployeeDetailsViewModel> List { get; } = new List<EmployeeDetailsViewModel>();
     public ShowEmployeesViewModel(List<Employee> employees)
     {
         foreach (Employee e in employees)
-            List.Add(new EmployeeDetailsViewModel(e.Id, e.Name, e.PhoneNumber, e.CPF));
+        {
+            EmployeeDetailsViewModel detailsViewModel = e.ToDetailsViewModel();
+            List.Add(detailsViewModel);
+        }
     }
 }

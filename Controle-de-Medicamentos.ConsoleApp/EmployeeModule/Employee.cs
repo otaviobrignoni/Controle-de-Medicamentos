@@ -19,7 +19,6 @@ public class Employee : BaseEntity<Employee>, ITableConvertible
 
     public override void UpdateEntity(Employee entity)
     {
-        Id = entity.Id;
         Name = entity.Name;
         PhoneNumber = entity.PhoneNumber;
         CPF = entity.CPF;

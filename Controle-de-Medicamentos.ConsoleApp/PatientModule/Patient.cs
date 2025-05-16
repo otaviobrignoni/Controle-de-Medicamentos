@@ -21,7 +21,6 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
 
         public override void UpdateEntity(Patient entity)
         {
-            Id = entity.Id;
             Name = entity.Name;
             PhoneNumber = entity.PhoneNumber;
             SUSCard = entity.SUSCard;

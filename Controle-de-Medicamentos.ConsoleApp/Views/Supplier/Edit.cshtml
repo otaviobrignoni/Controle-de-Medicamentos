@@ -14,14 +14,14 @@
     <hr />
 
     <a href="/">Página Inicial</a> /
-    <a href="/suppliers/add">Cadastrar novo fornecedor</a> /
-    <a href="/suppliers/show">Visualizar fornecedores</a>
+    <a href="/supplier/add">Cadastrar novo fornecedor</a> /
+    <a href="/supplier/show">Visualizar fornecedores</a>
 
     <hr />
 
     <h3>Editar Fornecedor</h3>
 
-    <form action="/suppliers/edit/@Model.Id" method="post">
+    <form action="/supplier/edit/@Model.Id" method="post">
         <label>Nome do fornecedor:</label>
         <br />
         <input type="text" name="name" value="@Model.Name" />

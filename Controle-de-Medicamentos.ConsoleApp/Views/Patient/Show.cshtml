@@ -14,7 +14,7 @@
     <hr />
 
     <a href="/">Página Inicial</a> /
-    <a href="/patients/add">Cadastrar novo paciente</a> /
+    <a href="/patient/add">Cadastrar novo paciente</a> 
 
     <hr />
 
@@ -24,8 +24,8 @@
         @foreach (PatientDetailsViewModel p in Model.List)
         {
             <li>
-                @p.ToString() / <a href="/patients/edit/@p.Id">Editar</a> /
-                <a href="/patients/remove/@p.Id">Remover</a>
+                @p.ToString() / <a href="/patient/edit/@p.Id">Editar</a> /
+                <a href="/patient/remove/@p.Id">Remover</a>
             </li>
         }
     </ul>

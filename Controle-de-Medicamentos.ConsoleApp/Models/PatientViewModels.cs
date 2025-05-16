@@ -1,4 +1,5 @@
-﻿using Controle_de_Medicamentos.ConsoleApp.PatientModule;
+﻿using Controle_de_Medicamentos.ConsoleApp.Extensions;
+using Controle_de_Medicamentos.ConsoleApp.PatientModule;
 namespace Controle_de_Medicamentos.ConsoleApp.Models;
 
 public abstract class PatientFormViewModel
@@ -70,6 +71,10 @@ public class ShowPatientsViewModel
     public ShowPatientsViewModel(List<Patient> patients)
     {
         foreach (Patient p in patients)
-            List.Add(new PatientDetailsViewModel(p.Id, p.Name, p.PhoneNumber, p.SUSCard));
+        {
+            PatientDetailsViewModel detailsViewModel = p.ToDetailsViewModel();
+            List.Add(detailsViewModel);
+        }
+            
     }
 }

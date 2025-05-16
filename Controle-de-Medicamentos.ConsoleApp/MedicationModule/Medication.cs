@@ -21,7 +21,6 @@ public class Medication : BaseEntity<Medication>, ITableConvertible
 
     public override void UpdateEntity(Medication entity)
     {
-        Id = entity.Id;
         Name = entity.Name;
         Description = entity.Description;
         Quantity = entity.Quantity;

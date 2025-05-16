@@ -1,0 +1,55 @@
+﻿@using Controle_de_Medicamentos.ConsoleApp.Models
+@model AddMedicationViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Cadastrar Medicamento - Controle de Medicamentos</title>
+</head>
+
+<body>
+    <h1>Controle de Medicamentos</h1>
+
+    <hr />
+
+    <a href="/">Página Inicial</a> /
+    <a href="/medication/show">Visualizar medicamentos</a>
+
+    <hr />
+
+    <h3>Cadastrar Medicamento</h3>
+
+    <form action="/medication/add" method="post">
+        <label for="Name">Nome do medicamento:</label>
+        <br />
+        <input type="text" name="Name" id="Name" />
+
+        <br />
+
+        <label for="Description">Descrição do medicamento:</label>
+        <br />
+        <input type="text" name="Description" id="Description" />
+
+        <br />
+
+        <label for="Quantity">Quantidade do medicamento:</label>
+        <br />
+        <input type="text" name="Quantity" id="Quantity" />
+
+        <br />
+
+        <label for="SupplierId">Fornecedor do medicamento</label>
+        <br />
+        <select name="SupplierId" id="SupplierId">
+            @foreach(var supplier in @Model.AvailableSuppliers)
+            {
+                <option value="@supplier.Id">@supplier.Name</option>
+            }
+        </select>
+        
+        <br />
+        
+        <button type="submit">Gravar</button>
+    </form>
+</body>
+</html>

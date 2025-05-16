@@ -19,7 +19,6 @@ public class OutRequest : BaseEntity<OutRequest>, ITableConvertible
 
     public override void UpdateEntity(OutRequest entity)
     {
-        Id = entity.Id;
         Patient = entity.Patient;
         MedicalPrescription = entity.MedicalPrescription;
     }
@@ -42,7 +41,7 @@ public class OutRequest : BaseEntity<OutRequest>, ITableConvertible
         foreach (PrescriptionMedication pm in MedicalPrescription.Medications)
         {
             if (pm.Medication.Quantity < pm.Quantity)
-                errors += "A quantidade requisitada de uma ou mais medicações excede a quantidade disponível de medicações\n";
+                errors += "A quantidade requisitada de uma ou mais medicamentos excede a quantidade disponível de medicamentos\n";
         }
         
         return errors;

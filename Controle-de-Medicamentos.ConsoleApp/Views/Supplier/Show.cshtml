@@ -14,7 +14,7 @@
     <hr />
 
     <a href="/">Página Inicial</a> /
-    <a href="/suppliers/add">Cadastrar novo fornecedor</a> /
+    <a href="/supplier/add">Cadastrar novo fornecedor</a> /
 
     <hr />
 
@@ -24,8 +24,8 @@
         @foreach (SupplierDetailsViewModel s in Model.List)
         {
             <li>
-                @s.ToString() / <a href="/suppliers/edit/@s.Id">Editar</a> /
-                <a href="/suppliers/remove/@s.Id">Remover</a>
+                @s.ToString() / <a href="/supplier/edit/@s.Id">Editar</a> /
+                <a href="/supplier/remove/@s.Id">Remover</a>
             </li>
         }
     </ul>

@@ -14,7 +14,7 @@
     <hr />
 
     <a href="/">Página Inicial</a> /
-    <a href="/employees/add">Cadastrar novo funcionário</a> /
+    <a href="/employee/add">Cadastrar novo funcionário</a> /
 
     <hr />
 
@@ -24,8 +24,8 @@
         @foreach (EmployeeDetailsViewModel e in Model.List)
         {
             <li>
-                @e.ToString() / <a href="/employees/edit/@e.Id">Editar</a> /
-                <a href="/employees/remove/@e.Id">Remover</a>
+                @e.ToString() / <a href="/employee/edit/@e.Id">Editar</a> /
+                <a href="/employee/remove/@e.Id">Remover</a>
             </li>
         }
     </ul>

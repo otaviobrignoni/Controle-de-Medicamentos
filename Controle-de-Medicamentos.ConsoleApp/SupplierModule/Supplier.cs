@@ -20,7 +20,6 @@ public class Supplier : BaseEntity<Supplier>, ITableConvertible
 
     public override void UpdateEntity(Supplier entity)
     {
-        Id = entity.Id;
         Name = entity.Name;
         PhoneNumber = entity.PhoneNumber;
         CNPJ = entity.CNPJ;

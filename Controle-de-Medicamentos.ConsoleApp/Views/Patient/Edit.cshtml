@@ -14,14 +14,14 @@
     <hr />
 
     <a href="/">Página Inicial</a> /
-    <a href="/patients/add">Cadastrar novo paciente</a> /
-    <a href="/patients/show">Visualizar pacientes</a>
+    <a href="/patient/add">Cadastrar novo paciente</a> /
+    <a href="/patient/show">Visualizar pacientes</a>
 
     <hr />
 
     <h3>Editar Paciente</h3>
 
-    <form action="/patients/edit/@Model.Id" method="post">
+    <form action="/patient/edit/@Model.Id" method="post">
         <label>Nome do paciente:</label>
         <br />
         <input type="text" name="name" value="@Model.Name" />

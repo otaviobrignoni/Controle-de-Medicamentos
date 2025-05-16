@@ -21,7 +21,6 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>, ITableConver
 
     public override void UpdateEntity(MedicalPrescription entity)
     {
-        Id = entity.Id;
         DoctorCRM = entity.DoctorCRM;
         Date = DateTime.Now;
         Medications = entity.Medications;

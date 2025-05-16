@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Controle_de_Medicamentos.ConsoleApp.Controllers;
 
 
-[Route("suppliers")]
+[Route("supplier")]
 public class SupplierController : Controller
 {
     [HttpGet("add")]
