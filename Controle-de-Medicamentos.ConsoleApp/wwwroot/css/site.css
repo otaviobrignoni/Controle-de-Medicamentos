@@ -1,0 +1,151 @@
+﻿:root {
+    --bg-main: #1e2124;
+    --bg-dark: #16181b;
+    --card-bg: #2b2f33;
+    --accent: #66b2ff;
+    --accent-hover: #88ccff;
+    --text-light-colored: #a6e1fa;
+    --text-light: #ffffff;
+    --text-muted: #a0a0a0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-main);
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Navbar styles */
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 1rem 5vw;
+    background-color: var(--bg-dark);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid #333;
+    transition: background-color 0.2s ease;
+}
+
+    /* Navbar title */
+    nav > h2 {
+        margin: 0;
+    }
+
+    /* Navbar menu list */
+    nav > ul {
+        display: flex;
+        gap: 8px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Navbar links */
+    nav a {
+        color: var(--text-light);
+        background-color: transparent;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        text-decoration: none;
+    }
+
+        nav a:hover {
+            background-color: var(--accent);
+            color: black;
+        }
+
+        nav a.active {
+            background-color: var(--accent-hover);
+            color: black;
+            font-weight: bold;
+        }
+
+/* Header and main sections with same horizontal padding */
+header {
+    text-align: center;
+}
+
+    header h3 {
+        font-size: 28px;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+/* Card container layout */
+main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.41rem 1.41rem; /* row-gap column-gap */
+    align-items: start; /* ensures all cards align top */
+}
+
+    main a {
+        display: block;
+        text-decoration: none;
+        color: inherit; /* Keeps link text color from messing things up */
+    }
+
+/* Card styling */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    height: auto;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 12px rgba(102, 178, 255, 0.2); /* soft blue glow */
+    }
+
+    .card h2 {
+        margin: 5px 0 10px 0;
+        color: var(--accent);
+    }
+
+    .card p {
+        margin: 0 0 5px 0;
+        margin-bottom: 10px;
+        color: var(--text-light);
+    }
+
+.content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+@@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+        nav > ul {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        nav > h2 {
+            font-size: 1.5rem;
+        }
+}

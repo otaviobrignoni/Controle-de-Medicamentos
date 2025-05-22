@@ -1,52 +1,66 @@
 ﻿<!DOCTYPE html>
 <html>
-<!--Contém metadados (dados sobre os dados) da página HTML-->
 <head>
     <meta charset="utf-8" />
     <title>Controle de Medicamentos</title>
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
-
-<!--Contém o conteúdo da página HTML-->
 <body>
-    <h1>Controle de Medicamentos</h1>
+    <nav>
+        <h2>Controle de Medicamentos</h2>
+        <ul>
+            <li><a href="/">Página Inicial</a></li>
+            <li><a href="/supplier/show">Fornecedores</a></li>
+            <li><a href="/employee/show">Funcionários</a></li>
+            <li><a href="/patient/show">Pacientes</a></li>
+            <li><a href="/medication/show">Medicamentos</a></li>
+        </ul>
 
-    <hr />
+    </nav>
 
-    <a href="/">Página Inicial</a> /
+    <div class="content-container">
+        <header>
+            <h3>Página Inicial</h3>
+        </header>
 
-    <hr />
 
-    <h3>Fornecedores</h3>
+        <main>
 
-    <!--Lista desordenada / bullet points-->
-    <ul>
-        <li><a href="/supplier/add">Cadastrar novo fornecedor</a></li>
-        <li><a href="/supplier/show">Visualizar fornecedores</a></li>
-    </ul>
+            <a href="/supplier/show">
+                <div class="card">
+                    <h2>Fornecedores</h2>
+                    <p>Gerenciar forncedores</p>
+                </div>
+            </a>
 
-    <hr />
 
-    <h3>Funcionários</h3>
-    <ul>
-        <li><a href="/employee/add">Cadastrar novo funcionário</a></li>
-        <li><a href="/employee/show">Visualizar funcionários</a></li>
-    </ul>
+            <a href="/employee/show">
+                <div class="card">
+                    <h2>Funcionários</h2>
+                    <p>Gerenciar funcionários</p>
+                </div>
+            </a>
 
-    <hr />
 
-    <h3>Pacientes</h3>
-    <ul>
-        <li><a href="/patient/add">Cadastrar novo paciente</a></li>
-        <li><a href="/patient/show">Visualizar pacientes</a></li>
-    </ul>
+            <a href="/patient/show">
+                <div class="card">
+                    <h2>Pacientes</h2>
+                    <p>Gerenciar pacientes</p>
+                </div>
+            </a>
 
-    <hr />
 
-    <h3>Medicamentos</h3>
-    <ul>
-        <li><a href="/medication/add">Cadastrar novo medicamento</a></li>
-        <li><a href="/medication/show">Visualizar medicamentos</a></li>
-    </ul>
+            <a href="/medication/show">
+                <div class="card">
+                    <h2>Medicamentos</h2>
+                    <p>Gerenciar medicamentos</p>
+                </div>
+            </a>
+
+
+        </main>
+    </div>
+
 
 </body>
 </html>
