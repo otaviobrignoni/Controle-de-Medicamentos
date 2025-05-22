@@ -8,6 +8,6 @@ public class HomeController : Controller
 {
     public IActionResult HomePage()
     {
-        return View("HomePage");
+        return View();
     }
 }

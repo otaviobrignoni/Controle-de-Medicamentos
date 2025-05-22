@@ -1,43 +1,29 @@
 ﻿@using Controle_de_Medicamentos.ConsoleApp.Models
 @model AddSupplierViewModel;
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Cadastrar Fornecedor - Controle de Medicamentos</title>
-</head>
-
-<body>
-    <h1>Controle de Medicamentos</h1>
-
-    <hr />
-
-    <a href="/">Página Inicial</a> /
-    <a href="/supplier/show">Visualizar fornecedores</a>
-
-    <hr />
-
+@{
+    ViewBag.Title = "Cadastrar Fornecedor";
+}
+<header>
     <h3>Cadastrar Fornecedor</h3>
+</header>
 
-    <form action="/supplier/add" method="post">
-        <label>Nome do fornecedor:</label>
-        <br />
-        <input type="text" name="name" />
+<main>
+    <div class="form-container">
+        <form action="/supplier/add" method="post">
+            <label>Nome do fornecedor:</label>
+            <input type="text" name="name" />
 
-        <br />
+            <label>Telefone do fornecedor:</label>
+            <input type="text" name="phoneNumber" />
 
-        <label>Telefone do fornecedor:</label>
-        <br />
-        <input type="text" name="phoneNumber" />
 
-        <br />
+            <label>CNPJ do fornecedor:</label>
+            <input type="text" name="cnpj" />
 
-        <label>CNPJ do fornecedor:</label>
-        <br />
-        <input type="text" name="cnpj" />
-        <hr />
-
-        <button type="submit">Gravar</button>
-    </form>
-</body>
-</html>
+            <div class="button-group">
+                <button type="submit" class="button" id="confirmButton">Confirmar</button>
+                <a type="button" class="button" id="backButton" href="/supplier/show">Voltar</a>
+            </div>
+        </form>
+    </div>
+</main>

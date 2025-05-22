@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Controle de Medicamentos</title>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+    <nav>
+        <h2>Controle de Medicamentos</h2>
+        <ul>
+            <li><a href="/">Página Inicial</a></li>
+            <li><a href="/supplier/show">Fornecedores</a></li>
+            <li><a href="/employee/show">Funcionários</a></li>
+            <li><a href="/patient/show">Pacientes</a></li>
+            <li><a href="/medication/show">Medicamentos</a></li>
+        </ul>
+    </nav>
+    <div class="content-container">
+        @RenderBody()
+    </div>
+</body>
+</html>
