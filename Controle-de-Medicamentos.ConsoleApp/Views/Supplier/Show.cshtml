@@ -3,14 +3,28 @@
 @{
     ViewBag.Title = "Visualizar Fornecedores";
 }
+
 <header>
     <h3>Visualizar Fornecedores</h3>
 </header>
 
-@foreach (SupplierDetailsViewModel s in Model.List)
-{
-    <div class="card">
-        @s.ToString() / <a href="/supplier/edit/@s.Id">Editar</a> /
-        <a href="/supplier/remove/@s.Id">Remover</a>
-    </div>
-}
+<main>
+    @foreach (SupplierDetailsViewModel s in Model.List)
+    {
+        <div class="view-container">
+            <div class="view-card">
+                <h2>@s.Name</h2>
+
+                <p><strong>Telefone:</strong> @s.PhoneNumber</p>
+                <p><strong>CNPJ:</strong> @s.CNPJ</p>
+                <div class="button-group">
+                    <a type="button" class="button" id="defaultButton" href="/supplier/edit/@s.Id">Editar</a>
+                    <a type="button" class="button" id="defaultButton" href="/supplier/remove/@s.Id">Remover</a>
+                </div>
+            </div>
+        </div>
+    }
+    <a href="/supplier/add" type="button" class="button" id="addButton">
+        <img class="plus-icon" src="~/assets/plus-svgrepo-com.svg"/>
+    </a>
+</main>

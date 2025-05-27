@@ -3,11 +3,15 @@
 @{
     ViewBag.Title = Model.Title;
 }
-<div class="content-container">
-    <main>
-        <div class="card">
-            <h2>Notificação</h2>
-            <p>@Model.Message</p>
+
+<header><h3>Notificação</h3></header>
+
+<main>
+    <div class="card">
+        <h2>-=+=-</h2>
+        <p>@Model.Message</p>
+        <div class="centered-button-group">
+            <a type="button" class="button" id="defaultButton" href="/">Voltar</a>
         </div>
-    </main>
-</div>
+    </div>
+</main>

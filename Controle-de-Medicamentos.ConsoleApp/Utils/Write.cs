@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
+﻿
 namespace Controle_de_Medicamentos.ConsoleApp.Utils;
 
 public static class Write

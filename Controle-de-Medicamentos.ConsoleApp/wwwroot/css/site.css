@@ -30,6 +30,7 @@
 
 * {
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 body {
@@ -146,11 +147,44 @@ main {
         color: var(--text-light);
     }
 
+.view-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    height: auto;
+    text-align: left;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .view-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 12px rgba(102, 178, 255, 0.2); /* soft blue glow */
+    }
+
+    .view-card h2 {
+        margin: 5px 0 10px 0;
+        color: var(--accent);
+    }
+
+    .view-card p {
+        margin: 0 0 5px 0;
+        margin-bottom: 10px;
+        color: var(--text-light);
+    }
+
 .content-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
     justify-content: center;
+}
+
+.view-container {
 }
 
 /* Form Styles */
@@ -194,10 +228,21 @@ input[type="text"] {
     color: var(--text-light);
 }
 
+/*Buttons*/
+
 .button-group {
-    margin: 0 3rem 0 3rem;
     display: flex;
-    justify-content: space-between;
+    width: 100%;
+    justify-content: end;
+    align-items: center;
+    gap: 10px;
+}
+.centered-button-group {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .button {
@@ -213,6 +258,18 @@ input[type="text"] {
     padding: 0 12px 0 12px;
 }
 
+#defaultButton {
+    color: black;
+    font-weight: bold;
+    background-color: var(--accent);
+    border: 1px solid var(--accent);
+    transition: all 0.2s ease;
+}
+
+    #defaultButton:hover {
+        background-color: var(--accent-hover);
+    }
+
 #confirmButton {
     color: black;
     font-weight: bold;
@@ -224,6 +281,28 @@ input[type="text"] {
     #confirmButton:hover {
         background-color: var(--accent-hover);
     }
+
+
+#addButton {
+    margin: 0;
+    padding: 0;
+    width: 50px;
+    height: 50px;
+    color: black;
+    border-radius: 8px;
+    background-color: var(--accent);
+    border: 1px solid var(--accent);
+    transition: all 0.2s ease;
+}
+
+    #addButton:hover {
+        background-color: var(--accent-hover);
+    }
+
+.plus-icon{
+    width: 50px;
+    height: auto;
+}
 
 #backButton {
     color: var(--accent);
