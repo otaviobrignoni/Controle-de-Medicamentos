@@ -1,5 +1,5 @@
-﻿using Controle_de_Medicamentos.ConsoleApp.Models;
-using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
+﻿using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
+using Controle_de_Medicamentos.ConsoleApp.Models;
 
 namespace Controle_de_Medicamentos.ConsoleApp.Extensions;
 

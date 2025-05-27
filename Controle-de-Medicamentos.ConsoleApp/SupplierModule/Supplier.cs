@@ -3,13 +3,13 @@ using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 
-public class Supplier : BaseEntity<Supplier>, ITableConvertible
+public class Supplier : BaseEntity<Supplier>
 {
     public string Name { get; set; }
     public string PhoneNumber { get; set; }
     public string CNPJ { get; set; }
 
-    public Supplier() {}
+    public Supplier() { }
 
     public Supplier(string name, string phone, string cnpj)
     {
@@ -49,17 +49,6 @@ public class Supplier : BaseEntity<Supplier>, ITableConvertible
 
         return erros;
     }
-
-    public string[] ToLineStrings()
-    {
-        return new string[] { Id.ToString(), Name, PhoneNumber, CNPJ };
-    }
-
-    /// <summary>
-    /// Compara o CNPJ do fornecedor atual com o de outro fornecedor, ignorando maiúsculas, minúsculas e espaços.
-    /// </summary>
-    /// <param name="supplier">Fornecedor a ser comparado.</param>
-    /// <returns>Retorna true se os CNPJs forem iguais; caso contrário, false.</returns>
     public bool IsSameCNPJ(Supplier supplier)
     {
         return string.Equals(CNPJ?.Trim(), supplier?.CNPJ?.Trim(), StringComparison.OrdinalIgnoreCase) && Id != supplier.Id;

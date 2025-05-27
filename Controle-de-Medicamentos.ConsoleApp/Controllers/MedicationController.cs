@@ -24,7 +24,7 @@ public class MedicationController : Controller
     public IActionResult Add()
     {
         var addViewModel = new AddMedicationViewModel(supplierRepo.GetAll());
-        
+
         return View(addViewModel);
     }
 
@@ -37,12 +37,12 @@ public class MedicationController : Controller
         medicationRepo.Add(medication);
 
         var notificationViewModel = new NotificationViewModel("Medicação cadastrada!", $"O registro \"{medication.Name}\" foi cadastrado com sucesso!");
-        
+
         return View("Notification", notificationViewModel);
     }
 
     [HttpGet("edit/{id:int}")]
-    public IActionResult Edit([FromRoute]int id)
+    public IActionResult Edit([FromRoute] int id)
     {
 
         var selectedMedication = medicationRepo.GetById(id);

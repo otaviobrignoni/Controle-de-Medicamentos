@@ -5,9 +5,7 @@ using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 namespace Controle_de_Medicamentos.ConsoleApp.OutRequestsModule;
 public class OutRequestRepository : BaseRepository<OutRequest>, IOutRequestRepository
 {
-
-    public OutRequestRepository(DataContext context) : base(context) {}
-
+    public OutRequestRepository(DataContext context) : base(context) { }
     public override void Add(OutRequest entity)
     {
         foreach (PrescriptionMedication pm in entity.MedicalPrescription.Medications)
@@ -15,7 +13,6 @@ public class OutRequestRepository : BaseRepository<OutRequest>, IOutRequestRepos
 
         base.Add(entity);
     }
-
     public override List<OutRequest> GetList()
     {
         return Context.OutRequests;

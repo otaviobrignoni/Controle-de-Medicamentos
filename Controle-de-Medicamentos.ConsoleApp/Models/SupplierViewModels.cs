@@ -9,7 +9,6 @@ public abstract class SupplierFormViewModel
     public string PhoneNumber { get; set; }
     public string CNPJ { get; set; }
 }
-
 public class AddSupplierViewModel : SupplierFormViewModel
 {
     public AddSupplierViewModel() { }
@@ -21,7 +20,6 @@ public class AddSupplierViewModel : SupplierFormViewModel
         CNPJ = cnpj;
     }
 }
-
 public class EditSupplierViewModel : SupplierFormViewModel
 {
     public int Id { get; set; }
@@ -35,7 +33,6 @@ public class EditSupplierViewModel : SupplierFormViewModel
         CNPJ = cnpj;
     }
 }
-
 public class RemoveSupplierViewModel
 {
     public int Id { get; set; }
@@ -69,7 +66,6 @@ public class SupplierDetailsViewModel
     public string Name { get; set; }
     public string PhoneNumber { get; set; }
     public string CNPJ { get; set; }
-
     public SupplierDetailsViewModel(int id, string name, string phoneNumber, string cnpj)
     {
         Id = id;

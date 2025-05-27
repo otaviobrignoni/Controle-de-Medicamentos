@@ -5,18 +5,18 @@ namespace Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
 
 public class MedicalPrescriptionRepository : BaseRepository<MedicalPrescription>, IMedicalPrescriptionRepository
 {
-    public MedicalPrescriptionRepository(DataContext context) : base(context) {}
+    public MedicalPrescriptionRepository(DataContext context) : base(context) { }
 
     public override List<MedicalPrescription> GetList()
     {
         return Context.MedicalPrescriptions;
     }
 
-    public override List<MedicalPrescription> GetAll() 
-    { 
+    public override List<MedicalPrescription> GetAll()
+    {
         foreach (MedicalPrescription item in List)
         {
-           item.SetExpired();
+            item.SetExpired();
         }
         Context.SaveData();
         return List;

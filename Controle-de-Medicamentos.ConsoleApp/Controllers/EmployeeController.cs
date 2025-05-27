@@ -1,7 +1,7 @@
-﻿using Controle_de_Medicamentos.ConsoleApp.Extensions;
+﻿using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
+using Controle_de_Medicamentos.ConsoleApp.Extensions;
 using Controle_de_Medicamentos.ConsoleApp.Models;
 using Controle_de_Medicamentos.ConsoleApp.Shared;
-using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Controle_de_Medicamentos.ConsoleApp.Controllers;

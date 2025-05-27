@@ -6,7 +6,7 @@ using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 namespace Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
 public class InRequestRepository : BaseRepository<InRequest>, IInRequestRepository
 {
-    public InRequestRepository(DataContext context) : base(context){}
+    public InRequestRepository(DataContext context) : base(context) { }
 
     public override void Add(InRequest inRequest)
     {
@@ -18,7 +18,7 @@ public class InRequestRepository : BaseRepository<InRequest>, IInRequestReposito
     {
         return Context.InRequests;
     }
-  
+
     public bool HasRequisitionsForMedication(Medication medication)
     {
         return List.Any(i => i.Medication.Id == medication.Id);

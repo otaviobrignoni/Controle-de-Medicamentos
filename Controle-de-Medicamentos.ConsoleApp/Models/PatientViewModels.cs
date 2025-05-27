@@ -75,6 +75,6 @@ public class ShowPatientsViewModel
             PatientDetailsViewModel detailsViewModel = p.ToDetailsViewModel();
             List.Add(detailsViewModel);
         }
-            
+
     }
 }

@@ -1,12 +1,11 @@
-﻿using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
-using Controle_de_Medicamentos.ConsoleApp.Shared;
+﻿using Controle_de_Medicamentos.ConsoleApp.Shared;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.SupplierModule
 {
     public class SupplierRepository : BaseRepository<Supplier>, ISupplierRepository
     {
-        public SupplierRepository(DataContext context) : base(context) {}
+        public SupplierRepository(DataContext context) : base(context) { }
 
         public override List<Supplier> GetList()
         {
@@ -17,7 +16,7 @@ namespace Controle_de_Medicamentos.ConsoleApp.SupplierModule
         {
             errors = entity.Validate();
 
-            if (entity.IsSameCNPJ(GetAll().FirstOrDefault(s=> s.IsSameCNPJ(entity))))
+            if (entity.IsSameCNPJ(GetAll().FirstOrDefault(s => s.IsSameCNPJ(entity))))
                 errors += "Já existe um fornecedor com este CNPJ";
 
             if (string.IsNullOrEmpty(errors))

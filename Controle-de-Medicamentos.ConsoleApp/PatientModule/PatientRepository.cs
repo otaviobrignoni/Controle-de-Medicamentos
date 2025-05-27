@@ -5,7 +5,7 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
 {
     public class PatientRepository : BaseRepository<Patient>, IPatientRepository
     {
-        public PatientRepository(DataContext context) : base (context) {}
+        public PatientRepository(DataContext context) : base(context) { }
 
         public override List<Patient> GetList()
         {
@@ -16,7 +16,7 @@ namespace Controle_de_Medicamentos.ConsoleApp.PatientModule
         {
             errors = entity.Validate();
 
-            if(entity.IsSameSUSCard(GetAll().FirstOrDefault(p=>p.IsSameSUSCard(entity))))
+            if (entity.IsSameSUSCard(GetAll().FirstOrDefault(p => p.IsSameSUSCard(entity))))
                 errors += "Já existe um paciente com este cartão do SUS";
 
             if (string.IsNullOrEmpty(errors))

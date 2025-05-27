@@ -3,7 +3,7 @@ using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
 
-public class MedicalPrescription : BaseEntity<MedicalPrescription>, ITableConvertible
+public class MedicalPrescription : BaseEntity<MedicalPrescription>
 {
     public string DoctorCRM { get; set; }
     public DateTime Date { get; set; }
@@ -41,45 +41,25 @@ public class MedicalPrescription : BaseEntity<MedicalPrescription>, ITableConver
 
         return errors;
     }
-
-    public string[] ToLineStrings()
-    {
-        return new string[] { Id.ToString(), DoctorCRM, Date.ToString("dd/MM/yyyy"), Medications.Count().ToString(), Status };
-    }
-
-    /// <summary>
-    /// Verifica se a prescrição médica é válida conforme as regras de negócio definidas.
-    /// </summary>
-    /// <returns>
-    /// Retorna <c>true</c> se a prescrição atender aos critérios; caso contrário, <c>false</c>.
-    /// </returns>
     public bool IsValid()
     {
         if (IsClosed() && IsExpired())
             return false;
         return true;
     }
-
-    /// <summary>Define o status da prescrição como "Fechada".</summary>
     public void ClosePrescription()
     {
         Status = "Fechada";
     }
-
-    /// <summary>Define o status da prescrição como "Expirada", se estiver vencida.</summary>
     public void SetExpired()
     {
         if (IsExpired())
             Status = "Expirada";
     }
-
-    /// <summary>Verifica se a prescrição está expirada (mais de 30 dias).</summary>
     private bool IsExpired()
     {
         return (DateTime.Now - Date).TotalDays > 30;
     }
-
-    /// <summary>Verifica se a prescrição está com status "Fechada".</summary>
     private bool IsClosed()
     {
         return Status == "Fechada";

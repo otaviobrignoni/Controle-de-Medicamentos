@@ -1,12 +1,12 @@
-﻿using System.Text.Json.Serialization;
-using System.Text.Json;
-using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 using Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
-using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
-using Controle_de_Medicamentos.ConsoleApp.PatientModule;
 using Controle_de_Medicamentos.ConsoleApp.MedicalPrescriptionModule;
+using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.OutRequestsModule;
+using Controle_de_Medicamentos.ConsoleApp.PatientModule;
+using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.Shared;
 
@@ -15,20 +15,12 @@ public class DataContext
     public List<Medication> Medications { get; set; }
     public List<Employee> Employees { get; set; }
     public List<InRequest> InRequests { get; set; }
-    public List<OutRequest> OutRequests { get; set; }  
-    public List<Supplier> Suppliers { get; set; } 
-    public List<Patient> Patients { get;  set; }
+    public List<OutRequest> OutRequests { get; set; }
+    public List<Supplier> Suppliers { get; set; }
+    public List<Patient> Patients { get; set; }
     public List<MedicalPrescription> MedicalPrescriptions { get; set; }
 
-    /// <summary>
-    /// Caminho onde os dados da aplicação são salvos no formato JSON.
-    /// </summary>
-    /// <remarks>
-    /// O caminho completo é construído dentro da pasta <c>%AppData%</c> do usuário, geralmente localizada em:
-    /// <br/><c>C:\Users\SeuUsuario\AppData\Roaming\ControleDeMedicamentos</c>
-    /// <br/>Esse local é usado para armazenar dados persistentes da aplicação, como registros ou configurações.
-    /// </remarks>
-    private string savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"ControleDeMedicamentos");
+    private string savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ControleDeMedicamentos");
     private string arquiveName = "SaveData.json";
 
     public DataContext()
@@ -41,27 +33,11 @@ public class DataContext
         Patients = new List<Patient>();
         MedicalPrescriptions = new List<MedicalPrescription>();
     }
-
-    /// <summary>
-    /// Inicializa uma nova instância da classe <c>DataContext</c> e carrega os dados salvos de um arquivo JSON local.
-    /// </summary>
-    /// <param name="loadData">
-    /// Se <c>true</c>, carrega automaticamente os dados persistidos no disco ao instanciar o contexto.
-    /// </param>
-    public DataContext(bool loadData) : this() 
+    public DataContext(bool loadData) : this()
     {
-        if (loadData) 
+        if (loadData)
             LoadData();
     }
-
-    /// <summary>
-    /// Serializa a instância atual do <c>DataContext</c> em formato JSON e salva o arquivo no disco.
-    /// </summary>
-    /// <remarks>
-    /// O caminho completo do arquivo é definido combinando <c>savePath</c> com <c>arquiveName</c>. <br/>
-    /// Caso o diretório não exista, ele será criado automaticamente.
-    /// A serialização utiliza formatação indentada e preserva referências para evitar ciclos de objetos.
-    /// </remarks>
     public void SaveData()
     {
         string fullPath = Path.Combine(savePath, arquiveName);
@@ -76,15 +52,6 @@ public class DataContext
 
         File.WriteAllText(fullPath, json);
     }
-
-    /// <summary>
-    /// Carrega os dados salvos de um arquivo JSON local e os desserializa para restaurar o estado anterior do <c>DataContext</c>.
-    /// </summary>
-    /// <remarks>
-    /// O arquivo é lido a partir do caminho definido pela combinação de <c>savePath</c> com <c>arquiveName</c>.<br/>
-    /// Se o arquivo não existir ou estiver vazio, o método é encerrado sem alterar o estado atual.
-    /// A desserialização utiliza <c>ReferenceHandler.Preserve</c> para manter referências circulares intactas.
-    /// </remarks>
     private void LoadData()
     {
         string fullPath = Path.Combine(savePath, arquiveName);

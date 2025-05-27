@@ -6,13 +6,11 @@ namespace Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 
 public class MedicationRepository : BaseRepository<Medication>, IMedicationRepository
 {
-    public MedicationRepository(DataContext context) : base(context) {}
-
+    public MedicationRepository(DataContext context) : base(context) { }
     public override List<Medication> GetList()
     {
-       return Context.Medications;
+        return Context.Medications;
     }
-
     public override void Add(Medication entity)
     {
         if (TryMergeWithExisting(entity))
@@ -24,12 +22,6 @@ public class MedicationRepository : BaseRepository<Medication>, IMedicationRepos
         List.Add(entity);
         Context.SaveData();
     }
-
-    /// <summary>
-    /// Verifica se já existe um medicamento equivalente e, se existir, atualiza sua quantidade.
-    /// </summary>
-    /// <param name="newMedication">Novo medicamento a ser verificado.</param>
-    /// <returns><c>true</c> se houve consolidação com um medicamento existente; caso contrário, <c>false</c>.</returns>
     public bool TryMergeWithExisting(Medication newMedication)
     {
         Medication existing = GetAll().FirstOrDefault(m => m.IsSameMedication(newMedication));
@@ -40,7 +32,6 @@ public class MedicationRepository : BaseRepository<Medication>, IMedicationRepos
         }
         return false;
     }
-
     public bool HasMedicationForSupplier(Supplier supplier)
     {
         return List.Any(m => m.Supplier.Id == supplier.Id);

@@ -3,14 +3,14 @@ using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 
 namespace Controle_de_Medicamentos.ConsoleApp.InRequestsModule;
-public class InRequest : BaseEntity<InRequest>, ITableConvertible
+public class InRequest : BaseEntity<InRequest>
 {
     public DateTime Date { get; set; }
     public Medication Medication { get; set; }
     public Employee Employee { get; set; }
     public int Quantity { get; set; }
 
-    public InRequest() {}
+    public InRequest() { }
 
     public InRequest(Medication medication, Employee employee, int quantity)
     {
@@ -19,14 +19,12 @@ public class InRequest : BaseEntity<InRequest>, ITableConvertible
         Employee = employee;
         Quantity = quantity;
     }
-
     public override void UpdateEntity(InRequest entity)
     {
         Medication = entity.Medication;
         Employee = entity.Employee;
         Quantity = entity.Quantity;
     }
-
     public override string Validate()
     {
         string errors = "";
@@ -38,10 +36,5 @@ public class InRequest : BaseEntity<InRequest>, ITableConvertible
         if (Quantity <= 0)
             errors += "A quantidade deve ser maior que zero";
         return errors;
-    }
-
-    public string[] ToLineStrings()
-    {
-        return new string[] { Id.ToString(), Date.ToString("dd/MM/yyyy"), Medication.Name, Employee.Name, Quantity.ToString() };
     }
 }
