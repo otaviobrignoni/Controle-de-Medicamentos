@@ -1,33 +1,30 @@
 ﻿@using Controle_de_Medicamentos.ConsoleApp.Models
 @model ShowPatientsViewModel;
+@{
+    ViewBag.Title = "Pacientes";
+}
+<header>
+    <h3>@ViewBag.Title</h3>
+</header>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Visualizar Pacientes - Controle de Medicamentos</title>
-</head>
+<main>
+    @foreach (PatientDetailsViewModel p in Model.List)
+    {
+        <div class="view-container">
+            <div class="view-card">
+                <h2>@p.Name</h2>
 
-<body>
-    <h1>Controle de Medicamentos</h1>
+                <p><strong>Telefone:</strong> @p.PhoneNumber</p>
+                <p><strong>Cartão SUS:</strong> @p.SUSCard</p>
+                <div class="button-group">
+                    <a type="button" class="button" id="defaultButton" href="/patient/edit/@p.Id">Editar</a>
+                    <a type="button" class="button" id="defaultButton" href="/patient/remove/@p.Id">Remover</a>
+                </div>
+            </div>
+        </div>
+    }
+    <a href="/patient/add" type="button" class="button" id="addButton">
+        <img class="plus-icon" src="~/assets/plus-svgrepo-com.svg" />
+    </a>
+</main>
 
-    <hr />
-
-    <a href="/">Página Inicial</a> /
-    <a href="/patient/add">Cadastrar novo paciente</a> 
-
-    <hr />
-
-    <h3>Visualizar Pacientes</h3>
-
-    <ul>
-        @foreach (PatientDetailsViewModel p in Model.List)
-        {
-            <li>
-                @p.ToString() / <a href="/patient/edit/@p.Id">Editar</a> /
-                <a href="/patient/remove/@p.Id">Remover</a>
-            </li>
-        }
-    </ul>
-</body>
-</html>
