@@ -10,97 +10,88 @@ namespace Controle_de_Medicamentos.ConsoleApp.Controllers;
 [Route("supplier")]
 public class SupplierController : Controller
 {
-    [HttpGet("add")]
-    public IActionResult ShowAddSupplierForm()
+    private readonly DataContext DataContext;
+    private readonly ISupplierRepository SupplierRepo;
+
+    public SupplierController()
     {
-        AddSupplierViewModel addViewModel = new AddSupplierViewModel();
-        return View("Add", addViewModel);
+        DataContext = new DataContext(true);
+        SupplierRepo = new SupplierRepository(DataContext);
+    }
+
+    [HttpGet("add")]
+    public IActionResult Add()
+    {
+        var addViewModel = new AddSupplierViewModel();
+        return View(addViewModel);
     }
 
     [HttpPost("add")]
-    public IActionResult AddSupplier(AddSupplierViewModel addViewModel)
+    public IActionResult Add(AddSupplierViewModel addViewModel)
     {
-        DataContext dataContext = new DataContext(true);
-        ISupplierRepository supplierRepo = new SupplierRepository(dataContext);
+        var newSupplier = addViewModel.ToEntity();
 
-        Supplier newSupplier = addViewModel.ToEntity();
+        SupplierRepo.Add(newSupplier);
 
-        supplierRepo.Add(newSupplier);
+        var notificationViewModel = new NotificationViewModel("Fornecedor cadastrado!", $"O registro \"{addViewModel.Name}\" foi cadastrado com sucesso!");
 
-        NotificationViewModel notificationViewModel = new NotificationViewModel("Fornecedor cadastrado!", $"O registro \"{addViewModel.Name}\" foi cadastrado com sucesso!");
-
-        return View("Notification", notificationViewModel);
+        return View(notificationViewModel);
     }
 
     [HttpGet("edit/{id:int}")]
-    public IActionResult ShowEditSupplierForm([FromRoute] int id)
+    public IActionResult Edit([FromRoute] int id)
     {
-        DataContext dataContext = new DataContext(true);
-        ISupplierRepository supplierRepo = new SupplierRepository(dataContext);
+        var selectedSupplier = SupplierRepo.GetById(id);
 
-        Supplier selectedSupplier = supplierRepo.GetById(id);
-
-        EditSupplierViewModel editViewModel = new EditSupplierViewModel(
+        var editViewModel = new EditSupplierViewModel(
             id,
             selectedSupplier.Name,
             selectedSupplier.PhoneNumber,
             selectedSupplier.CNPJ
         );
 
-        return View("Edit", editViewModel);
+        return View(editViewModel);
     }
 
     [HttpPost("edit/{id:int}")]
-    public IActionResult EditSupplier([FromRoute] int id, EditSupplierViewModel editViewModel)
+    public IActionResult Edit([FromRoute] int id, EditSupplierViewModel editViewModel)
     {
-        DataContext dataContext = new DataContext(true);
-        ISupplierRepository supplierRepo = new SupplierRepository(dataContext);
+        var editedSupplier = editViewModel.ToEntity();
 
-        Supplier editedSupplier = editViewModel.ToEntity();
+        SupplierRepo.Edit(id, editedSupplier);
 
-        supplierRepo.Edit(id, editedSupplier);
-
-        NotificationViewModel notificationViewModel = new NotificationViewModel("Fornecedor editado!", $"O registro \"{editedSupplier.Name}\" foi editado com sucesso!");
+        var notificationViewModel = new NotificationViewModel("Fornecedor editado!", $"O registro \"{editedSupplier.Name}\" foi editado com sucesso!");
 
         return View("Notification", notificationViewModel);
     }
 
     [HttpGet("remove/{id:int}")]
-    public IActionResult ShowRemoveSupplierForm([FromRoute] int id)
+    public IActionResult Remove([FromRoute] int id)
     {
-        DataContext dataContext = new DataContext(true);
-        ISupplierRepository supplierRepo = new SupplierRepository(dataContext);
+        var selectedSupplier = SupplierRepo.GetById(id);
 
-        Supplier selectedSupplier = supplierRepo.GetById(id);
+        var removeViewModel = new RemoveSupplierViewModel(selectedSupplier.Id, selectedSupplier.Name);
 
-        RemoveSupplierViewModel removeViewModel = new RemoveSupplierViewModel(selectedSupplier.Id, selectedSupplier.Name);
-
-        return View("Remove", removeViewModel);
+        return View(removeViewModel);
     }
 
     [HttpPost("remove/{id:int}")]
-    public IActionResult RemoveSupplier([FromRoute] int id)
+    public IActionResult RemoveConfirmed([FromRoute] int id)
     {
-        DataContext dataContext = new DataContext(true);
-        ISupplierRepository supplierRepo = new SupplierRepository(dataContext);
+        SupplierRepo.Remove(id);
 
-        supplierRepo.Remove(id);
-
-        NotificationViewModel notificationViewModel = new NotificationViewModel("Fornecedor removido!", $"O registro foi excluído com sucesso!");
+        var notificationViewModel = new NotificationViewModel("Fornecedor removido!", $"O registro foi excluído com sucesso!");
 
         return View("Notification", notificationViewModel);
     }
 
     [HttpGet("show")]
-    public IActionResult ShowSuppliers()
+    public IActionResult Show()
     {
-        DataContext dataContext = new DataContext(true);
-        ISupplierRepository supplierRepo = new SupplierRepository(dataContext);
+        var suppliers = SupplierRepo.GetAll();
 
-        List<Supplier> suppliers = supplierRepo.GetAll();
+        var showViewModel = new ShowSuppliersViewModel(suppliers);
 
-        ShowSuppliersViewModel showViewModel = new ShowSuppliersViewModel(suppliers);
-
-        return View("Show", showViewModel);
+        return View(showViewModel);
     }
 }

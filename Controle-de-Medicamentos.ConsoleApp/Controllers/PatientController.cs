@@ -9,24 +9,30 @@ namespace Controle_de_Medicamentos.ConsoleApp.Controllers;
 [Route("patient")]
 public class PatientController : Controller
 {
-    [HttpGet("add")]
-    public IActionResult ShowAddPatientForm()
+    private readonly DataContext DataContext;
+    private readonly IPatientRepository PatientRepo;
+
+    public PatientController() 
     {
-        AddPatientViewModel addViewModel = new AddPatientViewModel();
-        return View("Add", addViewModel);
+        DataContext = new DataContext(true);
+        PatientRepo = new PatientRepository(DataContext);
+    }
+
+    [HttpGet("add")]
+    public IActionResult Add()
+    {
+        var addViewModel = new AddPatientViewModel();
+        return View(addViewModel);
     }
 
     [HttpPost("add")]
-    public IActionResult AddPatient(AddPatientViewModel addViewModel)
+    public IActionResult Add(AddPatientViewModel addViewModel)
     {
-        DataContext dataContext = new DataContext(true);
-        IPatientRepository patientRepo = new PatientRepository(dataContext);
+        var newPatient = addViewModel.ToEntity();
 
-        Patient newPatient = addViewModel.ToEntity();
+        PatientRepo.Add(newPatient);
 
-        patientRepo.Add(newPatient);
-
-        NotificationViewModel notificationViewModel = new NotificationViewModel(
+        var notificationViewModel = new NotificationViewModel(
             "Paciente cadastrado!",
             $"O registro \"{addViewModel.Name}\" foi cadastrado com sucesso!"
         );
@@ -35,34 +41,28 @@ public class PatientController : Controller
     }
 
     [HttpGet("edit/{id:int}")]
-    public IActionResult ShowEditPatientForm([FromRoute] int id)
+    public IActionResult Edit([FromRoute] int id)
     {
-        DataContext dataContext = new DataContext(true);
-        IPatientRepository patientRepo = new PatientRepository(dataContext);
+        var selectedPatient = PatientRepo.GetById(id);
 
-        Patient selectedPatient = patientRepo.GetById(id);
-
-        EditPatientViewModel editViewModel = new EditPatientViewModel(
+        var editViewModel = new EditPatientViewModel(
             id,
             selectedPatient.Name,
             selectedPatient.PhoneNumber,
             selectedPatient.SUSCard
         );
 
-        return View("Edit", editViewModel);
+        return View(editViewModel);
     }
 
     [HttpPost("edit/{id:int}")]
-    public IActionResult EditPatient([FromRoute] int id, EditPatientViewModel editViewModel)
+    public IActionResult Edit([FromRoute] int id, EditPatientViewModel editViewModel)
     {
-        DataContext dataContext = new DataContext(true);
-        IPatientRepository patientRepo = new PatientRepository(dataContext);
+        var editedPatient = editViewModel.ToEntity();
 
-        Patient editedPatient = editViewModel.ToEntity();
+        PatientRepo.Edit(id, editedPatient);
 
-        patientRepo.Edit(id, editedPatient);
-
-        NotificationViewModel notificationViewModel = new NotificationViewModel(
+        var notificationViewModel = new NotificationViewModel(
             "Paciente editado!",
             $"O registro \"{editedPatient.Name}\" foi editado com sucesso!"
         );
@@ -71,27 +71,21 @@ public class PatientController : Controller
     }
 
     [HttpGet("remove/{id:int}")]
-    public IActionResult ShowRemovePatientForm([FromRoute] int id)
+    public IActionResult Remove([FromRoute] int id)
     {
-        DataContext dataContext = new DataContext(true);
-        IPatientRepository patientRepo = new PatientRepository(dataContext);
+        var selectedPatient = PatientRepo.GetById(id);
 
-        Patient selectedPatient = patientRepo.GetById(id);
+        var removeViewModel = new RemovePatientViewModel(selectedPatient.Id, selectedPatient.Name);
 
-        RemovePatientViewModel removeViewModel = new RemovePatientViewModel(selectedPatient.Id, selectedPatient.Name);
-
-        return View("Remove", removeViewModel);
+        return View(removeViewModel);
     }
 
     [HttpPost("remove/{id:int}")]
-    public IActionResult RemovePatient([FromRoute] int id)
+    public IActionResult RemoveConfirmed([FromRoute] int id)
     {
-        DataContext dataContext = new DataContext(true);
-        IPatientRepository patientRepo = new PatientRepository(dataContext);
+        PatientRepo.Remove(id);
 
-        patientRepo.Remove(id);
-
-        NotificationViewModel notificationViewModel = new NotificationViewModel(
+        var notificationViewModel = new NotificationViewModel(
             "Paciente removido!",
             "O registro foi excluído com sucesso!"
         );
@@ -100,15 +94,12 @@ public class PatientController : Controller
     }
 
     [HttpGet("show")]
-    public IActionResult ShowPatients()
+    public IActionResult Show()
     {
-        DataContext dataContext = new DataContext(true);
-        IPatientRepository patientRepo = new PatientRepository(dataContext);
+        var patients = PatientRepo.GetAll();
 
-        List<Patient> patients = patientRepo.GetAll();
+        var showViewModel = new ShowPatientsViewModel(patients);
 
-        ShowPatientsViewModel showViewModel = new ShowPatientsViewModel(patients);
-
-        return View("Show", showViewModel);
+        return View(showViewModel);
     }
 }

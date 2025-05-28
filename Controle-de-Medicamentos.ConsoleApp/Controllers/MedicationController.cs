@@ -9,9 +9,9 @@ namespace Controle_de_Medicamentos.ConsoleApp.Controllers;
 [Route("medication")]
 public class MedicationController : Controller
 {
-    DataContext dataContext;
-    IMedicationRepository medicationRepo;
-    ISupplierRepository supplierRepo;
+    private readonly DataContext dataContext;
+    private readonly IMedicationRepository medicationRepo;
+    private readonly ISupplierRepository supplierRepo;
 
     public MedicationController()
     {
@@ -32,7 +32,7 @@ public class MedicationController : Controller
     public IActionResult Add(AddMedicationViewModel addViewModel)
     {
 
-        Medication medication = addViewModel.ToEntity(supplierRepo.GetAll());
+        var medication = addViewModel.ToEntity(supplierRepo.GetAll());
 
         medicationRepo.Add(medication);
 

@@ -9,22 +9,29 @@ namespace Controle_de_Medicamentos.ConsoleApp.Controllers;
 [Route("employee")]
 public class EmployeeController : Controller
 {
-    [HttpGet("add")]
-    public IActionResult ShowAddEmployeeForm()
+
+    private readonly DataContext DataContext;
+    private readonly IEmployeeRepository EmployeeRepo;
+    public EmployeeController()
     {
-        AddEmployeeViewModel addViewModel = new AddEmployeeViewModel();
-        return View("Add", addViewModel);
+        DataContext = new DataContext(true);
+        EmployeeRepo = new EmployeeRepository(DataContext);
+    }
+
+    [HttpGet("add")]
+    public IActionResult Add()
+    {
+        var addViewModel = new AddEmployeeViewModel();
+        return View(addViewModel);
     }
 
     [HttpPost("add")]
-    public IActionResult AddEmployee(AddEmployeeViewModel addViewModel)
+    public IActionResult Add(AddEmployeeViewModel addViewModel)
     {
-        DataContext dataContext = new DataContext(true);
-        IEmployeeRepository employeeRepo = new EmployeeRepository(dataContext);
 
-        Employee newEmployee = addViewModel.ToEntity();
+        var newEmployee = addViewModel.ToEntity();
 
-        employeeRepo.Add(newEmployee);
+        EmployeeRepo.Add(newEmployee);
 
         NotificationViewModel notificationViewModel = new NotificationViewModel(
             "Funcionário cadastrado!",
@@ -35,34 +42,29 @@ public class EmployeeController : Controller
     }
 
     [HttpGet("edit/{id:int}")]
-    public IActionResult ShowEditEmployeeForm([FromRoute] int id)
+    public IActionResult Edit([FromRoute] int id)
     {
-        DataContext dataContext = new DataContext(true);
-        IEmployeeRepository employeeRepo = new EmployeeRepository(dataContext);
+        var selectedEmployee = EmployeeRepo.GetById(id);
 
-        Employee selectedEmployee = employeeRepo.GetById(id);
-
-        EditEmployeeViewModel editViewModel = new EditEmployeeViewModel(
+        var editViewModel = new EditEmployeeViewModel(
             id,
             selectedEmployee.Name,
             selectedEmployee.PhoneNumber,
             selectedEmployee.CPF
         );
 
-        return View("Edit", editViewModel);
+        return View(editViewModel);
     }
 
     [HttpPost("edit/{id:int}")]
-    public IActionResult EditEmployee([FromRoute] int id, EditEmployeeViewModel editViewModel)
+    public IActionResult Edit([FromRoute] int id, EditEmployeeViewModel editViewModel)
     {
-        DataContext dataContext = new DataContext(true);
-        IEmployeeRepository employeeRepo = new EmployeeRepository(dataContext);
 
-        Employee editedEmployee = editViewModel.ToEntity();
+        var editedEmployee = editViewModel.ToEntity();
 
-        employeeRepo.Edit(id, editedEmployee);
+        EmployeeRepo.Edit(id, editedEmployee);
 
-        NotificationViewModel notificationViewModel = new NotificationViewModel(
+        var notificationViewModel = new NotificationViewModel(
             "Funcionário editado!",
             $"O registro \"{editedEmployee.Name}\" foi editado com sucesso!"
         );
@@ -71,27 +73,21 @@ public class EmployeeController : Controller
     }
 
     [HttpGet("remove/{id:int}")]
-    public IActionResult ShowRemoveEmployeeForm([FromRoute] int id)
+    public IActionResult Remove([FromRoute] int id)
     {
-        DataContext dataContext = new DataContext(true);
-        IEmployeeRepository employeeRepo = new EmployeeRepository(dataContext);
+        var selectedEmployee = EmployeeRepo.GetById(id);
 
-        Employee selectedEmployee = employeeRepo.GetById(id);
-
-        RemoveEmployeeViewModel removeViewModel = new RemoveEmployeeViewModel(selectedEmployee.Id, selectedEmployee.Name);
+        var removeViewModel = new RemoveEmployeeViewModel(selectedEmployee.Id, selectedEmployee.Name);
 
         return View("Remove", removeViewModel);
     }
 
     [HttpPost("remove/{id:int}")]
-    public IActionResult RemoveEmployee([FromRoute] int id)
+    public IActionResult RemoveConfirmed([FromRoute] int id)
     {
-        DataContext dataContext = new DataContext(true);
-        IEmployeeRepository employeeRepo = new EmployeeRepository(dataContext);
+        EmployeeRepo.Remove(id);
 
-        employeeRepo.Remove(id);
-
-        NotificationViewModel notificationViewModel = new NotificationViewModel(
+        var notificationViewModel = new NotificationViewModel(
             "Funcionário removido!",
             "O registro foi excluído com sucesso!"
         );
@@ -100,14 +96,10 @@ public class EmployeeController : Controller
     }
 
     [HttpGet("show")]
-    public IActionResult ShowEmployees()
+    public IActionResult Show()
     {
-        DataContext dataContext = new DataContext(true);
-        IEmployeeRepository employeeRepo = new EmployeeRepository(dataContext);
-
-        List<Employee> employees = employeeRepo.GetAll();
-
-        ShowEmployeesViewModel showViewModel = new ShowEmployeesViewModel(employees);
+        var employees = EmployeeRepo.GetAll();
+        var showViewModel = new ShowEmployeesViewModel(employees);
 
         return View("Show", showViewModel);
     }
