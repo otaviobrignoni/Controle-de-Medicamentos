@@ -35,7 +35,7 @@ public class SupplierController : Controller
 
         var notificationViewModel = new NotificationViewModel("Fornecedor cadastrado!", $"O registro \"{addViewModel.Name}\" foi cadastrado com sucesso!");
 
-        return View(notificationViewModel);
+        return View("Notification", notificationViewModel);
     }
 
     [HttpGet("edit/{id:int}")]

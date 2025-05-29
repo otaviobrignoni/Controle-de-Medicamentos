@@ -1,33 +1,31 @@
 ﻿@using Controle_de_Medicamentos.ConsoleApp.Models
 @model ShowEmployeesViewModel;
+@{
+    ViewBag.Title = "Funcionários";
+}
+<header>
+    <h3>@ViewBag.Title</h3>
+</header>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Visualizar Funcionários - Controle de Medicamentos</title>
-</head>
+<main>
+    @foreach (EmployeeDetailsViewModel e in Model.List)
+    {
+        <div class="view-container">
+            <div class="view-card">
+                <h2>@e.Name</h2>
 
-<body>
-    <h1>Controle de Medicamentos</h1>
+                <p><strong>Telefone:</strong> @e.PhoneNumber</p>
+                <p><strong>CPF:</strong> @e.CPF</p>
+                <div class="button-group">
+                    <a type="button" class="button" id="defaultButton" href="/employee/edit/@e.Id">Editar</a>
+                    <a type="button" class="button" id="defaultButton" href="/employee/remove/@e.Id">Remover</a>
+                </div>
+            </div>
+        </div>
+    }
+    <a href="/employee/add" type="button" class="button" id="addButton">
+        <img class="plus-icon" src="~/assets/plus-svgrepo-com.svg" />
+    </a>
+</main>
 
-    <hr />
 
-    <a href="/">Página Inicial</a> /
-    <a href="/employee/add">Cadastrar novo funcionário</a> /
-
-    <hr />
-
-    <h3>Visualizar Funcionários</h3>
-
-    <ul>
-        @foreach (EmployeeDetailsViewModel e in Model.List)
-        {
-            <li>
-                @e.ToString() / <a href="/employee/edit/@e.Id">Editar</a> /
-                <a href="/employee/remove/@e.Id">Remover</a>
-            </li>
-        }
-    </ul>
-</body>
-</html>

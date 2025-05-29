@@ -1,43 +1,28 @@
 ﻿@using Controle_de_Medicamentos.ConsoleApp.Models
 @model AddEmployeeViewModel;
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Cadastrar Funcionário - Controle de Medicamentos</title>
-</head>
+@{
+    ViewBag.Title = "Cadastrar Funcionário";
+}
+<header>
+    <h3>@ViewBag.Title</h3>
+</header>
 
-<body>
-    <h1>Controle de Medicamentos</h1>
+<main>
+    <div class="form-container">
+        <form action="/employee/add" method="post">
+            <label>Nome do funcionário:</label>
+            <input type="text" name="name" />
 
-    <hr />
+            <label>Telefone do funcionário:</label>
+            <input type="text" name="phoneNumber" />
 
-    <a href="/">Página Inicial</a> /
-    <a href="/employee/show">Visualizar funcionários</a>
+            <label>CPF do funcionário:</label>
+            <input type="text" name="cpf" />
 
-    <hr />
-
-    <h3>Cadastrar Funcionário</h3>
-
-    <form action="/employee/add" method="post">
-        <label>Nome do funcionário:</label>
-        <br />
-        <input type="text" name="name" />
-
-        <br />
-
-        <label>Telefone do funcionário:</label>
-        <br />
-        <input type="text" name="phoneNumber" />
-
-        <br />
-
-        <label>CPF do funcionário:</label>
-        <br />
-        <input type="text" name="cpf" />
-        <hr />
-
-        <button type="submit">Gravar</button>
-    </form>
-</body>
-</html>
+            <div class="button-group">
+                <a type="button" class="button" id="backButton" href="/employee/show">Voltar</a>
+                <button type="submit" class="button" id="confirmButton">Confirmar</button>
+            </div>
+        </form>
+    </div>
+</main>

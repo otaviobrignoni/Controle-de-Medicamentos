@@ -1,45 +1,28 @@
 ﻿@using Controle_de_Medicamentos.ConsoleApp.Models
 @model EditEmployeeViewModel;
+@{
+    ViewBag.Title = "Editar Funcionário";
+}
+<header>
+    <h3>@ViewBag.Title</h3>
+</header>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Editar Funcionário - Controle de Medicamentos</title>
-</head>
+<main>
+    <div class="form-container">
+        <form action="/employee/edit/@Model.Id" method="post">
+            <label>Nome do funcionário:</label>
+            <input type="text" name="name" value="@Model.Name" />
 
-<body>
-    <h1>Controle de Medicamentos</h1>
+            <label>Telefone do funcionário:</label>
+            <input type="text" name="phoneNumber" value="@Model.PhoneNumber" />>
 
-    <hr />
+            <label>CPF do funcionário:</label>
+            <input type="text" name="cpf" value="@Model.CPF" />
 
-    <a href="/">Página Inicial</a> /
-    <a href="/employee/add">Cadastrar novo funcionário</a> /
-    <a href="/employee/show">Visualizar funcionários</a>
-
-    <hr />
-
-    <h3>Editar Funcionário</h3>
-
-    <form action="/employee/edit/@Model.Id" method="post">
-        <label>Nome do funcionário:</label>
-        <br />
-        <input type="text" name="name" value="@Model.Name" />
-
-        <br />
-
-        <label>Telefone do funcionário:</label>
-        <br />
-        <input type="text" name="phoneNumber" value="@Model.PhoneNumber" />
-
-        <br />
-
-        <label>CPF do funcionário:</label>
-        <br />
-        <input type="text" name="cpf" value="@Model.CPF" />
-        <hr />
-
-        <button type="submit">Gravar</button>
-    </form>
-</body>
-</html>
+            <div class="button-group">
+                <a type="button" class="button" id="backButton" href="/employee/show">Voltar</a>
+                <button type="submit" class="button" id="confirmButton">Confirmar</button>
+            </div>
+        </form>
+    </div>
+</main>
