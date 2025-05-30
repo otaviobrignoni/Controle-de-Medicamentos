@@ -1,55 +1,36 @@
 ﻿@using Controle_de_Medicamentos.ConsoleApp.Models
 @model AddMedicationViewModel
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Cadastrar Medicamento - Controle de Medicamentos</title>
-</head>
+@{
+    ViewBag.Title = "Cadastrar Medicamento";
+}
+<header>
+    <h3>@ViewBag.Title</h3>
+</header>
 
-<body>
-    <h1>Controle de Medicamentos</h1>
+<main>
+    <div class="form-container">
+        <form action="/medication/add" method="post">
+            <label for="Name">Nome do medicamento:</label>
+            <input type="text" name="Name" id="Name" />
 
-    <hr />
+            <label for="Description">Descrição do medicamento:</label>
+            <input type="text" name="Description" id="Description" />
 
-    <a href="/">Página Inicial</a> /
-    <a href="/medication/show">Visualizar medicamentos</a>
+            <label for="Quantity">Quantidade do medicamento:</label>
+            <input type="text" name="Quantity" id="Quantity" />
 
-    <hr />
+            <label for="SupplierId">Fornecedor do medicamento</label>
+            <select name="SupplierId" id="SupplierId">
+                @foreach (var supplier in @Model.AvailableSuppliers)
+                {
+                    <option value="@supplier.Id">@supplier.Name</option>
+                }
+            </select>
 
-    <h3>Cadastrar Medicamento</h3>
-
-    <form action="/medication/add" method="post">
-        <label for="Name">Nome do medicamento:</label>
-        <br />
-        <input type="text" name="Name" id="Name" />
-
-        <br />
-
-        <label for="Description">Descrição do medicamento:</label>
-        <br />
-        <input type="text" name="Description" id="Description" />
-
-        <br />
-
-        <label for="Quantity">Quantidade do medicamento:</label>
-        <br />
-        <input type="text" name="Quantity" id="Quantity" />
-
-        <br />
-
-        <label for="SupplierId">Fornecedor do medicamento</label>
-        <br />
-        <select name="SupplierId" id="SupplierId">
-            @foreach(var supplier in @Model.AvailableSuppliers)
-            {
-                <option value="@supplier.Id">@supplier.Name</option>
-            }
-        </select>
-        
-        <br />
-        
-        <button type="submit">Gravar</button>
-    </form>
-</body>
-</html>
+            <div class="button-group">
+                <a type="button" class="button" id="backButton" href="/medication/show">Voltar</a>
+                <button type="submit" class="button" id="confirmButton">Confirmar</button>
+            </div>
+        </form>
+    </div>
+</main>

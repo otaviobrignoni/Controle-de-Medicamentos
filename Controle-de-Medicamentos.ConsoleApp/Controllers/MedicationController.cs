@@ -9,21 +9,21 @@ namespace Controle_de_Medicamentos.ConsoleApp.Controllers;
 [Route("medication")]
 public class MedicationController : Controller
 {
-    private readonly DataContext dataContext;
-    private readonly IMedicationRepository medicationRepo;
-    private readonly ISupplierRepository supplierRepo;
+    private readonly DataContext DataContext;
+    private readonly IMedicationRepository MedicationRepo;
+    private readonly ISupplierRepository SupplierRepo;
 
     public MedicationController()
     {
-        dataContext = new DataContext(true);
-        medicationRepo = new MedicationRepository(dataContext);
-        supplierRepo = new SupplierRepository(dataContext);
+        DataContext = new DataContext(true);
+        MedicationRepo = new MedicationRepository(DataContext);
+        SupplierRepo = new SupplierRepository(DataContext);
     }
 
     [HttpGet("add")]
     public IActionResult Add()
     {
-        var addViewModel = new AddMedicationViewModel(supplierRepo.GetAll());
+        var addViewModel = new AddMedicationViewModel(SupplierRepo.GetAll());
 
         return View(addViewModel);
     }
@@ -32,9 +32,9 @@ public class MedicationController : Controller
     public IActionResult Add(AddMedicationViewModel addViewModel)
     {
 
-        var medication = addViewModel.ToEntity(supplierRepo.GetAll());
+        var medication = addViewModel.ToEntity(SupplierRepo.GetAll());
 
-        medicationRepo.Add(medication);
+        MedicationRepo.Add(medication);
 
         var notificationViewModel = new NotificationViewModel("Medicação cadastrada!", $"O registro \"{medication.Name}\" foi cadastrado com sucesso!");
 
@@ -45,9 +45,9 @@ public class MedicationController : Controller
     public IActionResult Edit([FromRoute] int id)
     {
 
-        var selectedMedication = medicationRepo.GetById(id);
+        var selectedMedication = MedicationRepo.GetById(id);
 
-        var editViewModel = new EditMedicationViewModel(selectedMedication.Id, selectedMedication.Name, selectedMedication.Description, selectedMedication.Quantity, selectedMedication.Supplier.Id, supplierRepo.GetAll());
+        var editViewModel = new EditMedicationViewModel(selectedMedication.Id, selectedMedication.Name, selectedMedication.Description, selectedMedication.Quantity, selectedMedication.Supplier.Id, SupplierRepo.GetAll());
 
         return View(editViewModel);
     }
@@ -55,9 +55,9 @@ public class MedicationController : Controller
     [HttpPost("edit/{id:int}")]
     public IActionResult Edit([FromRoute] int id, EditMedicationViewModel editViewModel)
     {
-        var editedMedication = editViewModel.ToEntity(supplierRepo.GetAll());
+        var editedMedication = editViewModel.ToEntity(SupplierRepo.GetAll());
 
-        medicationRepo.Edit(id, editedMedication);
+        MedicationRepo.Edit(id, editedMedication);
 
         var notificationViewModel = new NotificationViewModel("Medicação editado!", $"O registro \"{editedMedication.Name}\" foi editado com sucesso!");
 
@@ -67,7 +67,7 @@ public class MedicationController : Controller
     [HttpGet("remove/{id:int}")]
     public IActionResult Remove([FromRoute] int id)
     {
-        var selectedMedication = medicationRepo.GetById(id);
+        var selectedMedication = MedicationRepo.GetById(id);
         var removeViewModel = new RemoveMedicationViewModel(selectedMedication.Id, selectedMedication.Name);
         return View(removeViewModel);
     }
@@ -75,7 +75,7 @@ public class MedicationController : Controller
     [HttpPost("remove/{id:int}")]
     public IActionResult RemoveConfirmed([FromRoute] int id)
     {
-        medicationRepo.Remove(id);
+        MedicationRepo.Remove(id);
 
         var notificationViewModel = new NotificationViewModel("Medicamento removido!", "O registro foi excluído com sucesso!");
 
@@ -86,7 +86,7 @@ public class MedicationController : Controller
     public IActionResult Show()
     {
 
-        var showViewModel = new ShowMedicationsViewModel(medicationRepo.GetAll());
+        var showViewModel = new ShowMedicationsViewModel(MedicationRepo.GetAll());
 
         return View(showViewModel);
     }

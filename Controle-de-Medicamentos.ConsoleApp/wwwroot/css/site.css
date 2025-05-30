@@ -185,6 +185,7 @@ main {
 }
 
 .view-container {
+    height: auto;
 }
 
 /* Form Styles */
@@ -228,6 +229,24 @@ input[type="text"] {
     color: var(--text-light);
 }
 
+input[readonly] {
+    background-color: var(--bg-dark);
+}
+
+select {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 15px;
+    padding-left: 10px;
+    font-size: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--bg-main);
+    color: var(--text-light);
+    -webkit-appearance: none; /* Safari/Chrome */
+    -moz-appearance: none; /* Firefox */
+}
+
 /*Buttons*/
 
 .button-group {
@@ -237,6 +256,7 @@ input[type="text"] {
     align-items: center;
     gap: 10px;
 }
+
 .centered-button-group {
     display: flex;
     width: 100%;
@@ -299,7 +319,7 @@ input[type="text"] {
         background-color: var(--accent-hover);
     }
 
-.plus-icon{
+.plus-icon {
     width: 50px;
     height: auto;
 }

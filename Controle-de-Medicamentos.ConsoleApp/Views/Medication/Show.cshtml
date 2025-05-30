@@ -1,33 +1,30 @@
 ﻿@using Controle_de_Medicamentos.ConsoleApp.Models
 @model ShowMedicationsViewModel
+@{
+    ViewBag.Title = "Medicamentos";
+}
+<header>
+    <h3>@ViewBag.Title</h3>
+</header>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Visualizar Medicamentos - Controle de Medicamentos</title>
-</head>
+<main>
+    @foreach (var m in Model.List)
+    {
+        <div class="view-container">
+            <div class="view-card">
+                <h2>@m.Name</h2>
 
-<body>
-    <h1>Controle de Medicamentos</h1>
-
-    <hr />
-
-    <a href="/">Página Inicial</a> /
-    <a href="/medication/add">Cadastrar novo medicamento</a> 
-
-    <hr />
-
-    <h3>Visualizar Medicamentos</h3>
-
-    <ul>
-        @foreach (var m in Model.List)
-        {
-            <li>
-                @m.ToString() / <a href="/medication/edit/@m.Id">Editar</a> /
-                <a href="/medication/remove/@m.Id">Remover</a>
-            </li>
-        }
-    </ul>
-</body>
-</html>
+                <p><strong>Fornecedor:</strong> @m.SupplierName</p>
+                <p><strong>Descrição:</strong> @m.Description</p>
+                <p><strong>Quantidade:</strong> @m.Quantity</p>
+                <div class="button-group">
+                    <a type="button" class="button" id="defaultButton" href="/medication/edit/@m.Id">Editar</a>
+                    <a type="button" class="button" id="defaultButton" href="/medication/remove/@m.Id">Remover</a>
+                </div>
+            </div>
+        </div>
+    }
+    <a href="/medication/add" type="button" class="button" id="addButton">
+        <img class="plus-icon" src="~/assets/plus-svgrepo-com.svg" />
+    </a>
+</main>
