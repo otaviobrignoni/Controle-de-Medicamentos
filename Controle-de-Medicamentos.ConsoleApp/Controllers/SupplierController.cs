@@ -1,3 +1,4 @@
+using System;
 ﻿using Controle_de_Medicamentos.ConsoleApp.Extensions;
 using Controle_de_Medicamentos.ConsoleApp.Models;
 using Controle_de_Medicamentos.ConsoleApp.Shared;
@@ -38,8 +39,8 @@ public class SupplierController : Controller
         return View("Notification", notificationViewModel);
     }
 
-    [HttpGet("edit/{id:int}")]
-    public IActionResult Edit([FromRoute] int id)
+[HttpGet("edit/{id:guid}")]
+public IActionResult Edit([FromRoute] Guid id)
     {
         var selectedSupplier = SupplierRepo.GetById(id);
 
@@ -53,8 +54,8 @@ public class SupplierController : Controller
         return View(editViewModel);
     }
 
-    [HttpPost("edit/{id:int}")]
-    public IActionResult Edit([FromRoute] int id, EditSupplierViewModel editViewModel)
+[HttpPost("edit/{id:guid}")]
+public IActionResult Edit([FromRoute] Guid id, EditSupplierViewModel editViewModel)
     {
         var editedSupplier = editViewModel.ToEntity();
 
@@ -65,8 +66,8 @@ public class SupplierController : Controller
         return View("Notification", notificationViewModel);
     }
 
-    [HttpGet("remove/{id:int}")]
-    public IActionResult Remove([FromRoute] int id)
+[HttpGet("remove/{id:guid}")]
+public IActionResult Remove([FromRoute] Guid id)
     {
         var selectedSupplier = SupplierRepo.GetById(id);
 
@@ -75,8 +76,8 @@ public class SupplierController : Controller
         return View(removeViewModel);
     }
 
-    [HttpPost("remove/{id:int}")]
-    public IActionResult RemoveConfirmed([FromRoute] int id)
+[HttpPost("remove/{id:guid}")]
+public IActionResult RemoveConfirmed([FromRoute] Guid id)
     {
         SupplierRepo.Remove(id);
 

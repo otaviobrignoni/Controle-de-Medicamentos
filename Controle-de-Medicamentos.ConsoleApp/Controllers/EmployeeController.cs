@@ -1,3 +1,4 @@
+using System;
 ﻿using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 using Controle_de_Medicamentos.ConsoleApp.Extensions;
 using Controle_de_Medicamentos.ConsoleApp.Models;
@@ -41,8 +42,8 @@ public class EmployeeController : Controller
         return View("Notification", notificationViewModel);
     }
 
-    [HttpGet("edit/{id:int}")]
-    public IActionResult Edit([FromRoute] int id)
+[HttpGet("edit/{id:guid}")]
+public IActionResult Edit([FromRoute] Guid id)
     {
         var selectedEmployee = EmployeeRepo.GetById(id);
 
@@ -56,8 +57,8 @@ public class EmployeeController : Controller
         return View(editViewModel);
     }
 
-    [HttpPost("edit/{id:int}")]
-    public IActionResult Edit([FromRoute] int id, EditEmployeeViewModel editViewModel)
+[HttpPost("edit/{id:guid}")]
+public IActionResult Edit([FromRoute] Guid id, EditEmployeeViewModel editViewModel)
     {
 
         var editedEmployee = editViewModel.ToEntity();
@@ -72,8 +73,8 @@ public class EmployeeController : Controller
         return View("Notification", notificationViewModel);
     }
 
-    [HttpGet("remove/{id:int}")]
-    public IActionResult Remove([FromRoute] int id)
+[HttpGet("remove/{id:guid}")]
+public IActionResult Remove([FromRoute] Guid id)
     {
         var selectedEmployee = EmployeeRepo.GetById(id);
 
@@ -82,8 +83,8 @@ public class EmployeeController : Controller
         return View("Remove", removeViewModel);
     }
 
-    [HttpPost("remove/{id:int}")]
-    public IActionResult RemoveConfirmed([FromRoute] int id)
+[HttpPost("remove/{id:guid}")]
+public IActionResult RemoveConfirmed([FromRoute] Guid id)
     {
         EmployeeRepo.Remove(id);
 

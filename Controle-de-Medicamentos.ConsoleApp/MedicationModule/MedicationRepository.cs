@@ -1,3 +1,4 @@
+using System;
 ﻿using Controle_de_Medicamentos.ConsoleApp.Shared;
 using Controle_de_Medicamentos.ConsoleApp.Shared.BaseModule;
 using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
@@ -18,7 +19,7 @@ public class MedicationRepository : BaseRepository<Medication>, IMedicationRepos
             Context.SaveData();
             return;
         }
-        entity.Id = GetNextAvailableId();
+        entity.Id = Guid.NewGuid();
         List.Add(entity);
         Context.SaveData();
     }

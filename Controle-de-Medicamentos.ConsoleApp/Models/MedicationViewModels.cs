@@ -1,3 +1,4 @@
+using System;
 ﻿using Controle_de_Medicamentos.ConsoleApp.Extensions;
 using Controle_de_Medicamentos.ConsoleApp.MedicationModule;
 using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
@@ -9,7 +10,7 @@ public abstract class MedicationFormViewModel
     public string Name { get; set; }
     public string Description { get; set; }
     public int Quantity { get; set; }
-    public int SupplierId { get; set; }
+    public Guid SupplierId { get; set; }
 
     public List<SelectSupplierViewModel> AvailableSuppliers { get; set; }
 
@@ -21,10 +22,10 @@ public abstract class MedicationFormViewModel
 
 public class SelectSupplierViewModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Name { get; set; }
 
-    public SelectSupplierViewModel(int id, string name)
+    public SelectSupplierViewModel(Guid id, string name)
     {
         Id = id;
         Name = name;
@@ -48,11 +49,11 @@ public class AddMedicationViewModel : MedicationFormViewModel
 
 public class EditMedicationViewModel : MedicationFormViewModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public EditMedicationViewModel()
     {
     }
-    public EditMedicationViewModel(int id, string name, string description, int quantity, int supplierId, List<Supplier> suppliers)
+    public EditMedicationViewModel(Guid id, string name, string description, int quantity, Guid supplierId, List<Supplier> suppliers)
     {
         Id = id;
         Name = name;
@@ -69,10 +70,10 @@ public class EditMedicationViewModel : MedicationFormViewModel
 
 public class RemoveMedicationViewModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public RemoveMedicationViewModel() { }
-    public RemoveMedicationViewModel(int id, string name)
+    public RemoveMedicationViewModel(Guid id, string name)
     {
         Id = id;
         Name = name;
@@ -94,13 +95,13 @@ public class ShowMedicationsViewModel
 
 public class MedicationDetailsViewModel
 {
-    public int Id;
+    public Guid Id;
     public string Name;
     public string Description;
     public int Quantity;
     public string SupplierName;
 
-    public MedicationDetailsViewModel(int id, string name, string description, int quantity, Supplier supplier)
+    public MedicationDetailsViewModel(Guid id, string name, string description, int quantity, Supplier supplier)
     {
         Id = id;
         Name = name;

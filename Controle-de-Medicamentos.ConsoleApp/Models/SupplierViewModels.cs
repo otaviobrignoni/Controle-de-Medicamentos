@@ -1,3 +1,4 @@
+using System;
 ﻿using Controle_de_Medicamentos.ConsoleApp.Extensions;
 using Controle_de_Medicamentos.ConsoleApp.SupplierModule;
 
@@ -22,10 +23,10 @@ public class AddSupplierViewModel : SupplierFormViewModel
 }
 public class EditSupplierViewModel : SupplierFormViewModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public EditSupplierViewModel() { }
-    public EditSupplierViewModel(int id, string name, string phoneNumber, string cnpj) : this()
+    public EditSupplierViewModel(Guid id, string name, string phoneNumber, string cnpj) : this()
     {
         Id = id;
         Name = name;
@@ -35,11 +36,11 @@ public class EditSupplierViewModel : SupplierFormViewModel
 }
 public class RemoveSupplierViewModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Name { get; set; }
 
     public RemoveSupplierViewModel() { }
-    public RemoveSupplierViewModel(int id, string name) : this()
+    public RemoveSupplierViewModel(Guid id, string name) : this()
     {
         {
             Id = id;
@@ -62,11 +63,11 @@ public class ShowSuppliersViewModel
 }
 public class SupplierDetailsViewModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public string PhoneNumber { get; set; }
     public string CNPJ { get; set; }
-    public SupplierDetailsViewModel(int id, string name, string phoneNumber, string cnpj)
+    public SupplierDetailsViewModel(Guid id, string name, string phoneNumber, string cnpj)
     {
         Id = id;
         Name = name;
