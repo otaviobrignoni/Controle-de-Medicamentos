@@ -1,3 +1,4 @@
+using System;
 ﻿using Controle_de_Medicamentos.ConsoleApp.EmployeeModule;
 using Controle_de_Medicamentos.ConsoleApp.Extensions;
 namespace Controle_de_Medicamentos.ConsoleApp.Models;
@@ -22,9 +23,9 @@ public class AddEmployeeViewModel : EmployeeFormViewModel
 
 public class EditEmployeeViewModel : EmployeeFormViewModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public EditEmployeeViewModel() { }
-    public EditEmployeeViewModel(int id, string name, string phoneNumber, string cpf)
+    public EditEmployeeViewModel(Guid id, string name, string phoneNumber, string cpf)
     {
         Id = id;
         Name = name;
@@ -35,10 +36,10 @@ public class EditEmployeeViewModel : EmployeeFormViewModel
 
 public class RemoveEmployeeViewModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public RemoveEmployeeViewModel() { }
-    public RemoveEmployeeViewModel(int id, string name)
+    public RemoveEmployeeViewModel(Guid id, string name)
     {
         Id = id;
         Name = name;
@@ -47,11 +48,11 @@ public class RemoveEmployeeViewModel
 
 public class EmployeeDetailsViewModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public string PhoneNumber { get; set; }
     public string CPF { get; set; }
-    public EmployeeDetailsViewModel(int id, string name, string phoneNumber, string cpf)
+    public EmployeeDetailsViewModel(Guid id, string name, string phoneNumber, string cpf)
     {
         Id = id;
         Name = name;

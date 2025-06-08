@@ -1,3 +1,4 @@
+using System;
 ﻿using Controle_de_Medicamentos.ConsoleApp.Extensions;
 using Controle_de_Medicamentos.ConsoleApp.PatientModule;
 namespace Controle_de_Medicamentos.ConsoleApp.Models;
@@ -22,9 +23,9 @@ public class AddPatientViewModel : PatientFormViewModel
 
 public class EditPatientViewModel : PatientFormViewModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public EditPatientViewModel() { }
-    public EditPatientViewModel(int id, string name, string phoneNumber, string susCard)
+    public EditPatientViewModel(Guid id, string name, string phoneNumber, string susCard)
     {
         Id = id;
         Name = name;
@@ -35,10 +36,10 @@ public class EditPatientViewModel : PatientFormViewModel
 
 public class RemovePatientViewModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public RemovePatientViewModel() { }
-    public RemovePatientViewModel(int id, string name)
+    public RemovePatientViewModel(Guid id, string name)
     {
         Id = id;
         Name = name;
@@ -47,11 +48,11 @@ public class RemovePatientViewModel
 
 public class PatientDetailsViewModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public string PhoneNumber { get; set; }
     public string SUSCard { get; set; }
-    public PatientDetailsViewModel(int id, string name, string phoneNumber, string susCard)
+    public PatientDetailsViewModel(Guid id, string name, string phoneNumber, string susCard)
     {
         Id = id;
         Name = name;
